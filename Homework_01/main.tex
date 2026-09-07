@@ -1,0 +1,175 @@
+%==============================================================================
+%  Homework template  --  999 Controls
+%
+%  To reuse for the next assignment:
+%    1. copy this folder,  2. edit the METADATA block below,
+%    3. edit the SOLUTIONS section,  4. run  `make`.
+%
+%  Build:  make          (regenerates code output, then builds main.pdf)
+%          make clean    (removes build artifacts)
+%==============================================================================
+\documentclass[11pt,letterpaper]{article}
+
+%------------------------------- METADATA -------------------------------------
+\newcommand{\hwcourse}{EE 474 --- Introduction to Control Systems}
+\newcommand{\hwcourseshort}{EE 474}  % running head, keep it short
+\newcommand{\hwtitle}{Homework 1}
+\newcommand{\hwauthor}{Patrick Gordon}
+\newcommand{\hwdate}{\today}
+\newcommand{\hwdue}{Due Wednesday, September 16, 2026}
+%------------------------------------------------------------------------------
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+\usepackage[letterpaper,margin=1in,headheight=14pt]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{inconsolata}
+\usepackage{pdflscape}
+\usepackage[hidelinks]{hyperref}
+
+%--- page furniture -----------------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\hwauthor}
+\chead{\hwtitle}
+\rhead{\hwcourseshort}
+\cfoot{\thepage}
+
+%--- listing styles -----------------------------------------------------------
+\definecolor{codebg}{HTML}{F7F7F4}
+\definecolor{outbg}{HTML}{FCFCFC}
+\definecolor{rule}{HTML}{C8C8C0}
+\definecolor{kw}{HTML}{1C4FA1}
+\definecolor{cmt}{HTML}{6A7A5A}
+\definecolor{str}{HTML}{A0522D}
+
+\lstdefinestyle{mcode}{
+  language=Octave,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{kw}\bfseries,
+  commentstyle=\color{cmt}\itshape,
+  stringstyle=\color{str},
+  backgroundcolor=\color{codebg},
+  frame=single,
+  rulecolor=\color{rule},
+  framesep=6pt,
+  numbers=left,
+  numberstyle=\ttfamily\scriptsize\color{gray},
+  numbersep=8pt,
+  showstringspaces=false,
+  breaklines=true,
+  columns=fullflexible,
+  keepspaces=true,
+  upquote=true,
+}
+
+\lstdefinestyle{moutput}{
+  basicstyle=\ttfamily\footnotesize,
+  backgroundcolor=\color{outbg},
+  frame=single,
+  rulecolor=\color{rule},
+  framesep=6pt,
+  showstringspaces=false,
+  breaklines=true,
+  columns=fullflexible,
+  keepspaces=true,
+  upquote=true,
+}
+
+%--- structure helpers --------------------------------------------------------
+% \problem{1.1b}{Optional title}
+\newcommand{\problem}[2]{%
+  \bigskip
+  \noindent{\large\bfseries Problem #1}%
+  \ifx\relax#2\relax\else\ {\large --- #2}\fi
+  \par\nobreak\vspace{2pt}\hrule\vspace{8pt}\nobreak
+}
+
+% \caplabel{Code}{hw_01_A.m}
+\newcommand{\caplabel}[2]{%
+  \par\nobreak\vspace{6pt}\nobreak
+  \noindent{\small\bfseries #1}\ {\small\ttfamily \detokenize{#2}}%
+  \par\nobreak\vspace{2pt}\nobreak
+}
+
+% \matlabcode{hw_01_A.m}  -- source listing pulled straight from the .m file
+\newcommand{\matlabcode}[1]{%
+  \caplabel{Code:}{#1}%
+  \lstinputlisting[style=mcode]{#1}%
+}
+
+% \codeoutput{output/hw_01_A.txt} -- console output captured by the Makefile
+\newcommand{\codeoutput}[1]{%
+  \caplabel{Output:}{#1}%
+  \IfFileExists{#1}{\lstinputlisting[style=moutput]{#1}}{\missing{#1}{run \texttt{make} to generate it}}%
+}
+
+% \answerfigure{figures/foo.pdf}{Caption}  -- placeholder if not exported yet
+\newcommand{\answerfigure}[2]{%
+  \begin{figure}[H]
+    \centering
+    \IfFileExists{#1}{\includegraphics[width=\linewidth]{#1}}{\missing{#1}{export it, see README}}
+    \caption{#2}
+  \end{figure}%
+}
+
+% wideproblem environment -- a problem on its own landscape page, centred.
+% Use for diagrams much wider than they are tall, where a portrait page would
+% shrink the labels below readable size:
+%   \begin{wideproblem}{1.1b}{Title}
+%     \answerfigure{figures/x.pdf}{Caption}
+%   \end{wideproblem}
+\newenvironment{wideproblem}[2]{%
+  \begin{landscape}%
+    \problem{#1}{#2}%
+    \vspace*{\fill}%
+}{%
+    \vspace*{\fill}%
+  \end{landscape}%
+}
+
+\newcommand{\missing}[2]{%
+  \fbox{\parbox{0.9\linewidth}{\centering\vspace{10pt}\ttfamily\small
+    missing: \detokenize{#1}\\[4pt]\rmfamily\itshape #2\vspace{10pt}}}%
+}
+
+\usepackage{float}
+
+%==============================================================================
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries \hwtitle}\\[4pt]
+  {\large \hwcourse}\\[8pt]
+  {\hwauthor} \quad\textbullet\quad {\hwdate}\\[4pt]
+  {\small\itshape \hwdue}
+\end{center}
+\vspace{6pt}\hrule
+
+%------------------------------------------------------------------------------
+%  SOLUTIONS
+%------------------------------------------------------------------------------
+
+\begin{wideproblem}{1.1b}{Drebbel incubator --- feedback loop}
+  \answerfigure{figures/Drebbel_Control_Diagram.pdf}%
+    {Block diagram of Drebbel's incubator drawn as a closed-loop control system.}
+\end{wideproblem}
+
+\clearpage
+\problem{2.A}{Vector operations}
+
+\matlabcode{hw_01_A.m}
+\codeoutput{output/hw_01_A.txt}
+
+\clearpage
+\problem{2.B}{Matrix operations}
+
+\matlabcode{hw_01_B.m}
+\codeoutput{output/hw_01_B.txt}
+
+\end{document}
