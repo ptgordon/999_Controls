@@ -6,10 +6,14 @@ OUTPUTS := $(patsubst %.m,output/%.txt,$(SCRIPTS))
 DRAWIOS := $(wildcard *.drawio)
 FIGS    := $(patsubst %.drawio,figures/%.pdf,$(DRAWIOS))
 DRAWIO  := $(shell command -v drawio 2>/dev/null)
+# Any PDF viewer that reloads when the file changes (zathura does).
+VIEWER  ?= zathura
 
-.PHONY: all figures clean distclean
+.PHONY: all figures clean distclean watch view
 
+# The no-op recipe keeps `make watch` quiet when nothing is stale.
 all: $(DOC).pdf
+	@:
 
 $(DOC).pdf: $(DOC).tex $(SCRIPTS) $(OUTPUTS) $(wildcard figures/*.pdf)
 # -g: force a real run. latexmk cannot see figures reached via \IfFileExists,
@@ -32,6 +36,18 @@ ifeq ($(DRAWIO),)
 else
 	$(DRAWIO) --export --crop --format pdf --output $@ $<
 endif
+
+# Rebuild on every save. Polls once a second and lets make decide whether
+# anything is actually stale, so an idle loop costs nothing. Ctrl-C to stop.
+# Unlike `latexmk -pvc` this also re-runs octave when a .m file changes.
+watch:
+	@echo "watching for changes -- Ctrl-C to stop"
+	@while true; do $(MAKE) --no-print-directory all; sleep 1; done
+
+# Open the PDF in a viewer that picks up each rebuild. Run in a second
+# terminal alongside `make watch`.
+view: $(DOC).pdf
+	$(VIEWER) $(DOC).pdf
 
 clean:
 	latexmk -C $(DOC).tex

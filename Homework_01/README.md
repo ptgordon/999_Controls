@@ -7,8 +7,21 @@ nothing is copy-pasted by hand.
 ## Build
 
     make            # runs each hw_*.m, captures output, builds main.pdf
+    make watch      # same, but rebuilds automatically on every save
+    make view       # open main.pdf in a viewer (VIEWER=okular make view)
     make clean      # remove LaTeX build artifacts
     make distclean  # also remove output/
+
+## Live rebuilds
+
+`make watch` polls once a second and rebuilds whatever is stale -- editing
+`main.tex` rebuilds the PDF, editing a `hw_*.m` re-runs it through octave and
+then rebuilds. It stays silent until something actually changes; Ctrl-C stops
+it. Run `make view` in a second terminal: zathura reloads the PDF on its own,
+so the page updates a second or so after each save.
+
+(`latexmk -pvc` does the same for LaTeX alone, but it will not re-run octave
+when a script changes, so the captured output would go stale.)
 
 ## Diagrams
 
@@ -37,3 +50,5 @@ Helpers available in the SOLUTIONS section:
 | `\codeoutput{output/hw_01_A.txt}` | the captured console output |
 | `\answerfigure{figures/x.pdf}{Caption}` | full-width figure, placeholder if missing |
 | `\begin{wideproblem}{1.1b}{Title}...\end{wideproblem}` | problem on its own landscape page, for diagrams too wide to read in portrait |
+| `\prompt{Question text}` | italic restatement of the assignment question |
+| `\answer{...}` | written answer; leave it empty and a placeholder box prints instead |

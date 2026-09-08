@@ -133,6 +133,23 @@
   \end{landscape}%
 }
 
+% \prompt{What special property does b*d have?} -- restate the question
+\newcommand{\prompt}[1]{%
+  \noindent\textit{#1}\par\vspace{6pt}%
+}
+
+% \answer{...}  -- written answer. Leave the body empty for a visible
+% placeholder box; fill it in and the box is replaced by the prose.
+\newcommand{\answer}[1]{%
+  \ifx\relax#1\relax\todo{write the answer here}\else#1\fi
+  \par\vspace{4pt}%
+}
+
+\newcommand{\todo}[1]{%
+  \fbox{\parbox{0.9\linewidth}{\centering\vspace{10pt}\rmfamily\itshape\small
+    #1\vspace{10pt}}}%
+}
+
 \newcommand{\missing}[2]{%
   \fbox{\parbox{0.9\linewidth}{\centering\vspace{10pt}\ttfamily\small
     missing: \detokenize{#1}\\[4pt]\rmfamily\itshape #2\vspace{10pt}}}%
@@ -171,5 +188,25 @@
 
 \matlabcode{hw_01_B.m}
 \codeoutput{output/hw_01_B.txt}
+
+\clearpage
+\problem{2.C}{Property of matrix times inverse} 
+\answer{b * d yields the identity function.}
+
+\problem{2.D}{Matrix Multiplication}
+\answer{a*b is a matrix product, where $c_{ij} = \sum_{k=1}^{n}a_{ik}b_{kj}$}
+\answer{a.*b is an element-wise multiplication where $c_{ij} = a_{ij} * b_{ij}$}
+
+\problem{2.E.1}{Roots of vector}
+\matlabcode{hw_01_E.m}
+\codeoutput{output/hw_01_E.txt}
+
+\problem{2.E.2}{Polynomial representation}
+\answer{$2x^2 + 3x + 1$}
+
+\problem{2.E.3}{Polynomial verification}
+\matlabcode{hw_01_E3.m}
+\codeoutput{output/hw_01_E3.txt}
+
 
 \end{document}
