@@ -23,6 +23,21 @@ so the page updates a second or so after each save.
 (`latexmk -pvc` does the same for LaTeX alone, but it will not re-run octave
 when a script changes, so the captured output would go stale.)
 
+## Plots
+
+A script that plots is also exported to `figures/<script>.pdf` by `make`. The
+script itself stays plain -- `figure; plot(t,y); xlabel(...)` -- and the
+Makefile runs it headless, sets the paper size to the figure size and prints
+it, so the PDF page is cropped tight and `\answerfigure` scales it to the text
+width. Include it with:
+
+    \answerfigure{figures/hw_01_F.pdf}{Caption}
+
+Detection is automatic: any `hw_*.m` containing a plotting call gets a figure
+target, so a new plotting script needs no Makefile edit. Override the export
+size with `make FIGSIZE="7 3"`. A plotting script also gets the usual
+`output/<script>.txt`; it is just empty unless the script prints something too.
+
 ## Diagrams
 
 draw.io files are exported by `make figures`, which shells out to the `drawio`
@@ -48,7 +63,7 @@ Helpers available in the SOLUTIONS section:
 | `\problem{2.A}{Title}` | numbered problem heading (title may be empty) |
 | `\matlabcode{hw_01_A.m}` | syntax-highlighted listing of the script |
 | `\codeoutput{output/hw_01_A.txt}` | the captured console output |
-| `\answerfigure{figures/x.pdf}{Caption}` | full-width figure, placeholder if missing |
+| `\answerfigure{figures/x.pdf}{Caption}` | full-width figure, placeholder if missing (also how a plotted script's export is included) |
 | `\begin{wideproblem}{1.1b}{Title}...\end{wideproblem}` | problem on its own landscape page, for diagrams too wide to read in portrait |
 | `\prompt{Question text}` | italic restatement of the assignment question |
 | `\answer{...}` | written answer; leave it empty and a placeholder box prints instead |

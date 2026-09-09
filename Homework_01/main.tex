@@ -110,6 +110,8 @@
 }
 
 % \answerfigure{figures/foo.pdf}{Caption}  -- placeholder if not exported yet
+% A script that plots is exported by the Makefile to figures/<script>.pdf, so
+% \answerfigure{figures/hw_01_F.pdf}{...} is how a plotted answer is included.
 \newcommand{\answerfigure}[2]{%
   \begin{figure}[H]
     \centering
@@ -207,6 +209,12 @@
 \problem{2.E.3}{Polynomial verification}
 \matlabcode{hw_01_E3.m}
 \codeoutput{output/hw_01_E3.txt}
+
+\clearpage
+\problem{2.F}{Simple Sinusoid Graph}
+\matlabcode{hw_01_F.m}
+\answerfigure{figures/hw_01_F.pdf}%
+  {$y = \sin(2\pi t)$ over $0 \le t \le 4$, sampled at 1000 points.}
 
 
 \end{document}
