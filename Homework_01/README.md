@@ -37,7 +37,7 @@ Makefile runs it headless, sets the paper size to the figure size and prints
 it, so the PDF page is cropped tight and `\answerfigure` scales it to the text
 width. Include it with:
 
-    \answerfigure{figures/hw_01_F.pdf}{Caption}
+    \answerfigure{figures/hw_02_F.pdf}{Caption}
 
 Detection is automatic: any `hw_*.m` containing a plotting call gets a figure
 target, so a new plotting script needs no Makefile edit. Override the export
@@ -67,8 +67,8 @@ Helpers available in the SOLUTIONS section:
 | macro | does |
 |---|---|
 | `\problem{2.A}{Title}` | numbered problem heading (title may be empty) |
-| `\matlabcode{hw_01_A.m}` | syntax-highlighted listing of the script |
-| `\codeoutput{output/hw_01_A.txt}` | the captured console output |
+| `\matlabcode{hw_02_A.m}` | syntax-highlighted listing of the script |
+| `\codeoutput{output/hw_02_A.txt}` | the captured console output |
 | `\answerfigure{figures/x.pdf}{Caption}` | full-width figure, placeholder if missing (also how a plotted script's export is included) |
 | `\begin{wideproblem}{1.1b}{Title}...\end{wideproblem}` | problem on its own landscape page, for diagrams too wide to read in portrait |
 | `\prompt{Question text}` | italic restatement of the assignment question |
