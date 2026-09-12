@@ -16,9 +16,15 @@ nothing is copy-pasted by hand.
 
 `make watch` polls once a second and rebuilds whatever is stale -- editing
 `main.tex` rebuilds the PDF, editing a `hw_*.m` re-runs it through octave and
-then rebuilds. It stays silent until something actually changes; Ctrl-C stops
-it. Run `make view` in a second terminal: zathura reloads the PDF on its own,
-so the page updates a second or so after each save.
+then rebuilds. Ctrl-C stops it. Run `make view` in a second terminal: zathura
+reloads the PDF on its own, so the page updates a second or so after each save.
+
+Build output goes to `build.log`, not the terminal, so `make watch &` in the
+terminal you edit in will not scribble over the editor on every save. The only
+thing it prints is a line when the build starts failing and another when it
+starts passing again; `cat build.log` for the details. (A backgrounded job
+still shares the terminal, so anything it printed would land on top of nvim --
+that is what the log file avoids. `BUILDLOG=/tmp/hw.log make watch` moves it.)
 
 (`latexmk -pvc` does the same for LaTeX alone, but it will not re-run octave
 when a script changes, so the captured output would go stale.)

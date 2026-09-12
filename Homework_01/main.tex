@@ -184,6 +184,11 @@
     {Block diagram of Watt's steam engine drawn as a closed-loop control system.}
 \end{wideproblem}
 
+\problem{1.2}{Thermostat}
+\answer{The sensors are electronic air temperature sensors in the bedroom. They detect air temperature and report the measured temperature to the thermostat via wireless transmission. The actuator is a wire that simply commands a contact (the controller) to close which turns on the boiler and the pump, which feeds water through the radiators. The reference signal is the set temperature on the thermostat, and the error signal is the difference between that and the measured sensor temperature.
+
+One additional nuance with my radiant heat setup is the thermostat will shut off the relay prior to the error shrinking to zero, since it accounts for thermal overshoot. In other words the house continues to heat after the boiler is turned off so the thermostat commands the boiler to shut off early.}
+
 \clearpage
 \problem{2.A}{Vector operations}
 
