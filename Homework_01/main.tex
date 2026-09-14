@@ -11,8 +11,8 @@
 \documentclass[11pt,letterpaper]{article}
 
 %------------------------------- METADATA -------------------------------------
-\newcommand{\hwcourse}{EE 474 --- Introduction to Control Systems}
-\newcommand{\hwcourseshort}{EE 474}  % running head, keep it short
+\newcommand{\hwcourse}{EE 999 --- Introduction to Control Systems}
+\newcommand{\hwcourseshort}{EE 999}  % running head, keep it short
 \newcommand{\hwtitle}{Homework 1}
 \newcommand{\hwauthor}{Patrick Gordon}
 \newcommand{\hwdate}{\today}
@@ -185,15 +185,14 @@
 \end{wideproblem}
 
 \problem{1.2}{Thermostat}
-\answer{The sensors are electronic air temperature sensors in the bedroom. They detect air temperature and report the measured temperature to the thermostat via wireless transmission. The actuator is a wire that simply commands a contact (the controller) to close which turns on the boiler and the pump, which feeds water through the radiators. The reference signal is the set temperature on the thermostat, and the error signal is the difference between that and the measured sensor temperature.
+\answer{The sensors are electronic air temperature sensors in the bedroom. They detect air temperature and report the measured temperature to the thermostat via wireless transmission. The actuator is a wire that simply commands a contact (the controller) to close which turns on the boiler and the pump, which serve as the plant or process; they heat and push water through the radiators. The reference signal is the set temperature on the thermostat, and the error signal is the difference between that and the measured sensor temperature.
 
 One additional nuance with my radiant heat setup is the thermostat will shut off the relay prior to the error shrinking to zero, since it accounts for thermal overshoot. In other words the house continues to heat after the boiler is turned off so the thermostat commands the boiler to shut off early.}
 
 \begin{wideproblem}{1.1d}{Elevator Control --- feedback loop}
   \answerfigure{figures/Elevator.pdf}%
     {Block diagram of Coarse Elevator Control as a closed-loop control system.}
-  \answer{The figure above shows the Coarse elevator control scheme which uses an encoder rope which is tensioned but not load bearing. In this way, the system does not need to compensate for variation in load bearing rope length or gear slip.
-    A hall sensor could be used for fine adjustements wherein a magnet could be placed on the car and each floor incorporates a hall sensor to determine how close the elevator is to being in alignment and a secondary motor or motor gear could make the fine adjustments.}
+  \answer{The figure above shows the Coarse elevator control scheme which uses an encoder rope which is tensioned but not load bearing. In this way, the system does not need to compensate for variation in load bearing rope length or gear slip. A hall sensor could be used for fine adjustments wherein a magnet could be placed on the car and each floor incorporates a hall sensor to determine how close the elevator is to being in alignment and a secondary motor or motor gear could make the fine adjustments.}
 \end{wideproblem}
 
 \clearpage
@@ -232,6 +231,5 @@ One additional nuance with my radiant heat setup is the thermostat will shut off
 \matlabcode{hw_02_F.m}
 \answerfigure{figures/hw_02_F.pdf}%
   {$y = \sin(2\pi t)$ over $0 \le t \le 4$, sampled at 1000 points.}
-
 
 \end{document}

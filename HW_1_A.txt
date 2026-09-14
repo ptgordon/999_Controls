@@ -1,0 +1,35 @@
+octave:4> a = [1 2 4 2 1];
+octave:5> b = [4 3 -1 0 1];
+octave:6> a + b
+ans =
+
+   5   5   3   2   2
+
+octave:7> a - b
+ans =
+
+  -3  -1   5   2   0
+
+octave:8> min(a)
+ans = 1
+octave:9> (a>b)
+ans =
+
+  0  0  1  1  0
+
+octave:10> (a==b)
+ans =
+
+  0  0  0  0  1
+
+octave:11> sin(a)
+ans =
+
+   0.8415   0.9093  -0.7568   0.9093   0.8415
+
+octave:12> exp(b)
+ans =
+
+   54.5982   20.0855    0.3679    1.0000    2.7183
+
+
