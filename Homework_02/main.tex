@@ -13,10 +13,10 @@
 %------------------------------- METADATA -------------------------------------
 \newcommand{\hwcourse}{EE 999 --- Introduction to Control Systems}
 \newcommand{\hwcourseshort}{EE 999}  % running head, keep it short
-\newcommand{\hwtitle}{Homework 1}
+\newcommand{\hwtitle}{Homework 2}
 \newcommand{\hwauthor}{Patrick Gordon}
 \newcommand{\hwdate}{\today}
-\newcommand{\hwdue}{Due Wednesday, September 16, 2026}
+\newcommand{\hwdue}{Due Wednesday, September 23, 2026}
 %------------------------------------------------------------------------------
 
 \usepackage[T1]{fontenc}
@@ -174,62 +174,22 @@
 %  SOLUTIONS
 %------------------------------------------------------------------------------
 
-\begin{wideproblem}{1.1b}{Drebbel incubator --- feedback loop}
-  \answerfigure{figures/Drebbel_Control_Diagram.pdf}%
-    {Block diagram of Drebbel's incubator drawn as a closed-loop control system.}
-\end{wideproblem}
+\problem{1.A.2.1}{What is a "free-body diagram"?}
+\answer{A free body diagram is a diagram that shows the forces acting on an object or set of objects.}
 
-\begin{wideproblem}{1.1d}{Watt's Engine --- feedback loop}
-  \answerfigure{figures/Watts_Engine.pdf}%
-    {Block diagram of Watt's steam engine drawn as a closed-loop control system.}
-\end{wideproblem}
+\problem{1.A.2.2}{What are the two forms of Newton's law?}
+\answer{}
 
-\problem{1.2}{Thermostat}
-\answer{The sensors are electronic air temperature sensors in the bedroom. They detect air temperature and report the measured temperature to the thermostat via wireless transmission. The actuator is a wire that simply commands a contact (the controller) to close which turns on the boiler and the pump, which serve as the plant or process; they heat and push water through the radiators. The reference signal is the set temperature on the thermostat, and the error signal is the difference between that and the measured sensor temperature.
+\problem{1.A.2.3}{For a structural process to be controlled, such as a robot arm, what is the meaning of "collocated control" and "Noncollocated control"?}
+\answer{}
 
-One additional nuance with my radiant heat setup is the thermostat will shut off the relay prior to the error shrinking to zero, since it accounts for thermal overshoot. In other words the house continues to heat after the boiler is turned off so the thermostat commands the boiler to shut off early.}
+\problem{1.A.2.4}{State Kirchhoff's current law.}
+\answer{Kirchoff's current law states that current entering any given electrical node must equal current exiting a node.}
 
-\begin{wideproblem}{1.1d}{Elevator Control --- feedback loop}
-  \answerfigure{figures/Elevator.pdf}%
-    {Block diagram of Coarse Elevator Control as a closed-loop control system.}
-  \answer{The figure above shows the Coarse elevator control scheme which uses an encoder rope which is tensioned but not load bearing. In this way, the system does not need to compensate for variation in load bearing rope length or gear slip. A hall sensor could be used for fine adjustments wherein a magnet could be placed on the car and each floor incorporates a hall sensor to determine how close the elevator is to being in alignment and a secondary motor or motor gear could make the fine adjustments.}
-\end{wideproblem}
+\problem{1.A.2.5}{State Kirchhoff's voltage law.}
+\answer{Kirchoff's voltage law states that the sum of all voltages around a closed circuit must equal zero.}
 
-\clearpage
-\problem{2.A}{Vector operations}
-
-\matlabcode{hw_02_A.m}
-\codeoutput{output/hw_02_A.txt}
-
-\clearpage
-\problem{2.B}{Matrix operations}
-
-\matlabcode{hw_02_B.m}
-\codeoutput{output/hw_02_B.txt}
-
-\clearpage
-\problem{2.C}{Property of matrix times inverse} 
-\answer{b * d yields the identity matrix.}
-
-\problem{2.D}{Matrix Multiplication}
-\answer{a*b is a matrix product, where $c_{ij} = \sum_{k=1}^{n}a_{ik}b_{kj}$}
-\answer{a.*b is an element-wise multiplication where $c_{ij} = a_{ij} * b_{ij}$}
-
-\problem{2.E.1}{Roots of vector}
-\matlabcode{hw_02_E.m}
-\codeoutput{output/hw_02_E.txt}
-
-\problem{2.E.2}{Polynomial representation}
-\answer{$2x^2 + 3x + 1$}
-
-\problem{2.E.3}{Polynomial verification}
-\matlabcode{hw_02_E3.m}
-\codeoutput{output/hw_02_E3.txt}
-
-\clearpage
-\problem{2.F}{Simple Sinusoid Graph}
-\matlabcode{hw_02_F.m}
-\answerfigure{figures/hw_02_F.pdf}%
-  {$y = \sin(2\pi t)$ over $0 \le t \le 4$, sampled at 1000 points.}
+\problem{1.B}{Differential equation for mechanical system}
+\answer{The difference in velocities between $m_1$ and $m_2$ will decay because $b_2$ scales with velocity. Since their is no friction, the output $x_2(t)$ will not decay.}
 
 \end{document}
