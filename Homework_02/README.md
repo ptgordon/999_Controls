@@ -56,6 +56,31 @@ harmless as long as the exit code is 0. Without the binary, export by hand:
 Until the export exists, `main.tex` prints a visible placeholder box instead of
 failing the build.
 
+## Hand-made figures
+
+Anything `graphicx` reads -- `pdf`, `png`, `jpg` -- can be dropped into
+`figures/` and included the same way as a generated plot:
+
+    \answerfigure{figures/2_B_Schematic.png}{The two-mass system of Problem 1.B.}
+
+Put the call wherever the figure belongs in the answer: right after
+`\problem{...}` for a schematic the question gives you, or inside `\answer{}`
+between two paragraphs. It is an `[H]` float, so it stays exactly where it is
+written rather than drifting to the top of the page.
+
+Scans and screenshots are usually smaller than the text block, and stretching
+one to `\linewidth` only magnifies its pixels, so give those an explicit width:
+
+    \answerfigure[0.8\linewidth]{figures/2_B_Schematic.png}{Caption.}
+
+A rule of thumb: image width in pixels / 6.5 is the dpi you get at full text
+width -- keep that above about 150. The 958 px schematic above is 147 dpi at
+full width, 184 dpi at `0.8\linewidth`.
+
+Hand-made figures are prerequisites of `main.pdf`, so `make` and `make watch`
+rebuild when you replace one. They are also committed -- `.gitignore` only
+skips `figures/hw_*.pdf`, the exports `make` regenerates.
+
 ## Reusing for the next assignment
 
 1. Copy this folder to `Homework_02/`.
@@ -69,7 +94,8 @@ Helpers available in the SOLUTIONS section:
 | `\problem{2.A}{Title}` | numbered problem heading (title may be empty) |
 | `\matlabcode{hw_02_A.m}` | syntax-highlighted listing of the script |
 | `\codeoutput{output/hw_02_A.txt}` | the captured console output |
-| `\answerfigure{figures/x.pdf}{Caption}` | full-width figure, placeholder if missing (also how a plotted script's export is included) |
+| `\answerfigure{figures/x.pdf}{Caption}` | figure, placeholder if missing (also how a plotted script's export is included) |
+| `\answerfigure[0.8\linewidth]{figures/x.png}{Caption}` | same, at a chosen width instead of the full text width |
 | `\begin{wideproblem}{1.1b}{Title}...\end{wideproblem}` | problem on its own landscape page, for diagrams too wide to read in portrait |
 | `\prompt{Question text}` | italic restatement of the assignment question |
 | `\answer{...}` | written answer; leave it empty and a placeholder box prints instead |

@@ -109,14 +109,18 @@
   \IfFileExists{#1}{\lstinputlisting[style=moutput]{#1}}{\missing{#1}{run \texttt{make} to generate it}}%
 }
 
-% \answerfigure{figures/foo.pdf}{Caption}  -- placeholder if not exported yet
+% \answerfigure[width]{figures/foo.pdf}{Caption}  -- placeholder if not exported
+% yet. Any format graphicx reads works: pdf, png, jpg.
 % A script that plots is exported by the Makefile to figures/<script>.pdf, so
 % \answerfigure{figures/hw_02_F.pdf}{...} is how a plotted answer is included.
-\newcommand{\answerfigure}[2]{%
+% The optional argument is the printed width, default the full text width.
+% Give a scan or screenshot a smaller one so it is not blown up past its own
+% resolution:  \answerfigure[0.8\linewidth]{figures/2_B_Schematic.png}{...}
+\newcommand{\answerfigure}[3][\linewidth]{%
   \begin{figure}[H]
     \centering
-    \IfFileExists{#1}{\includegraphics[width=\linewidth]{#1}}{\missing{#1}{export it, see README}}
-    \caption{#2}
+    \IfFileExists{#2}{\includegraphics[width=#1]{#2}}{\missing{#2}{export it, see README}}
+    \caption{#3}
   \end{figure}%
 }
 
@@ -190,6 +194,10 @@
 \answer{Kirchoff's voltage law states that the sum of all voltages around a closed circuit must equal zero.}
 
 \problem{1.B}{Differential equation for mechanical system}
-\answer{The difference in velocities between $m_1$ and $m_2$ will decay because $b_2$ scales with velocity. Since their is no friction, the output $x_2(t)$ will not decay.}
+\answerfigure[0.8\linewidth]{figures/2_B_Schematic.png}{The two-mass system of Problem 1.B.}
+\answer{
+\[A=b+a\]
+
+The difference in velocities between $m_1$ and $m_2$ will decay because $b_2$ scales with velocity. Since their is no friction, the output $x_2(t)$ will not decay.}
 
 \end{document}

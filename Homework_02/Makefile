@@ -20,6 +20,10 @@ VIEWER  ?= zathura
 # Where `make watch` parks the build chatter, so it can share a terminal with
 # an editor without painting over it. Covered by *.log in .gitignore.
 BUILDLOG ?= build.log
+# Each poll builds into this, and it replaces $(BUILDLOG) only when the build
+# actually did something. A no-op poll leaves the previous log alone, so the
+# output of a failed build survives until the next real build.
+BUILDTMP  := $(BUILDLOG).tmp
 # PID of the loop inside `make watch`, so `make stop` can find it. Signalling
 # make itself is unreliable -- it blocks SIGINT/SIGTERM while a recipe runs --
 # so the pidfile records the loop's shell, whose death make does notice.
@@ -31,7 +35,12 @@ WATCHPID ?= .watch.pid
 all: $(DOC).pdf
 	@:
 
-$(DOC).pdf: $(DOC).tex $(SCRIPTS) $(OUTPUTS) $(PLOTFIGS) $(wildcard figures/*.pdf)
+# Hand-made figures (draw.io exports, scans, screenshots) are prerequisites
+# too, so editing one rebuilds the PDF -- \answerfigure takes any format
+# graphicx reads, not just the generated PDFs.
+HANDFIGS := $(filter-out $(PLOTFIGS),$(wildcard figures/*.pdf figures/*.png figures/*.jpg figures/*.jpeg))
+
+$(DOC).pdf: $(DOC).tex $(SCRIPTS) $(OUTPUTS) $(PLOTFIGS) $(HANDFIGS)
 # -g: force a real run. latexmk cannot see figures reached via \IfFileExists,
 # so let make decide staleness (prereqs above) and force latexmk when it does.
 	latexmk -pdf -g -silent -interaction=nonstopmode $(DOC).tex
@@ -69,12 +78,22 @@ endif
 # every save. Only a change in pass/fail state is announced, so a run of broken
 # saves says so once instead of once a second.
 watch:
+# One watcher per directory. Two of them race on the same aux files and both
+# truncate the log, so refuse to start rather than corrupt a build. A pidfile
+# left behind by a killed watcher is stale, not a conflict -- overwrite it.
+	@if [ -s $(WATCHPID) ] && kill -0 "$$(cat $(WATCHPID))" 2>/dev/null; then \
+	  echo "watcher already running (pid $$(cat $(WATCHPID))) -- \`make stop\` first"; \
+	  exit 1; \
+	fi; \
+	rm -f $(WATCHPID)
 	@echo "watching for changes -- build output in $(BUILDLOG); Ctrl-C, or \`make stop\` from another terminal"
-	@echo $$$$ > $(WATCHPID); trap 'rm -f $(WATCHPID); exit 0' INT TERM; \
+	@echo $$$$ > $(WATCHPID); trap 'rm -f $(WATCHPID) $(BUILDTMP); exit 0' INT TERM; \
 	failed=0; while true; do \
-	  if $(MAKE) --no-print-directory all > $(BUILDLOG) 2>&1; then \
+	  if $(MAKE) --no-print-directory all > $(BUILDTMP) 2>&1; then \
+	    if [ -s $(BUILDTMP) ]; then mv -f $(BUILDTMP) $(BUILDLOG); else rm -f $(BUILDTMP); fi; \
 	    [ "$$failed" = 1 ] && echo "build OK"; failed=0; \
 	  else \
+	    mv -f $(BUILDTMP) $(BUILDLOG); \
 	    [ "$$failed" = 0 ] && echo "build FAILED -- see $(BUILDLOG)"; failed=1; \
 	  fi; \
 	  sleep 1; \
@@ -99,4 +118,4 @@ clean:
 	latexmk -C $(DOC).tex
 
 distclean: clean
-	rm -rf output $(PLOTFIGS) $(BUILDLOG) $(WATCHPID)
+	rm -rf output $(PLOTFIGS) $(BUILDLOG) $(BUILDTMP) $(WATCHPID)

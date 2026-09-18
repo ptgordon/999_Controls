@@ -13,3 +13,4 @@ figures/hw_*.pdf
 
 # make watch bookkeeping
 .watch.pid
+build.log.tmp
