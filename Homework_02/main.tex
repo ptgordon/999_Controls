@@ -270,8 +270,14 @@
     \sym{b_2}{N-s/m}{Shock absorber}
 \end{symboltable}
 
-\answer{
-\[A=b+a\]
+\answer{Constituent equations: 
+    \[f_{K_{1A}}(t) = K_{1A}x_1(t)\]
+    \[f_{K_{1B}}(t) = -K_{1B}x_1(t)\]
+    \[f_{K_2}(t) = K_2(x_2(t)-x_1(t))\]
+    \[f_{b_2} = b_2(\dot{x}_2(t)-\dot{x}_1(t))\]
+    \[f_{net_{m1}}(t) = m_1\ddot{x}_1(t)\]
+    \[f_{net_{m2}}(t) = m_2\ddot{x}_2(t)\]
+
 
 The difference in velocities between $m_1$ and $m_2$ will decay because $b_2$ scales with velocity. Since their is no friction, the output $x_2(t)$ will not decay.}
 
