@@ -61,6 +61,12 @@ figures/hw_%.pdf: hw_%.m
 	@mkdir -p figures
 	octave --no-gui -q --eval "set(0,'defaultfigurevisible','off'); run('$<'); f = gcf(); set(f, 'paperunits','inches', 'papersize',[$(FIGSIZE)], 'paperposition',[0 0 $(FIGSIZE)]); print(f, '-dpdf', '$@');"
 
+# Diagram drawn in TikZ: figures/<name>.tex is a standalone document whose page
+# the standalone class crops to the drawing itself. Labels stay editable text,
+# so renaming a spring is a one-line change plus a rebuild.
+figures/%.pdf: figures/%.tex
+	latexmk -pdf -g -silent -interaction=nonstopmode -output-directory=figures $<
+
 figures/%.pdf: %.drawio
 	@mkdir -p figures
 ifeq ($(DRAWIO),)

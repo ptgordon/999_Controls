@@ -81,6 +81,47 @@ Hand-made figures are prerequisites of `main.pdf`, so `make` and `make watch`
 rebuild when you replace one. They are also committed -- `.gitignore` only
 skips `figures/hw_*.pdf`, the exports `make` regenerates.
 
+## Tables
+
+A symbol / units / description table -- the one that defines the variables of a
+problem -- is `symboltable`:
+
+    \begin{symboltable}{Signal}{}
+      \sym{x(t)}{m}{Position of tire center}
+      \sym{y(t)}{m}{Position of car frame}
+      \sym{r(t)}{m}{Road height (depends on $v_{car}(t)$)}
+    \end{symboltable}
+
+The first argument is the heading of the left column (`Signal`, `Parameter`,
+`State`, ...); the other two headings are always `Units` and `Description`.
+The second argument is the caption -- leave it empty, as above, for a table
+with no caption.
+
+`\sym` does the typesetting for you: the symbol goes into math mode and the
+units get their brackets, so write `\sym{k_w}{N/m}{Tire Stiffness}`, not
+`\sym{$k_w$}{[N/m]}{...}`. Math inside a description is written as usual:
+`\sym{M_2}{Kg}{$\frac{1}{4}$ Mass of Car}`.
+
+The description column is `0.45\linewidth` by default and wraps when a
+description is longer than that. An optional argument overrides it, which is
+what to reach for when a table of short descriptions looks too wide:
+
+    \begin{symboltable}[0.3\linewidth]{Parameter}{Quarter-car parameters.}
+
+Any other table is `answertable`, which takes a column spec instead and leaves
+the rows to you:
+
+    \begin{answertable}{|c|P{0.5\linewidth}|}{Pole locations.}
+      \hline
+      Pole & Behaviour \\ \hline\hline
+      $s=-2$ & decays in half a second \\ \hline
+      $s=0$  & does not decay \\ \hline
+    \end{answertable}
+
+`P{width}` is a centred version of `p{width}`, for a column that has to wrap;
+`c`, `l`, `r` and `p{}` all work as normal. Both environments are `[H]` floats
+like `\answerfigure`, so they stay where they are written.
+
 ## Reusing for the next assignment
 
 1. Copy this folder to `Homework_02/`.
@@ -97,5 +138,7 @@ Helpers available in the SOLUTIONS section:
 | `\answerfigure{figures/x.pdf}{Caption}` | figure, placeholder if missing (also how a plotted script's export is included) |
 | `\answerfigure[0.8\linewidth]{figures/x.png}{Caption}` | same, at a chosen width instead of the full text width |
 | `\begin{wideproblem}{1.1b}{Title}...\end{wideproblem}` | problem on its own landscape page, for diagrams too wide to read in portrait |
+| `\begin{symboltable}{Signal}{Caption}...\end{symboltable}` | symbol/units/description table; rows are `\sym{x(t)}{m}{Text}`, empty caption prints none |
+| `\begin{answertable}{\|c\|c\|}{Caption}...\end{answertable}` | any other table; you write the rows, `P{0.4\linewidth}` is a centred wrapping column |
 | `\prompt{Question text}` | italic restatement of the assignment question |
 | `\answer{...}` | written answer; leave it empty and a placeholder box prints instead |

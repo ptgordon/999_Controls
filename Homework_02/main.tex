@@ -24,6 +24,7 @@
 \usepackage{textcomp}
 \usepackage[letterpaper,margin=1in,headheight=14pt]{geometry}
 \usepackage{amsmath,amssymb}
+\usepackage{array}
 \usepackage{graphicx}
 \usepackage{xcolor}
 \usepackage{listings}
@@ -115,13 +116,70 @@
 % \answerfigure{figures/hw_02_F.pdf}{...} is how a plotted answer is included.
 % The optional argument is the printed width, default the full text width.
 % Give a scan or screenshot a smaller one so it is not blown up past its own
-% resolution:  \answerfigure[0.8\linewidth]{figures/2_B_Schematic.png}{...}
+% resolution:  \answerfigure[0.8\linewidth]{figures/some_scan.png}{...}
 \newcommand{\answerfigure}[3][\linewidth]{%
   \begin{figure}[H]
     \centering
     \IfFileExists{#2}{\includegraphics[width=#1]{#2}}{\missing{#2}{export it, see README}}
     \caption{#3}
   \end{figure}%
+}
+
+%--- tables -------------------------------------------------------------------
+% Centred paragraph column, so a description column wraps instead of running
+% off the page:  \begin{tabular}{|c|P{0.5\linewidth}|}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
+% \begin{symboltable}{Signal}{Caption}  -- the symbol / units / description
+% table used to define the variables of a problem. The first argument is the
+% heading of the left column (Signal, Parameter, State, ...); leave the second
+% empty for no caption.
+%
+%   \begin{symboltable}{Signal}{}
+%     \sym{x(t)}{m}{Position of tire center}
+%     \sym{r(t)}{m}{Road height (depends on $v_{car}(t)$)}
+%   \end{symboltable}
+%
+% \sym puts its first argument in math mode and brackets the units, so write
+% \sym{x(t)}{m}{...}, not \sym{$x(t)$}{[m]}{...}. Anything already math -- a
+% subscript, a fraction -- goes in the description as usual: $\frac{1}{4}$.
+%
+% The optional argument is the width of the description column, for a table
+% whose descriptions are much longer or much shorter than average:
+%   \begin{symboltable}[0.35\linewidth]{Parameter}{}
+\newcommand{\sym}[3]{$#1$ & [#2] & #3 \\ \hline}
+\newenvironment{symboltable}[3][0.45\linewidth]{%
+  \def\symtabcap{#3}%
+  \begin{table}[H]
+  \centering
+  \renewcommand{\arraystretch}{1.4}
+  \begin{tabular}{|c|c|P{#1}|}
+  \hline
+  #2 & Units & Description \\ \hline\hline
+}{%
+  \end{tabular}
+  \ifx\symtabcap\empty\else\caption{\symtabcap}\fi
+  \end{table}%
+}
+
+% \begin{answertable}{|c|c|c|}{Caption} -- any other table. Same placement and
+% captioning as \answerfigure, but you write the rows yourself:
+%
+%   \begin{answertable}{|c|P{0.5\linewidth}|}{Pole locations.}
+%     \hline
+%     Pole & Behaviour \\ \hline\hline
+%     $s=-2$ & decays in half a second \\ \hline
+%   \end{answertable}
+\newenvironment{answertable}[2]{%
+  \def\anstabcap{#2}%
+  \begin{table}[H]
+  \centering
+  \renewcommand{\arraystretch}{1.4}
+  \begin{tabular}{#1}
+}{%
+  \end{tabular}
+  \ifx\anstabcap\empty\else\caption{\anstabcap}\fi
+  \end{table}%
 }
 
 % wideproblem environment -- a problem on its own landscape page, centred.
@@ -178,6 +236,7 @@
 %  SOLUTIONS
 %------------------------------------------------------------------------------
 
+\clearpage
 \problem{1.A.2.1}{What is a "free-body diagram"?}
 \answer{A free body diagram is a diagram that shows the forces acting on an object or set of objects.}
 
@@ -193,8 +252,24 @@
 \problem{1.A.2.5}{State Kirchhoff's voltage law.}
 \answer{Kirchoff's voltage law states that the sum of all voltages around a closed circuit must equal zero.}
 
+\clearpage
 \problem{1.B}{Differential equation for mechanical system}
-\answerfigure[0.8\linewidth]{figures/2_B_Schematic.png}{The two-mass system of Problem 1.B.}
+\answerfigure[0.8\linewidth]{figures/2_B_Schematic.pdf}{The two-mass system of Problem 1.B.}
+
+\begin{symboltable}{Signal}{Signals of Problem 1.B.}
+    \sym{x_1(t)}{m}{Position of mass $m_1$}
+    \sym{x_2(t)}{m}{Position of mass $m_2$}
+\end{symboltable}
+
+\begin{symboltable}{Parameter}{Parameters of Problem 1.B.}
+    \sym{m_1}{Kg}{mass of $m_1$}
+    \sym{m_2}{Kg}{mass of $m_2$}
+    \sym{K_{1A}}{N/m}{Outer spring stiffness, wall to $m_1$}
+    \sym{K_{1B}}{N/m}{Outer spring stiffness, $m_2$ to wall}
+    \sym{K_2}{N/m}{Inner spring stiffness}
+    \sym{b_2}{N-s/m}{Shock absorber}
+\end{symboltable}
+
 \answer{
 \[A=b+a\]
 
