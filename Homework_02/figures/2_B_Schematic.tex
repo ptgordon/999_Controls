@@ -93,5 +93,17 @@
   \node[font=\small,below] at (\xm,-0.78) {No friction};
 }
 
+%--- overall dimension, left wall to right wall ------------------------------
+% d is the fixed wall-to-wall span. It is what makes the right wall a fixed
+% point: the span cannot change, so the wall does not move, and the K_{1B}
+% deflection is x_2(t) alone. Drawn clear of the "No friction" callouts.
+\def\ydim{-1.6}        % height of the dimension line
+\foreach \x in {\xwallL, \xwallR} {
+  \draw[line width=0.5pt] (\x,-0.35) -- (\x,\ydim-0.15);
+}
+\draw[{Stealth[length=5pt]}-{Stealth[length=5pt]},line width=0.6pt]
+      (\xwallL,\ydim) -- (\xwallR,\ydim);
+\node[lbl,below] at ($0.5*(\xwallL,\ydim)+0.5*(\xwallR,\ydim)$) {$d$};
+
 \end{tikzpicture}
 \end{document}

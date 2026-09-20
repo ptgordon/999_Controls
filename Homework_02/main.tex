@@ -271,14 +271,65 @@
 \end{symboltable}
 
 \answer{Constituent equations: 
-    \[f_{K_{1A}}(t) = K_{1A}x_1(t)\]
-    \[f_{K_{1B}}(t) = -K_{1B}x_1(t)\]
-    \[f_{K_2}(t) = K_2(x_2(t)-x_1(t))\]
-    \[f_{b_2} = b_2(\dot{x}_2(t)-\dot{x}_1(t))\]
-    \[f_{net_{m1}}(t) = m_1\ddot{x}_1(t)\]
-    \[f_{net_{m2}}(t) = m_2\ddot{x}_2(t)\]
+    \begin{align*}
+        f_{K_{1A}}(t) &= K_{1A}x_1(t)\\
+        f_{K_{1B}}(t) &= K_{1B}(-x_2(t))\\
+        f_{K_2}(t) &= K_2(x_2(t)-x_1(t))\\
+        f_{b_2} &= b_2(\dot{x}_2(t)-\dot{x}_1(t))\\
+        f_{net_{m1}}(t) &= m_1\ddot{x}_1(t)\\
+        f_{net_{m2}}(t) &= m_2\ddot{x}_2(t)
+    \end{align*}
+}
 
+\answerfigure{figures/1_B_free_body.pdf}{Free body diagram for problem 1.B}
 
-The difference in velocities between $m_1$ and $m_2$ will decay because $b_2$ scales with velocity. Since their is no friction, the output $x_2(t)$ will not decay.}
+\answer{Continuity Equations:
+    \begin{align*}
+        K_1 &= K_{1A} = K_{1B}\\
+        m &= m_1 = m_2\\
+        \\
+        m\ddot{x}_1(t) &= f_{K_2} + f_{b_2} - f_{K_{1A}} \\
+                       &= K_2(x_2-x_1) + b_2(\dot{x}_2 - \dot{x}_1) - K_1x_1\\
+                       &= K_2x_2 - K_2x_1 + b_2\dot{x}_2 - b_2\dot{x}_1 - K_1x_1\\
+                       &= -b_2\dot{x}_1 - (K_1+K_2)x_1 + b_2\dot{x}_2 + K_2x_2 \\
+        \\
+        m\ddot{x}_2(t) &= f_{K_{1B}} - f_{K_2} - f_{b_2} \\
+                       &= K_1( - x_2) - K_2(x_2 - x_1) - b_2(\dot{x}_2 - \dot{x}_1)\\
+                       &= - K_1x_2 - K_2x_2 + K_2x_1 - b_2\dot{x}_2 + b_2\dot{x}_1\\
+                       &= - b_2\dot{x}_2 - (K_1 + K_2)x_2 + b_2\dot{x}_1 + K_2x_1 \\
+    \end{align*}
+}
+
+\answer{Standard form:
+    \begin{align*}
+        m\ddot{x}_1(t) + b_2\dot{x}_1(t) + (K_1 + K_2)x_1(t) &= b_2\dot{x}_2(t) + K_2x_2(t) + f(t)\\
+        \\
+        m\ddot{x}_2(t) + b_2\dot{x}_2(t) + (K_1 + K_2)x_2(t) &= b_2\dot{x}_1(t) + K_2x_1(t) \\
+    \end{align*}
+
+    *NOTE: $f(t)$ has been added to the $m_1$ equation so the transfer function could be created
+}
+
+\answer{Frequency domain:     
+    \begin{align*}
+        (ms^2 + b_2s + K_1 + K_2)X_1(s) &= (b_2s + K_2)X_2(s) + F(s)\\
+        \\
+        (ms^2 + b_2s + K_1 + K_2)X_2(s) &= (b_2s + K_2)X_1(s)
+    \end{align*}
+
+    Find $X_1(s)$ in terms of $X_2(s)$ so substitution may be performed:
+
+    \[X_1(s) = \frac{ms^2 + b_2s + K_1 + K_2}{b_2s + K_2}X_2(s)\]
+
+    Then perform the substitution:
+    \begin{align*}
+        (ms^2 + b_2s + K_1 + K_2)\frac{ms^2 + b_2s + K_1 + K_2}{b_2s + K_2}X_2(s) &= (b_2s + K_2)X_2(s) + F(s) \\
+        (ms^2 + b_2s + K_1 + K_2)^2X_2(s) &= (b_2s + K_2)^2X_2(s) + (b_2s + K_2)F(s) \\
+        ((ms^2 + b_2s + K_1 + K_2)^2 - (b_2s + K_2)^2)X_2(s) &=  (b_2s + K_2)F(s) \\
+    \end{align*}
+
+}
+
+\answer{The difference in velocities between $m_1$ and $m_2$ will decay because $b_2$ scales with velocity. Since there is no friction, the output $x_2(t)$ will not decay.}
 
 \end{document}
