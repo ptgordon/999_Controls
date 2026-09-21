@@ -464,6 +464,12 @@
     Units:
     \[ \frac{\frac{N \cdot s}{m}}{Kg \cdot s^{-1} + \frac{N \cdot s}{m} + \frac{N \cdot s}{m} }\]
     \[ \frac{\frac{N \cdot s}{m}}{\frac{N \cdot s^{\cancel{2}}}{m} \cdot \cancel{s^{-1}} + \frac{N \cdot s}{m} + \frac{N \cdot s}{m} }\]
+
+    \matlabcode{hw_02_1C.m}
+
+    \answerfigure[0.8\linewidth]{figures/hw_02_1C.pdf}{Unit step response of $G_{V(s)}$ for $K=1000$, $K=5000$, and $K=10000$.}
+
+    \answer{No value of K will cause issues with stability or oscillations, but the tradeoff is excessive acceleration against accuracy of output. Given the graphs, a value between 1000 and 5000 would probably get close enough to the target without accelerating too quickly.}
 }
 
 \end{document}
