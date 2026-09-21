@@ -410,4 +410,60 @@
 
 \answer{The difference in velocities between $m_1$ and $m_2$ will decay because $b_2$ scales with velocity. Since there is no friction, the output $x_2(t)$ will not decay.}
 
+\clearpage
+\problem{1.C}{Modified cruise control}
+\answer{
+    Equation 2.4 from Example 2.1 in the text book reads: 
+    \[\dot{v} + \frac{b}{m}v = \frac{u}{m}\]
+
+    Substituting $u=K(v_r-v)$, the equation becomes:
+    \[\dot{v} + \frac{b}{m}v = \frac{K(v_r-v)}{m}\]
+}
+
+\answerfigure[0.4\linewidth]{figures/1_C_schematic.pdf}{Schematic diagram of car cruise control model}
+
+\begin{symboltable}{Signal}{Signals of Problem 1.B.}
+    \sym{v(t)}{m}{Measured velocity of car}
+    \sym{v_r(t)}{m}{Commanded velocity of car}
+\end{symboltable}
+
+\begin{symboltable}{Parameter}{Parameters of Problem 1.B.}
+    \sym{m}{Kg}{mass of car}
+    \sym{b}{N-s/m}{Outer spring stiffness, wall to $m$}
+    \sym{K}{N-s/m}{gain constant}
+\end{symboltable}
+
+\answer{
+    constituent equations:
+    \begin{align*}
+        f_b &= bv \\
+        f_K &= K(v_r-v) \\
+        f_{net} &= m\dot{v}
+    \end{align*}
+}
+
+\answer{
+    Continuity equations:
+    \begin{align*}
+        f_{net} &= f_K - f_b \\
+        m\dot{v}(t) &= K(v_r(t) - v(t)) - bv(t) \\
+    \end{align*}
+
+    Standard form:
+    \begin{align*}
+        Kv_r(t) &= m\dot{v}(t) + Kv(t) + bv(t) \\
+        Kv_r(t) &= m\dot{v}(t) + (K+b)v(t) \\
+    \end{align*}
+
+    Frequency domain:
+    \[ KV_r(s) = (ms + (K+b))V(s) \]
+
+    Transfer function:
+    \[ G_{V(s)} = \frac{V(s)}{V_r(s)} = \frac{K}{ms + (K+b)} \]
+
+    Units:
+    \[ \frac{\frac{N \cdot s}{m}}{Kg \cdot s^{-1} + \frac{N \cdot s}{m} + \frac{N \cdot s}{m} }\]
+    \[ \frac{\frac{N \cdot s}{m}}{\frac{N \cdot s^{\cancel{2}}}{m} \cdot \cancel{s^{-1}} + \frac{N \cdot s}{m} + \frac{N \cdot s}{m} }\]
+}
+
 \end{document}

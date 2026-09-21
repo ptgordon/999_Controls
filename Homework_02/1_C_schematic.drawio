@@ -1,0 +1,59 @@
+<mxfile host="Electron">
+  <diagram name="Page-1" id="UnnitpK71VgvC9Xg8sHB">
+    <mxGraphModel dx="133" dy="233" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="BANpNCnY12AGBOuwcWWM-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="20" width="360" x="60" y="590" as="geometry" />
+        </mxCell>
+        <mxCell id="BANpNCnY12AGBOuwcWWM-3" edge="1" parent="1" source="BANpNCnY12AGBOuwcWWM-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="130" y="550" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="BANpNCnY12AGBOuwcWWM-6" connectable="0" parent="BANpNCnY12AGBOuwcWWM-3" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="bv" vertex="1">
+          <mxGeometry relative="1" x="0.0381" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="BANpNCnY12AGBOuwcWWM-7" edge="1" parent="1" source="BANpNCnY12AGBOuwcWWM-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="340" y="550" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="BANpNCnY12AGBOuwcWWM-8" connectable="0" parent="BANpNCnY12AGBOuwcWWM-7" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="K(v&lt;sub&gt;r&lt;/sub&gt;-v)" vertex="1">
+          <mxGeometry relative="1" x="-0.0444" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="BANpNCnY12AGBOuwcWWM-2" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="m" vertex="1">
+          <mxGeometry height="80" width="80" x="200" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="BANpNCnY12AGBOuwcWWM-10" edge="1" parent="1" source="BANpNCnY12AGBOuwcWWM-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310" y="405" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="BANpNCnY12AGBOuwcWWM-11" connectable="0" parent="BANpNCnY12AGBOuwcWWM-10" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="v̇&amp;nbsp;" vertex="1">
+          <mxGeometry relative="1" x="-0.3238" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="BANpNCnY12AGBOuwcWWM-13" edge="1" parent="1" source="BANpNCnY12AGBOuwcWWM-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310" y="455" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="BANpNCnY12AGBOuwcWWM-14" connectable="0" parent="BANpNCnY12AGBOuwcWWM-13" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="v" vertex="1">
+          <mxGeometry relative="1" x="-0.1307" y="-2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="BANpNCnY12AGBOuwcWWM-9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="100" width="15" x="240" y="380" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
