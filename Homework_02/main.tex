@@ -472,4 +472,75 @@
     \answer{No value of K will cause issues with stability or oscillations, but the tradeoff is excessive acceleration against accuracy of output. Given the graphs, a value between 1000 and 5000 would probably get close enough to the target without accelerating too quickly.}
 }
 
+\clearpage
+
+\problem{2}{Transfer function of a circuit}
+\answerfigure[0.8\linewidth]{figures/2_Schematic.png}{The RL circuit of Problem 2, with input $v_A(t)$ and output $v_o(t)$.}
+
+\begin{symboltable}{Signal}{Signals of Problem 1.B.}
+    \sym{v_A(t)}{V}{Input Voltage}
+    \sym{v_o(t)}{V}{Position of mass $m_2$}
+    \sym{v_{R1}(t)}{V}{Voltage Across R1}
+    \sym{i_{R1}(t)}{A}{Current through R1}
+    \sym{i_{R2}(t)}{A}{Current through R2}
+    \sym{i_{L1}(t)}{A}{Current through L1}
+\end{symboltable}
+
+\begin{symboltable}{Parameter}{Parameters of Problem 1.B.}
+    \sym{R_1}{Ohm(V/A)}{Resistor}
+    \sym{R_2}{Ohm(V/A)}{Resistor}
+    \sym{L_1}{H(V-s/A)}{Resistor}
+\end{symboltable}
+
+\answer{
+    Constituent Equations:
+
+    \begin{align*}
+        v_A(t) &= v_{R_1}(t) + v_o(t) \\
+        i_{R_1}(t) &= i_{L_1}(t) + i_{R_2}(t) \\
+        v_o(t) &= L_1\dot{i}_{L_1}(t)
+    \end{align*}
+
+    Continuity Equations:
+
+    \begin{align*}
+        i_{R_1}(t) &= i_{L_1}(t) + i_{R_2}(t) \\
+        i_{R_2}(t) &= \frac{v_o(t)}{R2} \\
+        i_{R_1}(t) &= \frac{v_A(t)-v_o(t)}{R1} \\
+        \frac{v_A(t)-v_o(t)}{R1} &= i_{L_1}(t) + \frac{v_o(t)}{R2} \\
+        v_o(t) &= L_1\dot{i}_{L_1}(t)
+    \end{align*}
+
+    Move things around to get to standard form:
+
+    \begin{align*}
+        R_2(v_A(t)-v_o(t)) &= R_1R_2i_{L_1}(t) + R_1v_o(t) \\
+        R_2v_A(t) &= R_1v_o(t) + R_2v_o(t) + R_1R_2i_{L_1}(t) \\
+        \\
+        v_o(t) &= L_1\dot{i}_{L_1}(t)
+    \end{align*}
+
+    Frequency Domain:
+    
+    \begin{align*}
+        R_2V_A(s) &= (R_1 + R_2)V_o(s) + R_1R_2I_{L_1}(s) \\
+        V_o(s) &= L_1sI_{L_1}(s)
+    \end{align*}
+
+    Perform necessary substitutions:
+
+    \begin{align*}
+        V_o(s) &= L_1sI_{L_1}(s) \\
+        I_{L_1}(s) &= \frac{1}{L_1s}V_o(s) \\
+        \\
+        R_2V_A(s) &= (R_1 + R_2)V_o(s) + \frac{R_1R_2}{L_1s}V_o(s) \\
+        R_2L_1sV_A(s) &= (L_1s(R_1 + R_2) + R_1R_2)V_o(s) \\
+        G_{Ao}(s) = \frac{V_o(s)}{V_A(s)} &= (R_2L_1s)
+    \end{align*}
+}
+
+
+
+
+
 \end{document}
