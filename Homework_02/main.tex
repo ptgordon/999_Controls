@@ -535,12 +535,16 @@
         \\
         R_2V_A(s) &= (R_1 + R_2)V_o(s) + \frac{R_1R_2}{L_1s}V_o(s) \\
         R_2L_1sV_A(s) &= (L_1s(R_1 + R_2) + R_1R_2)V_o(s) \\
-        G_{Ao}(s) = \frac{V_o(s)}{V_A(s)} &= (R_2L_1s)
+        G_{Ao}(s) = \frac{V_o(s)}{V_A(s)} &= \frac{R_2L_1s}{(R_1 + R_2)L_1s + R_1R_2}
     \end{align*}
+
+    Check Units:
+
+    \begin{align*}
+        \frac{\frac{V}{A}\frac{V\cdot \cancel{s}}{A}\cancel{s^{-1}}}{\frac{V}{A}\frac{V\cdot \cancel{s}}{A}\cancel{s^{-1}} + \frac{V}{A}\frac{V}{A}}
+    \end{align*}
+
+    The Gain is a voltage over a voltage, so all units should cancel, as they do with this solution.
 }
-
-
-
-
 
 \end{document}
