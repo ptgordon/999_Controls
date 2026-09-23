@@ -408,7 +408,7 @@
     This makes sense because the input is a force and the output is a displacement, so the units of the transfer function should be distance over force.
 }
 
-\answer{The difference in velocities between $m_1$ and $m_2$ will decay because $b_2$ scales with velocity. Since there is no friction, the output $x_2(t)$ will not decay.}
+\answer{The difference in velocities between $m_1$ and $m_2$ will reach a steady state because $b_2$ scales with velocity. Since there is no friction, the output $x_2(t)$ will not decay.}
 
 \clearpage
 \problem{1.C}{Modified cruise control}
@@ -551,9 +551,10 @@
 \problem{3}{Matlab}
 
 \matlabcode{hw_02_3A.m}
-\answerfigure[0.6\linewidth]{figures/hw_02_3A.pdf}{Unit step response of $G_{V(s)}$ for $K=1000$, $K=5000$, and $K=10000$.}
+\answerfigure[0.6\linewidth]{figures/hw_02_3A.pdf}{Unit step response of $G_{V(s)}$ for $b=5$, $b=50$, and $b=500$.}
 
+\clearpage
 \matlabcode{hw_02_3A.m}
-\answerfigure[0.6\linewidth]{figures/hw_02_3A.pdf}{Unit step response of $G_{V(s)}$ for $K=1000$, $K=5000$, and $K=10000$.}
+\answerfigure[0.6\linewidth]{figures/hw_02_3A.pdf}{Unit step response of $G_{V(s)}$ for $b=5$, $b=50$, and $b=500$.}
 
 \end{document}
