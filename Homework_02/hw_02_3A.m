@@ -26,6 +26,6 @@ hold on;
 step(cruise_1, cruise_2, cruise_3)
 xlabel('time [s]');
 ylabel('v(t) [m/s]');
-title('Unit steps for various values of K');
+title('Unit steps for various values of b');
 legend('b=5', 'b=50', 'b=500', 'location', 'southeast');
 hold off;
