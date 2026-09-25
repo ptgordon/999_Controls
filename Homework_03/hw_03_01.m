@@ -19,13 +19,39 @@ r = 10;
 
 s = tf('s');
 P_cruise = 1/(m*s + b);
+t = 0:0.1:20;
 
-Kp = 100;
+%=========================================%
+
+Kp = 1000;
 C = pid(Kp);
+T = feedback(C*P_cruise, 1);
 
-T = feedback(C*P_cruise,1);
+figure
+step(r*T,t)
+axis([0 20  0 10])
 
- t = 0:0.1:20;
- step(r*T,t)
- axis([0 20 0 10])
+%=========================================%
 
+Kp = 1000;
+Ki = 100;
+C = pid(Kp,Ki);
+
+T = feedback(C*P_cruise, 1);
+
+figure
+step(r*T, t)
+axis([0 20 0 10])
+
+%=========================================%
+
+Kp = 1000;
+Ki = 100;
+Kd = 100;
+C = pid(Kp, Ki, Kd);
+
+T = feedback(C*P_cruise, 1);
+
+figure
+step(r*T, t)
+axis([0 20 0 10])
