@@ -1,0 +1,38 @@
+% Passive lead circuit. Build with `make figures/lead_circuit.pdf`.
+\documentclass[border=4pt]{standalone}
+\usepackage[american]{circuitikz}
+\usetikzlibrary{calc}
+
+\begin{document}
+% the added v_1, i_c, i_1 and i_2 labels, in their own colour
+\ctikzset{voltage/american plus={\textcolor{red}{$+$}},
+          voltage/american minus={\textcolor{red}{$\vphantom{+}-$}}}
+\begin{circuitikz}[bipole voltage style={color=red}, bipole current style={color=red},
+                   every currarrow node/.style={red}]
+  \coordinate (u) at (0,0);
+  \coordinate (a) at (2,0);
+  \coordinate (b) at (5,0);
+  \coordinate (y) at (7,0);
+  \coordinate (gnd) at (0,-3);
+
+  % input to the R1 || C pair, then on to the output
+  \draw (u) to[short, o-*] (a)
+        to[R, l_=$R_1$, i>^=$i_1$, *-*] (b)
+        to[short, -o] (y);
+
+  % capacitor across R1
+  \draw (a) -- ++(0,1.6) coordinate (ct)
+        to[C, l^=$C$, v_=$v_1$, i>^=$i_c$] (ct -| b) -- (b);
+
+  % R2 to the bottom rail
+  \draw (b) to[R, l_=$R_2$, i>^=$i_2$, -*] (b |- gnd);
+  \draw (u |- gnd) to[short, o-] (b |- gnd) to[short, -o] (y |- gnd);
+
+  % port labels
+  \foreach \p/\n in {u/u, y/y} {
+    \node at ($(\p)+(0,-0.45)$) {$+$};
+    \node at ($(\p)!0.5!(\p |- gnd)$) {$\n$};
+    \node at ($(\p |- gnd)+(0,0.45)$) {$-$};
+  }
+\end{circuitikz}
+\end{document}

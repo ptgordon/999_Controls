@@ -352,4 +352,48 @@ Substitute:
     \[ G_{amp} = \frac{V_{out}}{V_{in}} = \frac{-R_f}{10^{-7}(R_f+R_1)s+10^{-7}(R_f+R_1) + R_1} \]
 }
 
+\clearpage
+\problem{2.B.a}{Passive lead circuit}
+\answerfigure[0.7\linewidth]{figures/lead_circuit.pdf}{Passive lead circuit.}
+
+\begin{symboltable}{Symbol}{Symbols of Problem 2.B.a}
+    \sym{u(t)}{V}{Input voltage}
+    \sym{y(t)}{V}{Output voltage}
+    \sym{v_1(t)}{V}{Voltage across $R_1$ and C}
+    \sym{i_1(t)}{A}{Current through $R_1$}
+    \sym{i_c(t)}{A}{Current through $C$}
+    \sym{i_2(t)}{A}{Current through $R_2$}
+\end{symboltable}
+
+\begin{symboltable}{Parameter}{Parameters of Problem 2.B.a}
+    \sym{R_1}{$\Omega(\frac{V}{A})$}{Resistance}
+    \sym{R_{2}}{$\Omega(\frac{V}{A})$}{Resistance}
+    \sym{C}{$F(\frac{A \cdot sec}{V})$}{Capacitance}
+\end{symboltable}
+
+\answer{
+    Symbol equations:
+
+    \begin{align*}
+        u(t) &= y(t) + v_1(t) \\
+        i_2(t) &= i_1(t) + i_C(t)
+    \end{align*}
+
+    Parameter equations:
+
+    \begin{align*}
+        i_c(t) &= C\dot{v}_1(t) \\
+        i_2(t) &= \frac{y(t)}{R_2} \\
+        i_1(t) &= \frac{v_1(t)}{R_1}
+    \end{align*}
+
+    Substitute:
+
+    \begin{align*}
+        \frac{y}{R_2} &= \frac{v_1}{R_1} + C\dot{v}_1 \\
+        R_1y &= R_2v_1 + R_1R_2C\dot{v}_1 \\
+        \dot{v}_1 &= \frac{R_1y - R2v_1}{R_1R_2C}
+    \end{align*}
+}
+
 \end{document}
