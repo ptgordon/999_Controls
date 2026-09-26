@@ -480,7 +480,7 @@ Substitute:
     Transform:
     \begin{align*}
         V_{in}(s) &= -\frac{R_2}{R_f}V_{out}(s) + V_1(s) \\
-        \frac{1}{R_f}V_{out} &= -(Cs + \frac{1}{R_1})V_1(s)
+        \frac{1}{R_f}V_{out}(s) &= -(Cs + \frac{1}{R_1})V_1(s)
     \end{align*}
 
     Combine and substitute:
@@ -498,6 +498,64 @@ Substitute:
 
     \begin{align*}
         G_b = \frac{V_{out}(s)}{V_{in}(s)} = -\frac{R_f(R_1Cs + 1)}{R_2(R_1Cs + 1) + R_1} 
+    \end{align*}
+}
+
+\problem{2.B.c}{Active lag circuit}
+\answerfigure[0.8\linewidth]{figures/active_lag.pdf}{Active lag circuit.}
+
+\begin{symboltable}{Symbol}{Symbols of Problem 2.B.c}
+    \sym{v_{in}(t)}{V}{Input voltage}
+    \sym{v_{out}(t)}{V}{Output voltage}
+    \sym{v_2(t)}{V}{Voltage across $R_2$}
+    \sym{v_1(t)}{V}{Voltage across $R_1$ and $C$}
+    \sym{i_{in}(t)}{A}{Current through $R_{in}$ and $R_2$}
+    \sym{i_c(t)}{A}{Current through $C$}
+    \sym{i_1(t)}{A}{Current through $R_1$}
+\end{symboltable}
+
+\begin{symboltable}{Parameter}{Parameters of Problem 2.B.c}
+    \sym{R_in}{$\Omega(\frac{V}{A})$}{Resistance}
+    \sym{R_1}{$\Omega(\frac{V}{A})$}{Resistance}
+    \sym{R_2}{$\Omega(\frac{V}{A})$}{Resistance}
+    \sym{C}{$F(\frac{A \cdot sec}{V})$}{Capacitance}
+\end{symboltable}
+
+\answer{
+    \begin{align*}
+        i_{in}(t) = i_1(t)+i_c(t) \\
+        v_{out}(t) = -v_1(t)-v_2(t)
+    \end{align*}
+    \begin{align*}
+        i_{in}(t) = \frac{1}{R_{in}}v_{in}(t) \\
+        i_{in}(t) = \frac{1}{R_2}v_2(t) \\
+        v_{in}(t) = R_{in}i_{in}(t) \\
+        i_1(t) = \frac{1}{R_1}v_1(t) \\
+        i_c(t) = C\dot{v}_1(t)
+    \end{align*}
+
+    Get rid of $v_2$:
+    \begin{align*}
+        \frac{1}{R_2}v_2(t) &= \frac{1}{R_{in}}v_{in}(t) \\
+        v_2(t) &= \frac{R_2}{R_{in}}v_{in}(t) \\
+    \end{align*}
+
+    Get rid of $i_{in}(t)$:
+    \begin{align*}
+        i_{in}(t) &= \frac{1}{R_2}v_2(t) \\
+        i_{in}(t) &= \frac{1}{R_2}\frac{R_2}{R_{in}}v_{in}(t) \\
+        i_{in}(t) &= \frac{1}{R_{in}}v_{in}(t) \\
+    \end{align*}
+
+    Get the first equation to standard form:
+    \begin{align*}
+        i_{in}(t) &= i_1(t)+i_c(t) \\
+        \frac{1}{R_{in}}v_{in}(t) &= \frac{1}{R_1}v_1(t) + C\dot{v}_1(t) \\
+        R_1v_{in}(t) &= R_{in}(v_1(t) + R_1C\dot{v}_1(t))
+    \end{align*}
+
+    And the second:
+    \begin{align*}
     \end{align*}
 }
 
