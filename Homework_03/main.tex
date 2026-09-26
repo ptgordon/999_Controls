@@ -425,4 +425,80 @@ Substitute:
     \end{align*}
 }
 
+\clearpage
+\problem{2.B.b}{Active Lead Circuit}
+\answerfigure[0.8\linewidth]{figures/active_lead.pdf}{Active lead circuit.}
+
+\begin{symboltable}{Symbol}{Symbols of Problem 2.B.a}
+    \sym{v_{in}(t)}{V}{Input voltage}
+    \sym{v_{out}(t)}{V}{Output voltage}
+    \sym{v_1(t)}{V}{Voltage across $R_1$ and $C$}
+    \sym{v_2(t)}{V}{Voltage across $R_2$}
+    \sym{v_f(t)}{V}{Voltage across $R_f$}
+    \sym{i_2(t)}{A}{Current through $R_2$}
+    \sym{i_c(t)}{A}{Current through $C$}
+    \sym{i_1(t)}{A}{Current through $R_1$}
+    \sym{i_f(t)}{A}{Current through $R_f$}
+\end{symboltable}
+
+\begin{symboltable}{Parameter}{Parameters of Problem 2.B.a}
+    \sym{R_1}{$\Omega(\frac{V}{A})$}{Resistance}
+    \sym{R_2}{$\Omega(\frac{V}{A})$}{Resistance}
+    \sym{R_f}{$\Omega(\frac{V}{A})$}{Resistance}
+    \sym{C}{$F(\frac{A \cdot sec}{V})$}{Capacitance}
+\end{symboltable}
+
+\clearpage
+\answer{
+    Symbol equations: 
+    \begin{align*}
+        i_f = i_2 &= i_1 + i_c \\
+        v_{in} &=  v_2 + v_1 + v_f + v_{out} \\
+        v_{in} &= v_2 + v_1 \\
+        v_{out} &= -v_f
+    \end{align*}
+
+    Parameter equations:
+    \begin{align*}
+        i_2 &= \frac{v_2}{R_2} \\
+        i_1 &= \frac{v_1}{R_1} \\
+        i_c &= C\dot{v}_1 \\
+        i_2 &= \frac{v_f}{R_f}
+    \end{align*}
+
+    Start combining:
+    \begin{align*}
+        v_f &= -v_{out} \\
+        v_2 = \frac{R_2}{R_f}v_f &= -\frac{R_2}{R_f}v_{out} \\
+        v_{in} &= -\frac{R_2}{R_f}v_{out} + v_1 \\
+    \end{align*}
+    \begin{align*}
+        \frac{1}{R_f}v_f = -\frac{1}{R_f}v_{out} &= \frac{v_1}{R_1} + C\dot{v}_1 \\
+        \frac{1}{R_f}v_{out} &=  -\frac{1}{R_1}v_1 - C\dot{v}_1
+    \end{align*}
+
+    Transform:
+    \begin{align*}
+        V_{in}(s) &= -\frac{R_2}{R_f}V_{out}(s) + V_1(s) \\
+        \frac{1}{R_f}V_{out} &= -(Cs + \frac{1}{R_1})V_1(s)
+    \end{align*}
+
+    Combine and substitute:
+    \begin{align*}
+        -(R_1R_fCs + R_f)V_1(s) &= R_1V_{out} \\
+        V_1(s) &= -\frac{R_1}{R_1R_2Cs - R_f}V_{out}(s)
+    \end{align*}
+
+    \begin{align*}
+        V_{in}(s) &= -\frac{R_2}{R_f}V_{out}(s) + V_1(s) \\
+        V_{in}(s) &= -\frac{R_2}{R_f}V_{out}(s) - \frac{R_1}{R_1R_2Cs - R_f}V_{out}(s) \\
+        V_{in}(s) &= -(\frac{R_2}{R_f} + \frac{R_1}{R_1R_2Cs - R_f})V_{out}(s) \\
+        V_{in}(s) &= -\frac{R_2(R_1R_2Cs-R_f) + R_1R_f}{R_f(R_1R_2Cs - R_f)}V_{out}(s)
+    \end{align*}
+
+    \begin{align*}
+        G_b = \frac{V_{out}(s)}{V_{in}(s)} = -\frac{R_f(R_1R_2Cs - R_f)}{R_2(R_1R_2Cs-R_f) + R_1R_f} 
+    \end{align*}
+}
+
 \end{document}
