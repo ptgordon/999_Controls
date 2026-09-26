@@ -392,7 +392,36 @@ Substitute:
     \begin{align*}
         \frac{y}{R_2} &= \frac{v_1}{R_1} + C\dot{v}_1 \\
         R_1y &= R_2v_1 + R_1R_2C\dot{v}_1 \\
-        \dot{v}_1 &= \frac{R_1y - R2v_1}{R_1R_2C}
+    \end{align*}
+
+    Frequency Domain:
+
+    \begin{align*}
+        U(s) &= Y(s) + V_1(s) \\
+        R_1Y(s) &= (R_1R_2Cs + R_2)V_1(s) \\
+    \end{align*}
+
+    \begin{align*}
+        (R_1R_2Cs + R_2)V_1(s) &= R_1Y(s) \\
+        V_1(s) &= \frac{R_1}{R_1R_2Cs + R_2}Y(s)
+    \end{align*}
+
+    \begin{align*}
+        U(s) &= Y(s) + \frac{R_1}{R_1R_2Cs + R_2}Y(s) \\
+        U(s) &= (\frac{R_1R_2Cs + R_2}{R_1R_2Cs + R_2} + \frac{R_1}{R_1R_2Cs + R_2})Y(s) \\
+        U(s) &= \frac{R_1R_2Cs + R_2 + R_1}{R_1R_2Cs + R_2}Y(s) \\
+    \end{align*}
+    \begin{align*}
+        G_{yu}(s) = \frac{Y(s)}{U(s)} &= \frac{R_1R_2Cs + R_2}{R_1R_2Cs + R_2 + R_1}
+    \end{align*}
+
+    Units:
+    \begin{align*}
+        \frac{
+            \frac{V}{A}\cancel{\frac{V}{A}\frac{A \cdot sec}{V}sec^{-1}} + \frac{V}{A} + \frac{V}{A}
+        }{
+            \frac{V}{A}\cancel{\frac{V}{A}\frac{A \cdot sec}{V}sec^{-1}} + \frac{V}{A}
+        }
     \end{align*}
 }
 
