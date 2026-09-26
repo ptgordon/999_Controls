@@ -1,0 +1,39 @@
+% Inverting amplifier. Build with `make figures/inverting_amp.pdf`.
+\documentclass[border=4pt]{standalone}
+\usepackage[american]{circuitikz}
+\usetikzlibrary{calc}
+
+\begin{document}
+% the added V_1, V_f and i_f labels, in their own colour
+\ctikzset{voltage/american plus={\textcolor{blue}{$+$}},
+          voltage/american minus={\textcolor{blue}{$\vphantom{+}-$}}}
+\begin{circuitikz}[bipole voltage style={color=blue}, bipole current style={color=blue},
+                   every currarrow node/.style={blue}]
+  \node[op amp] (oa) at (0,0) {};
+
+  % inverting node and input resistor
+  \draw (oa.-) -- ++(-0.8,0) coordinate (nm);
+  \coordinate (vin) at ($(nm)+(-3.5,0)$);
+  \draw (vin) to[R, l=$R_1$, v_=$V_1$, i>^=$i_f$, o-*] (nm);
+  \node[above right] at (nm) {$v_-$};
+
+  % output node
+  \draw (oa.out) to[short, -*] ++(0.8,0) coordinate (no)
+        to[short, -o] ++(1.2,0) coordinate (vout);
+
+  % feedback resistor
+  \draw (nm) -- ++(0,1.8) coordinate (tl)
+        to[R, l=$R_f$, v_=$V_f$, i>^=$i_f$] (tl -| no) -- (no);
+
+  % non-inverting input and ground rail
+  \draw (oa.+) -- ++(-0.8,0) coordinate (np) -- ++(0,-1.4) coordinate (gp);
+  \node[below right] at (oa.+ -| np) {$v_+$};
+  \draw (oa.down) -- (oa.down |- gp);
+  \draw (vin |- gp) node[ground] {} -- (gp) node[circ] {}
+        -- (oa.down |- gp) node[circ] {} to[short, -o] (vout |- gp);
+
+  % port labels
+  \node at ($(vin)!0.5!(vin |- gp)$) {$V_{in}$};
+  \node at ($(vout)!0.5!(vout |- gp)$) {$V_{out}$};
+\end{circuitikz}
+\end{document}

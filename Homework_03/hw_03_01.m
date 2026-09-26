@@ -2,16 +2,10 @@ if exist('OCTAVE_VERSION', 'builtin')
     pkg load control;
 end
 
-
 % Note these values were chosen to accentuate the differences
 Kp = 1000;
 Ki = 1000;
 Kd = 1000;
-
-s = tf('s');
-C = Kp + Ki/s + Kd*s;
-
-C = pid(Kp, Ki, Kd);
 
 %=========================================%
 
@@ -44,5 +38,5 @@ T_PID = feedback(C*P_cruise, 1);
 
 figure
 step(r*T_P, 'b', r*T_PI, 'r', r*T_PID, 'g', t)
-axis([0 20 0 1.1*r])
+axis([0 20 0 1.5*r])
 legend('P', 'PI', 'PID', 'Location', 'southeast')

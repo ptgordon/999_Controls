@@ -13,7 +13,7 @@
 %------------------------------- METADATA -------------------------------------
 \newcommand{\hwcourse}{EE 999 --- Introduction to Control Systems}
 \newcommand{\hwcourseshort}{EE 999}  % running head, keep it short
-\newcommand{\hwtitle}{Homework 2}
+\newcommand{\hwtitle}{Homework 3}
 \newcommand{\hwauthor}{Patrick Gordon}
 \newcommand{\hwdate}{\today}
 \newcommand{\hwdue}{Due Wednesday, September 23, 2026}
@@ -32,6 +32,7 @@
 \usepackage{fancyhdr}
 \usepackage{inconsolata}
 \usepackage{pdflscape}
+\usepackage{float}
 \usepackage[hidelinks]{hyperref}
 
 %--- page furniture -----------------------------------------------------------
@@ -272,7 +273,6 @@
     missing: \detokenize{#1}\\[4pt]\rmfamily\itshape #2\vspace{10pt}}}%
 }
 
-\usepackage{float}
 
 %==============================================================================
 \begin{document}
@@ -288,5 +288,68 @@
 %------------------------------------------------------------------------------
 %  SOLUTIONS
 %------------------------------------------------------------------------------
+
+\clearpage
+\problem{1}{Matlab}
+\matlabcode{./hw_03_01.m}
+\answerfigure{figures/hw_03_01.pdf}{Step response of the cruise control system under P, PI, and PID control.}
+
+\clearpage
+\problem{2.A}{Realistic Op Amp}
+\answerfigure[0.7\linewidth]{figures/inverting_amp.pdf}{Inverting amplifier.}
+
+\answer{
+    Start with the signals and parameters:
+}
+
+\begin{symboltable}{Symbol}{Symbols of Problem 2.A}
+    \sym{v_{in}}{V}{Input voltage}
+    \sym{v_{out}}{V}{Output voltage}
+    \sym{v_1}{V}{Voltage across $R_1$}
+    \sym{v_f}{V}{Voltage across $R_f$}
+    \sym{i_f}{A}{Current through $R_1$ and $R_f$}
+\end{symboltable}
+
+\begin{symboltable}{Parameter}{Parameters of Problem 2.A}
+    \sym{R_1}{$\Omega(\frac{V}{A})$}{Resistance}
+    \sym{R_{f}}{$\Omega(\frac{V}{A})$}{Resistance}
+\end{symboltable}
+
+\answer{
+Symbols:
+    \[ v_{in}(t) = v_{out}(t) + v_f(t) + v_1(t) \]
+    \[ v_-(t) = v_{in} - v_1(t) \]
+    \[ v_-(t) = v_{out}(t) + v_f(t) \]
+    \[ v_1(t) = R_1i_f(t) \]
+    \[ v_f(t) = R_fi_f(t) \]
+}
+
+\answer{
+Introduce parameters: 
+    \[ v_{in} = v_{out} + R_fi_f +  R_1i_f \]
+    \[ v_- = v_{in}  - R_1i_f\]
+}
+
+\answer{
+Transform: 
+    \[ V_{in}(s) = V_{out}(s) + (R_f + R_1)I_f(s) \]
+    \[ V_-(s) = V_{in}(s) - R_1I_f(s) \]
+    \[ V_{out}(s) = -\frac{10^7}{s+1}V_-(s) \]
+}
+
+\answer{
+Substitute: 
+    \[ V_- = -10^{-7}(s+1)V_{out} \]
+    \[ -10^{-7}(s+1)V_{out} = V_{in} - R_1I_f \]
+    \[ R_1I_f = V_{in} + 10^{-7}(s+1)V_{out} \]
+    \[ I_f = \frac{1}{R_1}(V_{in} + 10^{-7}(s+1)V_{out}) \]
+    \[ V_{in} = V_{out} + (R_f+R_1)\frac{1}{R_1}(V_{in} + 10^{-7}(s+1)V_{out}) \]
+    \[ V_{in} = V_{out} + (\frac{R_f}{R_1}+1)(V_{in} + 10^{-7}(s+1)V_{out}) \]
+    \[ V_{in} - (\frac{R_f}{R_1}+1)V_{in} = V_{out} + (\frac{R_f}{R_1}+1)10^{-7}(s+1)V_{out} \]
+    \[ R_1V_{in} - (R_f+R_1)V_{in} = R_1V_{out} + (R_f+R_1)10^{-7}(s+1)V_{out} \]
+    \[ -R_fV_{in} = (R_1 + 10^{-7}(R_f+R_1)(s+1))V_{out} \]
+    \[ G_{amp} = \frac{V_{out}}{V_{in}} = \frac{-R_f}{R_1 + 10^{-7}(R_f+R_1)(s+1)} \]
+    \[ G_{amp} = \frac{V_{out}}{V_{in}} = \frac{-R_f}{10^{-7}(R_f+R_1)s+10^{-7}(R_f+R_1) + R_1} \]
+}
 
 \end{document}
