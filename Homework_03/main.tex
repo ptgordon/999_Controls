@@ -429,7 +429,7 @@ Substitute:
 \problem{2.B.b}{Active Lead Circuit}
 \answerfigure[0.8\linewidth]{figures/active_lead.pdf}{Active lead circuit.}
 
-\begin{symboltable}{Symbol}{Symbols of Problem 2.B.a}
+\begin{symboltable}{Symbol}{Symbols of Problem 2.B.b}
     \sym{v_{in}(t)}{V}{Input voltage}
     \sym{v_{out}(t)}{V}{Output voltage}
     \sym{v_1(t)}{V}{Voltage across $R_1$ and $C$}
@@ -441,7 +441,7 @@ Substitute:
     \sym{i_f(t)}{A}{Current through $R_f$}
 \end{symboltable}
 
-\begin{symboltable}{Parameter}{Parameters of Problem 2.B.a}
+\begin{symboltable}{Parameter}{Parameters of Problem 2.B.b}
     \sym{R_1}{$\Omega(\frac{V}{A})$}{Resistance}
     \sym{R_2}{$\Omega(\frac{V}{A})$}{Resistance}
     \sym{R_f}{$\Omega(\frac{V}{A})$}{Resistance}
@@ -486,18 +486,18 @@ Substitute:
     Combine and substitute:
     \begin{align*}
         -(R_1R_fCs + R_f)V_1(s) &= R_1V_{out} \\
-        V_1(s) &= -\frac{R_1}{R_1R_2Cs - R_f}V_{out}(s)
+        V_1(s) &= -\frac{R_1}{R_f(R_1Cs + 1)}V_{out}(s)
     \end{align*}
 
     \begin{align*}
         V_{in}(s) &= -\frac{R_2}{R_f}V_{out}(s) + V_1(s) \\
-        V_{in}(s) &= -\frac{R_2}{R_f}V_{out}(s) - \frac{R_1}{R_1R_2Cs - R_f}V_{out}(s) \\
-        V_{in}(s) &= -(\frac{R_2}{R_f} + \frac{R_1}{R_1R_2Cs - R_f})V_{out}(s) \\
-        V_{in}(s) &= -\frac{R_2(R_1R_2Cs-R_f) + R_1R_f}{R_f(R_1R_2Cs - R_f)}V_{out}(s)
+        V_{in}(s) &= -\frac{R_2}{R_f}V_{out}(s) - \frac{R_1}{R_f(R_1Cs + 1)}V_{out}(s) \\
+        V_{in}(s) &= -(\frac{R_2}{R_f} + \frac{R_1}{R_f(R_1Cs + 1)})V_{out}(s) \\
+        V_{in}(s) &= -\frac{R_2(R_1Cs + 1) + R_1}{R_f(R_1Cs + 1)}V_{out}(s)
     \end{align*}
 
     \begin{align*}
-        G_b = \frac{V_{out}(s)}{V_{in}(s)} = -\frac{R_f(R_1R_2Cs - R_f)}{R_2(R_1R_2Cs-R_f) + R_1R_f} 
+        G_b = \frac{V_{out}(s)}{V_{in}(s)} = -\frac{R_f(R_1Cs + 1)}{R_2(R_1Cs + 1) + R_1} 
     \end{align*}
 }
 
