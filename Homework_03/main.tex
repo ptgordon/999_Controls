@@ -587,4 +587,41 @@ Substitute:
     \end{align*}
 }
 
+\clearpage
+\problem{3}{Read Head}
+\answer{
+    \begin{align*}
+        I_1\ddot{\theta}_1 + b(\dot{\theta}_1-\dot{\theta}_2) + k(\theta_1 - \theta_2) &= M_C + M_D \\
+        I_2\ddot{\theta}_2 + b(\dot{\theta}_2-\dot{\theta}_1) + k(\theta_2 - \theta_1) &= 0 \\
+    \end{align*}
+
+    Rearrange:
+    \begin{align*}
+        I_2\ddot{\theta}_2 + b\dot{\theta}_2 + k\theta_2 &= b\dot{\theta}_1 + k\theta_1 \\
+        M_C+M_D &= I_1\ddot{\theta}_1 + b\dot{\theta}_1 + k\theta_1 - b\dot{\theta}_2 - k\theta_2
+    \end{align*}
+
+    Frequency Domain:
+    \begin{align*}
+        (I_2s^2 + bs + k)\Theta_2(s) &= (bs + k)\Theta_1(s) \\
+        \Theta_1(s) &= \frac{I_2s^2 + bs + k}{bs+k}\Theta_2(s)
+    \end{align*}
+
+    Frequency Domain 2:
+    \begin{align*}
+        M_C(s) &= (I_1s^2 + bs + k)\Theta_1(s) - (bs + k)\Theta_2(s) \\
+        M_C(s) &= (I_1s^2 + bs + k)\frac{I_2s^2 + bs + k}{bs+k}\Theta_2(s) - (bs + k)\Theta_2(s) \\
+        M_C(s) &= \frac{(I_1s^2 + bs + k)(I_2s^2 + bs + k)}{bs+k}\Theta_2(s) - \frac{(bs + k)^2}{bs + k}\Theta_2(s) \\
+        M_C(s) &= \frac{(I_1s^2 + bs + k)(I_2s^2 + bs + k)-(bs + k)^2}{bs + k}\Theta_2(s) \\
+    \end{align*}
+
+    Collect Terms:
+    \begin{termtable}{4}{}
+        I_1I_2 & I_1b & I_1k & & \\
+         & I_2b & b^2 & bk & \\
+         & & I_2k & bk & k^2 \\
+         & & -b^2 & -2bk & -k^2
+    \end{termtable}
+}
+
 \end{document}
