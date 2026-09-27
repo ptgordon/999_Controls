@@ -515,7 +515,7 @@ Substitute:
 \end{symboltable}
 
 \begin{symboltable}{Parameter}{Parameters of Problem 2.B.c}
-    \sym{R_in}{$\Omega(\frac{V}{A})$}{Resistance}
+    \sym{R_{in}}{$\Omega(\frac{V}{A})$}{Resistance}
     \sym{R_1}{$\Omega(\frac{V}{A})$}{Resistance}
     \sym{R_2}{$\Omega(\frac{V}{A})$}{Resistance}
     \sym{C}{$F(\frac{A \cdot sec}{V})$}{Capacitance}
@@ -581,8 +581,9 @@ Substitute:
         R_{in}(R_1Cs+1)V_{out}(s) &= -(R_1 + R_2(R_1Cs+1))V_{in}(s) \\
     \end{align*}
 
+    Finally, the Transfer function: 
     \begin{align*}
-        G_c = \frac{V_{out}(s)}{V_{in}(s)} &= -\frac{R_{in}(R_1Cs+1)}{R_1 + R_2(R_1Cs+1)}
+        G_c = \frac{V_{out}(s)}{V_{in}(s)} &= -\frac{R_1 + R_2(R_1Cs+1)}{R_{in}(R_1Cs+1)}
     \end{align*}
 }
 
