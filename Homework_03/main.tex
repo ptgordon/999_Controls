@@ -556,6 +556,33 @@ Substitute:
 
     And the second:
     \begin{align*}
+        v_{out}(t) = -v_1(t)-v_2(t) \\
+        v_{out}(t) = -v_1(t)-\frac{R_2}{R_{in}}v_{in}(t) \\
+        R_{in}v_{out}(t) = -R_{in}v_1(t) - R_2v_{in}(t) \\
+    \end{align*}
+
+    Frequency Domain:
+    \begin{align*}
+        R_{in}V_{out}(s) = -R_{in}V_1(s) - R_2V_{in}(s) \\
+        R_1V_{in}(s) = R_{in}(R_1Cs + 1)V_1(s)
+    \end{align*}
+
+    Solve for $V_1(s)$:
+    \begin{align*}
+        R_{in}(R_1Cs + 1)V_1(s) &= R_1V_{in}(s) \\
+        V_1(s) &= \frac{R_1}{R_{in}(R_1Cs + 1)}V_{in}(s) \\
+    \end{align*}
+
+    Plug it back into the first Freq domain question:
+    \begin{align*}
+        R_{in}V_{out}(s) &= -R_{in}V_1(s) - R_2V_{in}(s) \\
+        R_{in}V_{out}(s) &= -R_{in}\frac{R_1}{R_{in}(R_1Cs + 1)}V_{in}(s) - R_2V_{in}(s) \\
+        R_{in}V_{out}(s) &= -(\frac{R_1}{R_1Cs + 1} + R_2)V_{in}(s) \\
+        R_{in}(R_1Cs+1)V_{out}(s) &= -(R_1 + R_2(R_1Cs+1))V_{in}(s) \\
+    \end{align*}
+
+    \begin{align*}
+        G_c = \frac{V_{out}(s)}{V_{in}(s)} &= -\frac{R_{in}(R_1Cs+1)}{R_1 + R_2(R_1Cs+1)}
     \end{align*}
 }
 
