@@ -305,6 +305,7 @@
 \begin{symboltable}{Symbol}{Symbols of Problem 2.A}
     \sym{v_{in}}{V}{Input voltage}
     \sym{v_{out}}{V}{Output voltage}
+    \sym{v_-}{V}{Output voltage}
     \sym{v_1}{V}{Voltage across $R_1$}
     \sym{v_f}{V}{Voltage across $R_f$}
     \sym{i_f}{A}{Current through $R_1$ and $R_f$}
@@ -313,8 +314,10 @@
 \begin{symboltable}{Parameter}{Parameters of Problem 2.A}
     \sym{R_1}{$\Omega(\frac{V}{A})$}{Resistance}
     \sym{R_{f}}{$\Omega(\frac{V}{A})$}{Resistance}
+    \sym{\tau}{$sec$}{Time constant}
 \end{symboltable}
 
+\clearpage
 \answer{
 Symbols:
     \[ v_{in}(t) = v_{out}(t) + v_f(t) + v_1(t) \]
@@ -334,22 +337,25 @@ Introduce parameters:
 Transform: 
     \[ V_{in}(s) = V_{out}(s) + (R_f + R_1)I_f(s) \]
     \[ V_-(s) = V_{in}(s) - R_1I_f(s) \]
-    \[ V_{out}(s) = -\frac{10^7}{s+1}V_-(s) \]
+    \[ V_{out}(s) = -\frac{10^7}{\tau s + 1}V_-(s) \]
 }
 
 \answer{
 Substitute: 
-    \[ V_- = -10^{-7}(s+1)V_{out} \]
-    \[ -10^{-7}(s+1)V_{out} = V_{in} - R_1I_f \]
-    \[ R_1I_f = V_{in} + 10^{-7}(s+1)V_{out} \]
-    \[ I_f = \frac{1}{R_1}(V_{in} + 10^{-7}(s+1)V_{out}) \]
-    \[ V_{in} = V_{out} + (R_f+R_1)\frac{1}{R_1}(V_{in} + 10^{-7}(s+1)V_{out}) \]
-    \[ V_{in} = V_{out} + (\frac{R_f}{R_1}+1)(V_{in} + 10^{-7}(s+1)V_{out}) \]
-    \[ V_{in} - (\frac{R_f}{R_1}+1)V_{in} = V_{out} + (\frac{R_f}{R_1}+1)10^{-7}(s+1)V_{out} \]
-    \[ R_1V_{in} - (R_f+R_1)V_{in} = R_1V_{out} + (R_f+R_1)10^{-7}(s+1)V_{out} \]
-    \[ -R_fV_{in} = (R_1 + 10^{-7}(R_f+R_1)(s+1))V_{out} \]
-    \[ G_{amp} = \frac{V_{out}}{V_{in}} = \frac{-R_f}{R_1 + 10^{-7}(R_f+R_1)(s+1)} \]
-    \[ G_{amp} = \frac{V_{out}}{V_{in}} = \frac{-R_f}{10^{-7}(R_f+R_1)s+10^{-7}(R_f+R_1) + R_1} \]
+    \[ V_- = -10^{-7}(\tau s + 1)V_{out} \]
+    \[ -10^{-7}(\tau s + 1)V_{out} = V_{in} - R_1I_f \]
+    \[ R_1I_f = V_{in} + 10^{-7}(\tau s + 1)V_{out} \]
+    \[ I_f = \frac{1}{R_1}(V_{in} + 10^{-7}(\tau s + 1)V_{out}) \]
+    \[ V_{in} = V_{out} + (R_f+R_1)\frac{1}{R_1}(V_{in} + 10^{-7}(\tau s + 1)V_{out}) \]
+    \[ V_{in} = V_{out} + (\frac{R_f}{R_1}+1)(V_{in} + 10^{-7}(\tau s + 1)V_{out}) \]
+    \[ V_{in} - (\frac{R_f}{R_1}+1)V_{in} = V_{out} + (\frac{R_f}{R_1}+1)10^{-7}(\tau s + 1)V_{out} \]
+    \[ R_1V_{in} - (R_f+R_1)V_{in} = R_1V_{out} + (R_f+R_1)10^{-7}(\tau s + 1)V_{out} \]
+    \[ -R_fV_{in} = (R_1 + 10^{-7}(R_f+R_1)(\tau s + 1))V_{out} \]
+    \[ G_{amp} = \frac{V_{out}}{V_{in}} = \frac{-R_f}{R_1 + 10^{-7}(R_f+R_1)(\tau s + 1)} \]
+    \[ G_{amp} = \frac{V_{out}}{V_{in}} = \frac{-R_f}{10^{-7}(R_f+R_1)\tau s + 10^{-7}(R_f+R_1) + R_1} \]
+
+    Units:
+    \[ \frac{\Omega}{\Omega \cdot sec \cdot sec^{-1} + \Omega + \Omega} \]
 }
 
 \clearpage
@@ -642,6 +648,13 @@ Substitute:
     Combine and produce output:
     \begin{align*}
         G_C(s) = \frac{\Theta_2(s)}{M_C(s)} = \frac{bs + k}{I_1I_2s^4 + (I_1 + I_2)bs^3 + (I_1 + I_2)ks^2}
+    \end{align*}
+
+    Units:
+    \begin{align*}
+        G_C(s) = \frac{rad}{N \cdot m} &= \frac{\frac{N \cdot m \cdot sec}{rad}sec^{-1} + \frac{N \cdot m}{rad}}{\frac{N \cdot m \cdot sec^2}{rad}\frac{N \cdot m \cdot sec^2}{rad}sec^{-4} + \frac{N \cdot m \cdot sec^2}{rad}\frac{N \cdot m \cdot sec}{rad}sec^{-3} + \frac{N \cdot m \cdot sec^2}{rad}\frac{N \cdot m}{rad}sec^{-2}} \\
+                              &= \frac{\frac{N \cdot m}{rad}}{\frac{N^2 \cdot m^2}{rad^2}} \\
+                              &= \frac{rad}{N \cdot m}
     \end{align*}
 }
 
