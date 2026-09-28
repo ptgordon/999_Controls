@@ -589,7 +589,22 @@ Substitute:
 
 \clearpage
 \problem{3}{Read Head}
+\begin{symboltable}{Symbol}{Symbols of Problem 2.C}
+    \sym{\theta_1(t)}{$\frac{rad}{sec}$}{Angular position of motor}
+    \sym{\theta_2(t)}{$\frac{rad}{sec}$}{Angular position of read head}
+    \sym{M_c(t)}{$N \cdot m$}{Command torque (moment)}
+    \sym{M_D(t)}{$N \cdot m$}{Disturbance torque (e.g. friction)}
+\end{symboltable}
+
+\begin{symboltable}{Parameter}{Parameters of Problem 2.C}
+    \sym{I_1}{$\frac{N \cdot m \cdot sec^2}{rad}$}{rotational inertia of motor}
+    \sym{I_2}{$\frac{N \cdot m \cdot sec^2}{rad}$}{rotational inertia of head}
+    \sym{b}{$\frac{N \cdot m \cdot sec}{rad}$}{damping coefficient of flexible shaft}
+    \sym{k}{$\frac{N \cdot m}{rad}$}{spring coefficient of flexible shaft}
+\end{symboltable}
+
 \answer{
+    Characteristic equations (given by problem):
     \begin{align*}
         I_1\ddot{\theta}_1 + b(\dot{\theta}_1-\dot{\theta}_2) + k(\theta_1 - \theta_2) &= M_C + M_D \\
         I_2\ddot{\theta}_2 + b(\dot{\theta}_2-\dot{\theta}_1) + k(\theta_2 - \theta_1) &= 0 \\
@@ -607,7 +622,7 @@ Substitute:
         \Theta_1(s) &= \frac{I_2s^2 + bs + k}{bs+k}\Theta_2(s)
     \end{align*}
 
-    Frequency Domain 2:
+    Frequency Domain of second equation:
     \begin{align*}
         M_C(s) &= (I_1s^2 + bs + k)\Theta_1(s) - (bs + k)\Theta_2(s) \\
         M_C(s) &= (I_1s^2 + bs + k)\frac{I_2s^2 + bs + k}{bs+k}\Theta_2(s) - (bs + k)\Theta_2(s) \\
