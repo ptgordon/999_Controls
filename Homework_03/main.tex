@@ -294,6 +294,16 @@
 \matlabcode{./hw_03_01.m}
 \answerfigure{figures/hw_03_01.pdf}{Step response of the cruise control system under P, PI, and PID control.}
 
+\answer{
+    The fastest 10-90 rise time was the PI controller. The PID controller had a lower slope than the P controller, but it started at .5, so it reached .9 faster.
+
+    The P controller had the least overshoot (it had none!), while the PI controller had the most.
+
+    The PI and PID controllers both settled to essentially 0 error, while the P controller had a significant steady state error.
+
+    One important note is that many of these answers may have changed with proper tuning, though the steady state error of the P controller could not be improved.
+}
+
 \clearpage
 \problem{2.A}{Realistic Op Amp}
 \answerfigure[0.7\linewidth]{figures/inverting_amp.pdf}{Inverting amplifier.}
