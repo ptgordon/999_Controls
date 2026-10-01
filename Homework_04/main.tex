@@ -290,8 +290,23 @@
 %------------------------------------------------------------------------------
 
 \clearpage
-\problem{1}{}
+\problem{1.A}{Equations of Motion}
 \prompt{}
-\answer{}
+\answerfigure[0.6\linewidth]{figures/motor_two_inertia.png}{DC motor driving a load inertia $J_2$}
+\answer{
+    Electrical side:
+    \begin{align*}
+        v_a(t) &= v_L(t) + v_R(t) + v_{J_1}(t) \\
+        v_L(t) &= L_a\dot{i}_a(t) \\
+        v_R(t) &= R_ai_a(t) \\
+        v_m(t) &= K_e\dot{\theta}_1(t)
+    \end{align*}
+
+    Motor:
+    \begin{align*}
+        M_c\ddot{\theta}_1(t) &= T_{net.J_1}(t) \\
+        T_m(t) &= k_ti_a(t) \\
+    \end{align*}
+}
 
 \end{document}
