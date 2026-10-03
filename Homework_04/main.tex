@@ -27,6 +27,7 @@
 \usepackage{cancel}
 \usepackage{array}
 \usepackage{graphicx}
+\usepackage[american]{circuitikz}
 \usepackage{xcolor}
 \usepackage{listings}
 \usepackage{fancyhdr}
@@ -290,7 +291,7 @@
 %------------------------------------------------------------------------------
 
 \clearpage
-\problem{1.A}{Equations of Motion}
+\problem{A.1}{Equations of Motion}
 \prompt{}
 \answerfigure[0.6\linewidth]{figures/motor_two_inertia.png}{DC motor driving a load inertia $J_2$}
 \answer{
@@ -332,5 +333,52 @@
         M_{load}\ddot{\theta}_2(t) + b\dot{\theta}_2(t) + k\theta_2(t) &= k\theta_1(t) + b\dot{\theta}_1(t) \\
     \end{align*}
 }
+
+\problem{A.2}{Electrical Circuit Model}
+\prompt{}
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}
+    \draw (0,0) to[V, l=$v_a$, invert] (0,3)
+      to[short, i=$i_a$] (1.5,3)
+      to[L, l=$L_a$, v_=$v_L$] (3.5,3)
+      -- (4.5,3)
+      to[R, l=$R_a$, v_=$v_R$] (6.5,3)
+      -- (7.5,3)
+      to[V, l=$v_m$] (7.5,0) -- (0,0);
+  \end{circuitikz}
+  \caption{Electrical Circuit Model}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \begin{minipage}[b]{0.48\linewidth}
+    \centering
+    \begin{tikzpicture}[>=stealth, thick]
+      \draw (0,0) circle (2.7);
+      \fill (0,0) circle (1.5pt) node[below] {$J_1$};
+      % T_b: clockwise about the centre
+      \draw[->, red!80!black] (145:2.2) arc (145:35:2.2) node[midway, below] {$T_b(t)$};
+      % T_k: clockwise about the centre
+      \draw[->, red!80!black] (145:1.5) arc (145:35:1.5) node[midway, below] {$T_k(t)$};
+      % T_e: counterclockwise about the centre
+      \draw[->, red!80!black] (35:0.8) arc (35:145:0.8) node[midway, below] {$T_e(t)$};
+      % T_B: clockwise around the outside
+      \draw[->, red!80!black] (150:3.2) arc (150:30:3.2) node[midway, above] {$T_B(t)$};
+    \end{tikzpicture}
+    \caption{Free Body Diagram of Rotor}
+  \end{minipage}\hfill
+  \begin{minipage}[b]{0.48\linewidth}
+    \centering
+    \begin{tikzpicture}[>=stealth, thick]
+      \draw (0,0) circle (2.7);
+      \fill (0,0) circle (1.5pt) node[below] {$J_2$};
+      % T_b, T_k: counterclockwise about the centre
+      \draw[->, red!80!black] (35:2.2) arc (35:145:2.2) node[midway, below] {$T_b(t)$};
+      \draw[->, red!80!black] (35:1.5) arc (35:145:1.5) node[midway, below] {$T_k(t)$};
+    \end{tikzpicture}
+    \caption{Free Body Diagram of Load}
+  \end{minipage}
+\end{figure}
+\answer{}
 
 \end{document}
