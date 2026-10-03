@@ -294,48 +294,6 @@
 \problem{A.1}{Equations of Motion}
 \prompt{}
 \answerfigure[0.6\linewidth]{figures/motor_two_inertia.png}{DC motor driving a load inertia $J_2$}
-\answer{
-    Electrical side:
-    \begin{align*}
-        v_a(t) &= v_L(t) + v_R(t) + v_{J_1}(t) \\
-        v_L(t) &= L_a\dot{i}_a(t) \\
-        v_R(t) &= R_ai_a(t) \\
-        v_m(t) &= K_e\dot{\theta}_1(t)
-    \end{align*}
-
-    Rotor:
-    \begin{align*}
-        M_c\ddot{\theta}_1(t) = T_{net.J_1}(t) &= T_e(t)-T_B(t)-T_k(t)-T_b(t) \\
-        T_e(t) &= K_ti_a(t) \\
-        T_B(t) &= B\dot{\theta}_1(t) \\
-        T_k(t) &= k(\theta_1-\theta_2) \\
-        T_b(t) &= b(\dot{\theta}_1-\dot{\theta}_2) \\
-    \end{align*}
-
-    Load:
-    \begin{align*}
-        M_{load}\ddot{\theta}_2(t) = T_{net.J_2}(t) &= T_b(t) + T_k(t) \\
-    \end{align*}
-
-    \clearpage
-    Standard Forms
-    \begin{align*}
-        v_a(t) &= L_a\dot{i}_a(t) + R_ai_a(t) + K_e\dot{\theta}_1(t) \\
-    \end{align*}
-
-    \begin{align*}
-        M_c\ddot{\theta}_1(t) &= K_ti_a(t) - B\dot{\theta}_1(t) - k(\theta_1-\theta_2) - b(\dot{\theta}_1-\dot{\theta}_2) \\
-        M_c\ddot{\theta}_1(t) + B\dot{\theta}_1(t) + b\dot{\theta}_1 + k\theta_1(t) &= K_ti_a(t) + k\theta_2 + b\dot{\theta}_2 \\
-    \end{align*}
-
-    \begin{align*}
-        M_{load}\ddot{\theta}_2(t) &= k(\theta_1(t)-\theta_2(t)) + b(\dot{\theta}_1(t)-\dot{\theta}_2(t)) \\
-        M_{load}\ddot{\theta}_2(t) + b\dot{\theta}_2(t) + k\theta_2(t) &= k\theta_1(t) + b\dot{\theta}_1(t) \\
-    \end{align*}
-}
-
-\problem{A.2}{Electrical Circuit Model}
-\prompt{}
 \begin{figure}[H]
   \centering
   \begin{circuitikz}
@@ -379,6 +337,48 @@
     \caption{Free Body Diagram of Load}
   \end{minipage}
 \end{figure}
+\answer{
+    Electrical side:
+    \begin{align*}
+        v_a(t) &= v_L(t) + v_R(t) + v_m(t) \\
+        v_L(t) &= L_a\dot{i}_a(t) \\
+        v_R(t) &= R_ai_a(t) \\
+        v_m(t) &= K_e\dot{\theta}_1(t)
+    \end{align*}
+
+    Rotor:
+    \begin{align*}
+        J_1\ddot{\theta}_1(t) = T_{net.J_1}(t) &= T_e(t)-T_B(t)-T_k(t)-T_b(t) \\
+        T_e(t) &= K_ti_a(t) \\
+        T_B(t) &= B\dot{\theta}_1(t) \\
+        T_k(t) &= k(\theta_1-\theta_2) \\
+        T_b(t) &= b(\dot{\theta}_1-\dot{\theta}_2) \\
+    \end{align*}
+
+    Load:
+    \begin{align*}
+        J_2\ddot{\theta}_2(t) = T_{net.J_2}(t) &= T_b(t) + T_k(t) \\
+    \end{align*}
+
+    Standard Forms
+    \begin{align*}
+        v_a(t) &= L_a\dot{i}_a(t) + R_ai_a(t) + K_e\dot{\theta}_1(t) \\
+    \end{align*}
+
+    \begin{align*}
+        J_1\ddot{\theta}_1(t) &= K_ti_a(t) - B\dot{\theta}_1(t) - k(\theta_1-\theta_2) - b(\dot{\theta}_1-\dot{\theta}_2) \\
+        J_1\ddot{\theta}_1(t) + B\dot{\theta}_1(t) + b\dot{\theta}_1 + k\theta_1(t) &= K_ti_a(t) + k\theta_2 + b\dot{\theta}_2 \\
+    \end{align*}
+
+    \begin{align*}
+        J_2\ddot{\theta}_2(t) &= k(\theta_1(t)-\theta_2(t)) + b(\dot{\theta}_1(t)-\dot{\theta}_2(t)) \\
+        J_2\ddot{\theta}_2(t) + b\dot{\theta}_2(t) + k\theta_2(t) &= k\theta_1(t) + b\dot{\theta}_1(t) \\
+    \end{align*}
+}
+
+\clearpage
+\problem{A.2}{Electrical Circuit Model}
+\prompt{}
 \answer{}
 
 \end{document}
