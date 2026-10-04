@@ -379,6 +379,66 @@
 \clearpage
 \problem{A.2}{Electrical Circuit Model}
 \prompt{}
-\answer{}
+\begin{answertable}{|c|c|c|c|}{Firestone analogy: signal and unit correspondence.}
+  \hline
+  Mechanical & Units & Electrical & Units \\ \hline\hline
+  $\dot{\theta}(t) = v(t)$ & rad/s & Voltage & V \\ \hline
+  $T(t) = i(t)$ & N$\cdot$m & Current & A \\ \hline
+  $J = C$ & kg$\cdot$m$^2$ & Capacitance & F \\ \hline
+  $B = 1/R$ & N$\cdot$m$\cdot$s/rad & Conductance & S \\ \hline
+  $k = 1/L$ & N$\cdot$m/rad & Inverse inductance & 1/H \\ \hline
+\end{answertable}
+\begin{answertable}{|c|c|}{Element laws under the Firestone analogy.}
+  \hline
+  Mechanical & Electrical \\ \hline\hline
+  $T = J\ddot{\theta}$ & $i = C\dot{v}$ \\ \hline
+  $T = B\dot{\theta}$ & $i = v/R$ \\ \hline
+  $T = k\theta = k\int\dot{\theta}\,dt$ & $i = \frac{1}{L}\int v\,dt$ \\ \hline
+\end{answertable}
+
+\answer{
+    Current equation for the first inertia:
+    \begin{align*}
+        J_1\ddot{\theta}_1(t) &= K_ti_a(t) - B\dot{\theta}_1(t) - k(\theta_1-\theta_2) - b(\dot{\theta}_1-\dot{\theta}_2) \\
+        k_ti_a(t) &= J_1\ddot{\theta}_1(t) + B\dot{\theta}_1(t) + k(\theta_1-\theta_2) + b(\dot{\theta}_1-\dot{\theta}_2) \\
+                  &= C_1\dot{v}_1(t) + \frac{1}{R_B}v_1(t) + \frac{1}{L_k}(\int v_1(t) - \int v_2(t)) + \frac{1}{R_b}(v_1(t) - v_2(t))
+    \end{align*}
+
+    and for the second:
+    \begin{align*}
+        J_2\ddot{\theta}_2(t) &= k(\theta_1(t)-\theta_2(t)) + b(\dot{\theta}_1(t)-\dot{\theta}_2(t)) \\
+        J_2\ddot{\theta}_2(t) &= \frac{1}{L_k}(\int v_1(t) - \int v_2(t)) + \frac{1}{R_b}(v_1(t) - v_2(t)) \\
+    \end{align*}
+
+}
+\begin{figure}[H]
+  \centering
+  \begin{circuitikz}
+    % node 1: motor torque source, rotor inertia, bearing friction
+    \draw (0,0) to[I, l=${T_e = K_ti_a}$] (0,4)
+      -- (2.7,4) to[C, l_=${C_1 = J_1}$] (2.7,0);
+    \draw (2.7,4) -- (6,4) to[R, l_=${R_B = 1/B}$] (6,0);
+    % shaft: damper and spring in parallel between the two nodes
+    \draw (6,4) -- (8,4) to[R, l^=${R_b = 1/b}$] (11.3,4);
+    \draw (8,4) -- (8,6.5)
+      to[L, l=${L_k = 1/k}$] (11.3,6.5) -- (11.3,4);
+    % node 2: load inertia
+    \draw (11.3,4) -- (12.3,4) to[C, l=${C_2 = J_2}$] (12.3,0);
+    % reference node: zero velocity
+    \draw (0,0) -- (12.3,0);
+    \draw (6,0) node[ground]{};
+    \draw (8,4) node[circ]{} node[above left]{$v_1 = \dot{\theta}_1$};
+    \draw (11.3,4) node[circ]{} node[above right]{$v_2 = \dot{\theta}_2$};
+    % branch currents, drawn by hand so the arrows can be blue
+    \begin{scope}[blue]
+      \draw (2.7,3.3) node[currarrow, rotate=-90]{} node[right=2pt]{$i_{C_1} = T_{net.J_1}$};
+      \draw (6,3.3) node[currarrow, rotate=-90]{} node[right=2pt]{$i_{R_B} = T_B$};
+      \draw (8.7,4) node[currarrow]{} node[below=2pt]{$i_{R_b} = T_b$};
+      \draw (8,5.25) node[currarrow, rotate=90]{} node[right=2pt]{$i_{L_k} = T_k$};
+      \draw (12.3,3.3) node[currarrow, rotate=-90]{} node[left=2pt]{$i_{C_2} = T_{net.J_2}$};
+    \end{scope}
+  \end{circuitikz}
+  \caption{Firestone analogous circuit, with branch currents}
+\end{figure}
 
 \end{document}
