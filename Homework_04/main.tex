@@ -453,4 +453,51 @@
     Noting that $K_t$ is the motor torque constant with units of $\frac{N \cdot m}{A}$, so the amps cancel, and radians are eliminated as being unitless.
 }
 
+\clearpage
+\problem{C.2}{Linearization}
+\answer{
+    Equation given in problem:
+    \begin{equation}
+        \begin{split}
+            q(t) &= 20 \frac{e^{x(t)/15} - 1}{e^{x(t)/15}+1}        
+        \end{split}
+    \end{equation}
+
+    Linearization equations: 
+    \begin{gather}
+        q(t) = f(x(t))  \\
+        x(t) = x_0 + \delta x(t) \\
+        q(t) = q_0 + \delta q(t) \\
+        \delta q(t) \simeq K_{xq}\delta x(t) \\
+        q(t) \simeq q_0 + K_{xq}\delta x(t)
+    \end{gather}
+
+    To find $\delta x(t)$, take the dervative
+    \begin{equation}
+        \begin{gathered}
+            u(t) = e^{x(t)/15} - 1 \\
+            \dot{u}(t) = \frac{1}{15}e^{x(t)/15}
+        \end{gathered}
+    \end{equation}
+
+    \begin{equation}
+        \begin{gathered}
+            v(t) = e^{x(t)/15} + 1 \\
+            \dot{v}(t) = \frac{1}{15}e^{x(t)/15}
+        \end{gathered}
+    \end{equation}
+
+    \begin{equation}
+        q(t) = 20 \frac{u(t)}{v(t)} 
+    \end{equation}
+
+    \begin{align*}
+        \dot{q}(t) &= 20 \frac{v\dot{u} - u\dot{v}}{v^2} \\
+        \dot{q}(t) &= 20 \frac{\frac{1}{15}e^{x/15}(e^{x/15}+1) - \frac{1}{15}e^{x/15}(e^{x/15} - 1)}{(e^{x/15}+1)^2} \\
+        \dot{q}(t) &= \frac{4}{3} \frac{2e^{x/15}}{(e^{x/15} + 1)^2}
+    \end{align*}
+}
+
+
+
 \end{document}
