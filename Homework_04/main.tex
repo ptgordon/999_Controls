@@ -446,11 +446,11 @@
 \answer{
     \begin{align*}
         J_m\ddot{\theta}_m + b\dot{\theta}_m &= K_ti_a \\
-        (kg \cdot m^2)(\frac{rad}{s^2}) + (\frac{N \cdot m \cdot s}{rad})(\frac{rad}{s}) &= A = N \cdot m \\
-        (N \cdot m \cdot \cancel{s^2})(\cancel{\frac{rad}{s^2}}) + (\frac{N \cdot m \cdot \cancel{s}}{\cancel{rad}})(\cancel{\frac{rad}{s}}) &= A = N \cdot m
+        (kg \cdot m^2)(\frac{rad}{s^2}) + (\frac{N \cdot m \cdot s}{rad})(\frac{rad}{s}) &= (\frac{N \cdot m}{A})(A) \\
+        (N \cdot m \cdot \cancel{s^2})(\cancel{\frac{rad}{s^2}}) + (\frac{N \cdot m \cdot \cancel{s}}{\cancel{rad}})(\cancel{\frac{rad}{s}}) &= (\frac{N \cdot m}{\cancel{A}})(\cancel{A}) = N \cdot m
     \end{align*}
 
-    Using the conversion table from the problem above, noting that $K_t$ is unitless, amps converts to $N \cdot m$, and radians are eliminated as being unitless.
+    Noting that $K_t$ is the motor torque constant with units of $\frac{N \cdot m}{A}$, so the amps cancel, and radians are eliminated as being unitless.
 }
 
 \end{document}
