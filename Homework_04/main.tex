@@ -456,7 +456,7 @@
 \clearpage
 \problem{C.1}{Matlab}
 \matlabcode{hw_04_C1.m}
-\answerfigure[0.75\linewidth]{figures/hw_04_C1.pdf}{Plot of $q(t) = 20 \frac{\exp^{x(t)/15}-1}{\exp^{x(t)/15}+1}$}
+\answerfigure[0.75\linewidth]{figures/hw_04_C1.pdf}{Plot of $q(t) = 20 \frac{e^{x(t)/15}-1}{e^{x(t)/15}+1}$}
 
 \problem{C.2}{Linearization}
 \answer{
@@ -474,30 +474,30 @@
         q(t) = q_0 + \delta q(t) \\
         \delta q(t) \simeq K_{xq}\delta x(t) \\
         q(t) \simeq q_0 + K_{xq}\delta x(t) \\
-        K_{xq} = \dot{q}(t)
+        K_{xq} = \left.\frac{dq}{dx}\right|_{x = x_0}
     \end{gather}
 
     To find $K_{xq}$, take the derivative of q with respect to x:
     \begin{equation}
         \begin{gathered}
-            u(t) = e^{x(t)/15} - 1 \\
-            u'(t) = \frac{1}{15}e^{x(t)/15}
+            u(x) = e^{x/15} - 1 \\
+            u'(x) = \frac{du}{dx} = \frac{1}{15}e^{x/15}
         \end{gathered}
     \end{equation}
 
     \begin{equation}
         \begin{gathered}
-            v(t) = e^{x(t)/15} + 1 \\
-            v'(t) = \frac{1}{15}e^{x(t)/15}
+            v(x) = e^{x/15} + 1 \\
+            v'(x) = \frac{dv}{dx} = \frac{1}{15}e^{x/15}
         \end{gathered}
     \end{equation}
 
     \begin{equation}
-        q(t) = 20 \frac{u(t)}{v(t)} 
+        q(x) = 20 \frac{u(x)}{v(x)}
     \end{equation}
 
     \begin{align*}
-        K_{xq} &= 20 \frac{v\dot{u} - u\dot{v}}{v^2} \\
+        K_{xq} &= 20 \frac{v u' - u v'}{v^2} \\
         K_{xq} &= 20 \frac{\frac{1}{15}e^{x/15}(e^{x/15}+1) - \frac{1}{15}e^{x/15}(e^{x/15} - 1)}{(e^{x/15}+1)^2} \\
         K_{xq} &= \frac{4}{3} \frac{2e^{x/15}}{(e^{x/15} + 1)^2}
     \end{align*}
