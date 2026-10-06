@@ -401,7 +401,7 @@
     \begin{align*}
         J_1\ddot{\theta}_1(t) &= K_ti_a(t) - B\dot{\theta}_1(t) - k(\theta_1-\theta_2) - b(\dot{\theta}_1-\dot{\theta}_2) \\
         k_ti_a(t) &= J_1\ddot{\theta}_1(t) + B\dot{\theta}_1(t) + k(\theta_1-\theta_2) + b(\dot{\theta}_1-\dot{\theta}_2) \\
-        I_e(t) &= C_1\dot{v}_1(t) + \frac{1}{R_B}v_1(t) + \frac{1}{L_k}(\int v_1(t) - \int v_2(t)) + \frac{1}{R_b}(v_1(t) - v_2(t))
+                  &= C_1\dot{v}_1(t) + \frac{1}{R_B}v_1(t) + \frac{1}{L_k}(\int v_1(t) - \int v_2(t)) + \frac{1}{R_b}(v_1(t) - v_2(t))
     \end{align*}
 
     and for the second:
@@ -415,7 +415,7 @@
   \centering
   \begin{circuitikz}
     % node 1: motor torque source, rotor inertia, bearing friction
-    \draw (0,0) to[I, l=${T_e = I_e}$] (0,4)
+    \draw (0,0) to[I, l=${T_e = K_ti_a}$] (0,4)
       -- (2.7,4) to[C, l_=${C_1 = J_1}$] (2.7,0);
     \draw (2.7,4) -- (6,4) to[R, l_=${R_B = 1/B}$] (6,0);
     % shaft: damper and spring in parallel between the two nodes
@@ -458,66 +458,12 @@
 \matlabcode{hw_04_C1.m}
 \answerfigure[0.75\linewidth]{figures/hw_04_C1.pdf}{Plot of $q(t) = 20 \frac{\exp^{x(t)/15}-1}{\exp^{x(t)/15}+1}$}
 
-\problem{C.2}{Linearization}
+\problem{C.2.a}{Linearization}
 \answer{
-    Equation given in problem:
-    \begin{equation}
-        \begin{split}
-            q(t) &= 20 \frac{e^{x(t)/15} - 1}{e^{x(t)/15}+1}        
-        \end{split}
-    \end{equation}
-
-    Linearization equations: 
-    \begin{gather}
-        q(t) = f(x(t))  \\
-        x(t) = x_0 + \delta x(t) \\
-        q(t) = q_0 + \delta q(t) \\
-        \delta q(t) \simeq K_{xq}\delta x(t) \\
-        q(t) \simeq q_0 + K_{xq}\delta x(t) \\
-        K_{xq} = \dot{q}(t)
-    \end{gather}
-
-    To find $K_{xq}$, take the derivative of q with respect to x:
-    \begin{equation}
-        \begin{gathered}
-            u(t) = e^{x(t)/15} - 1 \\
-            u'(t) = \frac{1}{15}e^{x(t)/15}
-        \end{gathered}
-    \end{equation}
-
-    \begin{equation}
-        \begin{gathered}
-            v(t) = e^{x(t)/15} + 1 \\
-            v'(t) = \frac{1}{15}e^{x(t)/15}
-        \end{gathered}
-    \end{equation}
-
-    \begin{equation}
-        q(t) = 20 \frac{u(t)}{v(t)} 
-    \end{equation}
-
     \begin{align*}
-        K_{xq} &= 20 \frac{v\dot{u} - u\dot{v}}{v^2} \\
-        K_{xq} &= 20 \frac{\frac{1}{15}e^{x/15}(e^{x/15}+1) - \frac{1}{15}e^{x/15}(e^{x/15} - 1)}{(e^{x/15}+1)^2} \\
-        K_{xq} &= \frac{4}{3} \frac{2e^{x/15}}{(e^{x/15} + 1)^2}
+        q(t) &= q_0 + \delta{u}(t) \\
+        x(t) &= x_0 + \delta{x}(t)
     \end{align*}
 }
-
-\matlabcode{hw_C_2.m}
-\codeoutput{output/hw_C_2.txt}
-
-\clearpage
-\problem{C.2.a}{20 degrees}
-\answer{
-    \[q_{20}(t) = 11.656 + .4402 \cdot \delta x_{20}(t) \]
-}
-
-\problem{C.2.b}{60 degrees}
-\answer{
-    \[q_{60}(t) = 19.281 + .0471 \cdot \delta x_{60}(t) \]
-}
-
-\problem{C.2 appendix}{Verification}
-\answerfigure[0.75\linewidth]{figures/hw_04_C2_tangents.pdf}{Valve flow with the tangent lines (linearizations) at $x_0 = 20^\circ$ and $x_0 = 60^\circ$}
 
 \end{document}
