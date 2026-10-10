@@ -317,4 +317,26 @@
     \end{gather}
 }
 
+\problem {1.C.1}{Transfer function}
+\answer{
+    \begin{gather}
+        Y(s) = \frac{b_1}{s+a_1} U(s) \\
+        U(s) = \frac{k_ps + k_i}{s} E(s) \\
+        E(s) = R(s) - Y(s) \\
+        Y(s) = \frac{b_1(k_ps + k_i)}{s^2 + a_1s}E(s)
+    \end{gather}
+
+    \begin{align}
+        Y(s) &= \frac{b_1(k_ps + k_i)}{s^2 + a_1s}(R(s) - Y(s)) \\
+        \left(1 + \frac{b_1(k_ps + k_i)}{s^2 + a_1s}\right)Y(s) &= \frac{b_1(k_ps + k_i)}{s^2 + a_1s}R(s) \\
+        \frac{s^2 + (a_1 + b_1k_p)s + b_1k_i}{s^2 + a_1s}Y(s) &= \frac{b_1(k_ps + k_i)}{s^2 + a_1s}R(s) \\
+        Y(s) &= \frac{b_1k_ps + b_1k_i}{s^2 + (a_1 + b_1k_p)s + b_1k_i}R(s)
+    \end{align}
+
+    \begin{gather}
+        T_{ry3}(s) = \frac{Y(s)}{R(s)} = \frac{b_1k_ps + b_1k_i}{s^2 + (a_1 + b_1k_p)s + b_1k_i}
+    \end{gather}
+}
+
+
 \end{document}
