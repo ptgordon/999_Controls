@@ -291,8 +291,30 @@
 %------------------------------------------------------------------------------
 
 \clearpage
-\problem{1}{}
-\prompt{}
-\answer{}
+\problem{1.A}{Transfer function}
+\answer{
+    \begin{gather}
+        U(s) = k_p R(s) \\
+        Y(s) = \frac{b_1}{s+a_1} U(s) \\
+        Y(s) = \frac{k_pb_1}{s + a_1} R(s)
+    \end{gather}
+
+    \begin{gather}
+        G_{ry1}(s) = \frac{Y(s)}{R(s)} = \frac{k_pb_1}{s + a_1}
+    \end{gather}
+}
+
+\problem{1.B}{Transfer function}
+\answer{
+    \begin{gather}
+        Y(s) = \frac{b_1}{s+a_1} U(s) \\
+        U(s) = \frac{k_ps + k_i}{s} R(s) \\
+        Y(s) = \frac{b_1(k_ps + k_i)}{s^2 + a_1s}R(s)
+    \end{gather}
+
+    \begin{gather}
+        G_{ry2}(s) = \frac{Y(s)}{R(s)} = \frac{b_1(k_ps + k_i)}{s^2 + a_1s}
+    \end{gather}
+}
 
 \end{document}
