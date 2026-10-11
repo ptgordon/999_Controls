@@ -4,7 +4,7 @@ end
 
 b_1 = 3;
 a_1 = 2;
-k_p = 1;
+k_p = 1.6;
 k_i = 5;
 
 num = [b_1*k_p, b_1*k_i];
@@ -19,4 +19,8 @@ figure;
 step(T_ry);
 grid on;
 title("Step response of T_{Ry3}(s)");
-print('-dpng', 'figures/C4_step.png')
+
+[yy, tt] = step(T_ry);
+
+T_ry_overshoot = max(yy) - 1
+
