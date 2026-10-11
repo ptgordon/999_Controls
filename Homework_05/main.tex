@@ -128,6 +128,30 @@
   \end{figure}%
 }
 
+% \splane{G_1(s)}  -- an empty s-plane grid to sketch poles (x) and zeros (o)
+% on by hand. One unit per square, Re from -10 to 3 and Im from -4 to 4.
+% \splane[5]{G_2(s)} instead centres the origin, both axes running -5 to 5.
+\newcommand{\splane}[2][]{%
+  \ifx\relax#1\relax
+    \def\spxmin{-10}\def\spxmax{3}\def\spymax{4}\def\spxlabels{-10,-8,...,2}\def\spylabels{-4,-2,2,4}\def\spscale{1}%
+  \else
+    \def\spxmin{-#1}\def\spxmax{#1}\def\spymax{#1}\def\spxlabels{-#1,...,-1,1,2,...,#1}\def\spylabels{-#1,...,-1,1,2,...,#1}\def\spscale{0.85}%
+  \fi
+  \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale=\spscale]
+      \draw[gray!30, thin] (\spxmin,-\spymax) grid (\spxmax,\spymax);
+      \draw[->, thick] (\spxmin-0.3,0) -- (\spxmax+0.4,0) node[right] {$\mathrm{Re}$};
+      \draw[->, thick] (0,-\spymax-0.3) -- (0,\spymax+0.4) node[above] {$\mathrm{Im}$};
+      \foreach \x in \spxlabels
+        \node[below, font=\scriptsize, fill=white, inner sep=1pt] at (\x,-0.05) {$\x$};
+      \foreach \y in \spylabels
+        \node[left, font=\scriptsize, fill=white, inner sep=1pt] at (-0.05,\y) {$\y j$};
+    \end{tikzpicture}
+    \caption{Pole-zero sketch of $#2$.}
+  \end{figure}%
+}
+
 %--- tables -------------------------------------------------------------------
 % Centred paragraph column, so a description column wraps instead of running
 % off the page:  \begin{tabular}{|c|P{0.5\linewidth}|}
@@ -372,6 +396,14 @@
 
 \clearpage
 \codeoutput{output/hw_05_2.txt}
+
+\clearpage
+\problem{2.B}{Pole-zero sketches}
+\splane{G_1(s)}
+\splane[5]{G_2(s)}
+\splane[5]{G_3(s)}
+\splane[5]{G_4(s)}
+\splane[5]{G_5(s)}
 
 
 \end{document}
