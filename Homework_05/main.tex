@@ -457,8 +457,8 @@
     \end{align}
 
     \begin{align}
-        C_1 &= \big[F(s)(s+1)\big]_{s=-1} = \big[\frac{1}{s\cancel{(s+1)}}\cancel{(s+1)}\big]_{s=-1} \\
-        C_1 &= -1
+        C_2 &= \big[F(s)(s+1)\big]_{s=-1} = \big[\frac{1}{s\cancel{(s+1)}}\cancel{(s+1)}\big]_{s=-1} \\
+        C_2 &= -1
     \end{align}
 }
 
@@ -467,8 +467,13 @@
 \answer{
     \begin{align}
         F(s) &= \frac{3s+2}{s^2 + 2s + 10} \\
-        &= \frac{3s+2}{(s+1-3i)(s+1+3i)}
+        &= \frac{3s+2}{(s+1-3i)(s+1+3i)} \\
+        &= 3\,\frac{s+\frac{2}{3}}{(s+1-3i)(s+1+3i)}
     \end{align}
+
+    \begin{gather}
+        K_{rlg} = 3
+    \end{gather}
 }
 \matlabcode{hw_05_3_C.m}
 \codeoutput{output/hw_05_3_C.txt}
@@ -514,13 +519,33 @@
 
     \begin{gather}
         [v_{zp}] = [p_1-z_1] = (-\frac{1}{3}, 3) \\ 
-        [v_{pp}] = [p_1-p_0] = (0, 6)
+        [v_{pp}] = [p_1-p_2] = (0, 6)
     \end{gather}
 
     \begin{align}
-        |v_{zp}| = \sqrt{(\frac{1}{3})^2 + 3^2}  \\
-        \angle v_{zp}
+        |v_{zp}| &= \sqrt{(\frac{1}{3})^2 + 3^2} \approx 3.018  \\
+        \theta_{zp} &= 180^\circ - \arctan{9} \approx 96.34^\circ
     \end{align}
+
+    \begin{align}
+        |v_{pp}| = 6 \\
+        \theta_{pp} = 90^\circ
+    \end{align}
+
+    \begin{align}
+        C_1 &= K_{rlg}\frac{3.018 \angle 96.34^\circ}{6 \angle 90^\circ} \\
+            &= 3 (0.5031 \angle 6.34^\circ) \\
+            &\approx 1.509 \angle 6.34^\circ \\
+            &= 1.509(\cos 6.34^\circ + i\sin 6.34^\circ) \\
+            &\approx 1.5 + 0.1667i
+    \end{align}
+
+    \begin{align}
+        C_2 &= \overline{C_1} \approx 1.509 \angle -6.34^\circ \\
+            &\approx 1.5 - 0.1667i
+    \end{align}
+
+
 }
 
 
