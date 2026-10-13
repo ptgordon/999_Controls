@@ -7,7 +7,7 @@ DRAWIOS := $(wildcard *.drawio)
 FIGS    := $(patsubst %.drawio,figures/%.pdf,$(DRAWIOS))
 # Scripts that draw something also get a PDF export of the figure. Detected by
 # looking for a plotting call, so a new plotting script needs no edit here.
-PLOTCALLS := plot|semilogx|semilogy|loglog|stem|stairs|bar|hist|surf|mesh|contour|step|impulse|bode|nyquist|rlocus
+PLOTCALLS := plot|semilogx|semilogy|loglog|stem|stairs|bar|hist|surf|mesh|contour|step|impulse|bode|nyquist|rlocus|pzmap|zplane
 LPAREN    := (
 PLOTM     := $(shell grep -lE '^[^%#]*\b($(PLOTCALLS))[[:space:]]*\$(LPAREN)' $(SCRIPTS) /dev/null)
 PLOTFIGS  := $(patsubst %.m,figures/%.pdf,$(PLOTM))
