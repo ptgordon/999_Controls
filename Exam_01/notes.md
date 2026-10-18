@@ -40,7 +40,7 @@
 - N = kg·m/s²
 - rad is dimensionless; $s$ has units 1/s
 - W = V·A = N·m/s = J/s
-- T = N/(A·m); Wb = V·s
+- tesla (B field) = N/(A·m), from $F = Bli$; weber = V·s
 - $L/R$, $J/b$, $RC$ are in seconds
 - **$k_e = k_t$ in SI units** (same number, equivalent units):
   - Units: V·s/rad = (W/A)·s = (N·m/s)(s)/A = N·m/A
@@ -149,6 +149,20 @@ $$T = \frac{\text{forward path}}{1 + G_cG_pH_y}$$
 - $M=\sqrt{a^2+b^2}$, $\theta=\text{atan2}(b,a)$; $e^{j\theta}=\cos\theta+j\sin\theta$
 - LHP stable; RHP unstable; $j\omega$ axis marginal; farther left = faster
 - Pole sets shape, residue sets size; step's pole at 0 has residue $K_{DC}$
+
+### Damping factor
+- Pole pair $p = -\alpha \pm j\omega$: $\omega_n = \sqrt{\alpha^2+\omega^2}$ (distance from origin)
+- **$\rho = \alpha/\omega_n$** = cos of angle from negative real axis
+- Denominator: $s^2 + 2\rho\omega_n s + \omega_n^2$, so $\alpha = \rho\omega_n$, $\omega = \omega_n\sqrt{1-\rho^2}$
+- Example: $s^2+2s+10$ → $p=-1\pm j3$, $\omega_n=\sqrt{10}$, $\rho = 1/\sqrt{10} \approx 0.32$
+
+| $\rho$ | Poles | Response |
+|---|---|---|
+| $0$ | on $j\omega$ axis | undamped, oscillates forever |
+| $0<\rho<1$ | complex pair, LHP | underdamped, decaying oscillation |
+| $1$ | repeated real | critically damped |
+| $>1$ | two real | overdamped, no oscillation |
+| $<0$ | complex pair, RHP | unstable |
 
 ### Exam habits
 - Complete sentences for essays; units everywhere; final TF in rat-poly form
