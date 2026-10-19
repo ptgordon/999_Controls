@@ -48,6 +48,21 @@
   - Linear motor: both equal $Bl$ (Bli and Blu laws)
   - Not equal if a datasheet uses V/krpm or oz·in/A
 
+### Constituent vs continuity
+| | Constituent | Continuity |
+|---|---|---|
+| Scope | **one element** | **how elements connect** |
+| Relates | that element's through ↔ across | same variable, many elements |
+| Parameters? | yes ($R,L,C,k,b,m$) | **no**, topology only |
+| Circuit | $v=Ri$, $v=L\dot i$, $i=C\dot v$, sources | **KCL** (currents/node), **KVL** (voltages/loop) |
+| Mech. | $f=kx$, $f=b\dot x$, $f=m\ddot x$ | FBD force sum per mass |
+
+- KCL = conservation of the through var; KVL = compatibility of the across var
+- Derivatives come only from constituent eqs of storage elements; continuity is algebraic
+- Count: $b$ elements → $2b$ unknowns = $b$ constituent + $(n-1)$ KCL + $(b-n+1)$ KVL
+- RC example: $v_R=Ri$, $i=C\dot v_C$ (const.); $v_s=v_R+v_C$ (KVL) → $RC\dot v_C+v_C=v_s$
+- Motor: $E_b=k_e\dot\theta$, $T_m=k_ti_a$ are constituent; armature KVL and rotor FBD are continuity
+
 ### Sign rules
 - FBD: + in direction $x$/$\theta$ is measured; body 1 gets $-k(x_1-x_2)$, body 2 gets $+k(x_1-x_2)$; wall: $x_2=0$
 - KCL: + out of node; KVL: + entering at '+'; passive sign convention

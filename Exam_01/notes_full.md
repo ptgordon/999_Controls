@@ -72,6 +72,38 @@ closed-loop TFs (20), LT vs TF (20), dynamic equivalent circuit (EC 15).
 
 ### 3. Constituent equations
 
+**Constituent vs continuity: two kinds of equation, each with its own job**
+
+| | Constituent (element) equations | Continuity (connection) equations |
+|---|---|---|
+| Describes | what **one element** does by itself | how the elements are **wired together** |
+| Relates | the through and across variable **of the same element** ($v$ and $i$ of one R) | the **same kind** of variable across **different elements** (all the currents at a node) |
+| Depends on | the element's **parameter** ($R$, $L$, $C$, $k$, $b$, $m$) | only the **topology**; no parameters appear |
+| Electrical | $v_R = Ri_R$, $v_L = L\dot i_L$, $i_C = C\dot v_C$, sources | **KCL** (through: currents at a node) and **KVL** (across: voltages around a loop) |
+| Mechanical | $f_k = k\Delta x$, $f_b = b\Delta\dot x$, $f_m = m\ddot x$ | **FBD**: forces on each mass sum to $m\ddot x$; shared positions/velocities where parts are joined |
+| Physics | material/device law | **conservation** (charge, force balance) and **compatibility** (a potential is single-valued) |
+| Changes if | you swap a part for a different one | you rewire the same parts |
+
+- Other names: constituent = **constitutive** = element = branch equations; continuity = **connection** = interconnection = KCL/KVL.
+- Through/across link: **KCL constrains through variables**, **KVL constrains across variables**, and **each constituent equation ties one element's through variable to its across variable**.
+- The derivatives (and so the dynamics) come **only from the constituent equations** of energy-storing elements ($L$, $C$, $m$, $k$). Continuity equations are always algebraic.
+- **Newton's law is both kinds**: $f_m = m\ddot x$ is the mass's constituent equation, and "the forces on the mass sum to $f_m$" is continuity. In the Firestone circuit that is $i_C = C\dot v$ plus KCL at the mass's node.
+- **Counting check (circuits)**: $b$ elements give $2b$ unknowns (a $v$ and an $i$ each).
+  - $b$ constituent equations, one per element. A source counts: it fixes one of its two variables.
+  - $(n-1)$ independent KCLs for $n$ nodes, plus $b-n+1$ independent KVLs (one per mesh), gives $b$ continuity equations.
+  - $b + b = 2b$, so the system is solvable. Too few equations means a KCL/KVL or an element was missed.
+- **Coupling elements** (motor, op-amp) have constituent equations that cross domains or tie two ports together: $T_m = k_ti_a$, $E_b = k_e\dot\theta$, $V^+ = V^-$ with zero input current.
+
+**Circuit example (RC low-pass)**: source $v_s$, $R$ in series, $C$ to ground, output $v_C$.
+1. Constituent: $v_R = Ri_R$, $i_C = C\dot v_C$, and the source $v_s = u(t)$.
+2. Continuity: KVL $v_s = v_R + v_C$; KCL at the middle node $i_R = i_C$.
+3. Combine (substitute the constituent into the continuity): $v_s = RC\dot v_C + v_C$.
+4. Standard form $RC\dot v_C + v_C = v_s$, so $G = \frac{1}{RCs+1}$, dimensionless (V/V) ✓.
+
+**DC motor, labelled** (§5): the constituent equations are $v_R = R_ai_a$, $v_L = L_a\dot i_a$, $E_b = k_e\dot\theta$, $T_m = k_ti_a$, $T_b = b\dot\theta$, $T_k = k\theta$, $T_J = J\ddot\theta$. The continuity equations are KVL around the armature, $V_a = v_R + v_L + E_b$, and the FBD on the rotor, $T_J = T_m - T_b - T_k$.
+
+**Constituent equations, by domain**
+
 - **Mechanical**: $f = m\ddot x$, $f = kx$, $f = b\dot x$. The rotational forms are the same with $J$, $\theta$ and $M$.
 - **Electrical**: $v_R = Ri$, $v_L = L\,\dot i$, $i_C = C\,\dot v$, plus the voltage and current sources.
   - **Passive sign convention**: the current arrow points into the '+' terminal of the element's voltage.
@@ -87,6 +119,7 @@ closed-loop TFs (20), LT vs TF (20), dynamic equivalent circuit (EC 15).
 
 ### 4. Continuity: sign rules
 
+- A sign error in a continuity equation is the most common modeling mistake. Pick a direction for every variable on the schematic **first**, then apply these rules mechanically.
 - In an FBD, the net force (or moment) is positive **in the direction $x$ (or $\theta$) is measured**.
 - A spring or damper between bodies 1 and 2 pushes body 1 with $-k(x_1-x_2)$ and body 2 with $+k(x_1-x_2)$.
 - A spring or damper tied to a wall or ground uses $x_2 = 0$.
