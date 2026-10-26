@@ -318,13 +318,82 @@
 \problem{1.A}{Text problem 3.19(a)}
 \prompt{Find the transfer function for the block diagram in Fig.~3.50(a).}
 \answerfigure[0.5\linewidth]{figures/fig_3_50_a.png}{Text figure 3.50(a) (8th Ed.).}
-\answer{}
+\answer{
+  \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[>=stealth, thick,
+        block/.style={draw, minimum width=1.2cm, minimum height=0.8cm},
+        sum/.style={draw, circle, inner sep=1pt}]
+      \node[draw, circle, inner sep=1.5pt, label=left:$R$] (r) at (0,0) {};
+      \coordinate (split) at (1,0);
+      \node[block] (g1a) at (3,0) {$G_{1A}$};
+      \node[block] (g2) at (3,1.5) {$G_2$};
+      \node[sum] (sum) at (5.5,0) {$\Sigma$};
+      \node[draw, circle, inner sep=1.5pt, label=right:$Y$] (y) at (7,0) {};
+      \draw (r) -- (split);
+      \fill (split) circle (2pt);
+      \draw[->] (split) -- (g1a);
+      \draw[->] (split) |- (g2);
+      \draw[->] (g1a) -- (sum) node[pos=0.8, above] {$+$};
+      \draw[->] (g2) -| (sum) node[pos=0.9, right] {$+$};
+      \draw (sum) -- (y);
+    \end{tikzpicture}
+    \caption{Fig.~3.50(a) with the inner summing junction and $G_1$ combined into $G_{1A}$.}
+  \end{figure}
+
+  \begin{gather}
+      G_{1A} = \frac{G_1}{1+G_1}
+  \end{gather}
+  \begin{align}
+      \frac{Y}{R} &= G_2 + G_{1A} \\
+                  &= G_2 + \frac{G_1}{1+G_1}
+  \end{align}
+}
 
 \clearpage
 \problem{1.B}{Text problem 3.19(b)}
 \prompt{Find the transfer function for the block diagram in Fig.~3.50(b).}
 \answerfigure[0.9\linewidth]{figures/fig_3_50_b.png}{Text figure 3.50(b) (8th Ed.).}
-\answer{}
+\answer{
+  \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[>=stealth, thick,
+        block/.style={draw, minimum width=1.2cm, minimum height=0.8cm},
+        sum/.style={draw, circle, inner sep=1pt}]
+      \node[draw, circle, inner sep=1.5pt, label=left:$R$] (r) at (0,0) {};
+      \coordinate (split) at (1,0);
+      \node[block] (g12) at (2.75,0) {$G_{12}$};
+      \node[block] (g3) at (4.75,0) {$G_3$};
+      \node[block] (g45) at (6.75,0) {$G_{45}$};
+      \node[block] (g6) at (8.75,0) {$G_6$};
+      \node[block] (g7) at (5.75,1.5) {$G_7$};
+      \node[sum] (sum) at (10.75,0) {$\Sigma$};
+      \node[draw, circle, inner sep=1.5pt, label=right:$Y$] (y) at (12.25,0) {};
+      \draw (r) -- (split);
+      \fill (split) circle (2pt);
+      \draw[->] (split) -- (g12);
+      \draw[->] (g12) -- (g3);
+      \draw[->] (g3) -- (g45);
+      \draw[->] (g45) -- (g6);
+      \draw[->] (split) |- (g7);
+      \draw[->] (g6) -- (sum) node[pos=0.8, above] {$+$};
+      \draw[->] (g7) -| (sum) node[pos=0.9, right] {$+$};
+      \draw (sum) -- (y);
+    \end{tikzpicture}
+    \caption{Fig.~3.50(b) with the first summing junction, $G_1$ and $G_2$ combined into $G_{12}$,
+      and the second summing junction, $G_4$ and $G_5$ combined into $G_{45}$.}
+  \end{figure}
+
+  \begin{gather}
+      G_{12} = \frac{G_1}{1+G_1G_2} \\
+      G_{45} = \frac{G_4}{1+G_4G_5}
+  \end{gather}
+
+  \begin{align}
+      \frac{Y}{R} &= G_7 + G_{12}G_3G_{45}G_6 \\
+                  &= G_7 + \frac{G_1G_3G_4G_6}{(1+G_1G_2)(1+G_4G_5)}
+  \end{align}
+}
 
 
 \end{document}
