@@ -317,10 +317,23 @@
 \clearpage
 \problem{1}{Review questions 4.1 and 4.2}
 \prompt{4.1 Give three advantages of feedback in control.}
-\answer{}
+\answer{
+    Feedback can:
+    \begin{itemize}
+      \item reduce the steady state error inherent to a system
+      \item reduce the impact of disturbances to a system
+      \item provide stability to unstable systems
+    \end{itemize}
+}
 
 \prompt{4.2 Give two disadvantages of feedback in control.}
-\answer{}
+\answer{
+    Feedback typically requires:
+    \begin{itemize}
+        \item more logical complexity
+        \item physical sensors (cost association)
+    \end{itemize}
+}
 
 \clearpage
 \problem{2}{Text problem 4.6}
@@ -329,7 +342,46 @@
 
 \problem{2.A}{}
 \prompt{Find values for $K'$ and $k_t'$ so that the system of Fig.~4.26(b) has the same transfer function as the system of Fig.~4.26(a).}
-\answer{}
+\answer{
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[>=stealth, thick,
+      blk/.style={draw, minimum height=0.9cm, minimum width=1.1cm},
+      sum/.style={draw, circle, inner sep=0pt, minimum size=0.6cm}]
+    \node (in)  at (0,0)   {$\theta_r$};
+    \node[sum] (s1) at (1.4,0) {$\Sigma$};
+    \node[blk] (kp) at (3.0,0) {$K_p$};
+    \node[blk] (ga) at (5.0,0) {$G_a(s)$};
+    \node[blk] (k)  at (7.0,0) {$\dfrac{1}{k}$};
+    \coordinate (tap) at (8.4,0);
+    \node (out) at (9.4,0) {$\theta$};
+
+    \draw[->] (in) -- (s1) node[pos=0.8, above] {\small $+$};
+    \draw[->] (s1) -- (kp);
+    \draw[->] (kp) -- (ga);
+    \draw[->] (ga) -- (k);
+    \draw (k) -- (tap);
+    \draw[->] (tap) -- (out);
+    \fill (tap) circle (1.5pt);
+    \draw[->] (tap) -- (8.4,-1.3) -- (1.4,-1.3) -- (s1)
+      node[pos=0.8, left] {\small $-$};
+  \end{tikzpicture}
+  \caption{Fig.~4.26(a) with the inner summing junction and tachometer loop
+    combined into the single block $G_a(s)$.}
+\end{figure}
+
+\begin{align}
+    G_a(s) &= \frac{KK_m}{s(1+\tau_ms)}\frac{1}{1 + k_ts\frac{KK_m}{s(1+\tau_m s)}} \\
+           &= \frac{KK_m}{s(1+\tau_ms)}\frac{s(1+\tau_m s)}{s(1+\tau_m s) + k_tsKK_m} \\
+           &= \frac{KK_m}{s(1+\tau_m s) + KK_mk_ts}
+\end{align}
+
+\begin{align}
+    \frac{\theta_a}{\theta_r} &= \frac{K_p\frac{1}{k}\frac{KK_m}{s(1+\tau_m s) + KK_mk_ts}}{1 + K_p\frac{1}{k}\frac{KK_m}{s(1+\tau_m s) + KK_mk_ts}} \\
+                              &= \frac{K_pKK_m}{k\left(s(1+\tau_m s) + KK_mk_ts\right) + K_pKK_m} \\
+                              &= \frac{K_pKK_m}{k\tau_m s^2 + k(1 + KK_mk_t)s + K_pKK_m}
+\end{align}
+}
 
 \problem{2.B}{}
 \prompt{Determine the system type with respect to tracking $\theta_r$ and compute the system $K_v$ in terms of parameters $K'$ and $k_t'$.}
