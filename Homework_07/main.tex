@@ -470,7 +470,7 @@ $K_v$ decreases as positive $k_t$ grows in magnitude.
 \end{align}
 
 \begin{align}
-    T_{ry}(s) &= \frac{Y(s)}{R(s)} = \frac{k_t(k_p s + k_i)}{Js^2 + (b + k_tk_p)s + k_tk_i}
+    T_{ry}(s) &= \frac{Y(s)}{R(s)} = \frac{k_t(k_p s + k_i)}{Js^2 + (b + k_tk_p)s + k_tk_i} \label{eq:Try}
 \end{align}
 }
 
@@ -554,7 +554,17 @@ $K_v$ decreases as positive $k_t$ grows in magnitude.
 \clearpage
 \problem{3.G}{}
 \prompt{Now change parameters to $k_p = 5.0$ and $k_i = 1.2$. What are the new closed-loop pole locations? Make a plot of the S-plane. Plot the original closed-loop pole locations (from part C), and the new closed-loop pole locations.}
-\answer{}
+\answer{
+\begin{align}
+    T_{ry}(s) &= \frac{k_t(k_p s + k_i)}{Js^2 + (b + k_tk_p)s + k_tk_i} \tag{\ref{eq:Try}}
+\end{align}
+
+\begin{align}
+    T_{ry}(s) &= \frac{(1.8)\big((5.0)s + (1.2)\big)}{(15)s^2 + \big((2.0) + (1.8)(5.0)\big)s + (1.8)(1.2)} \\
+              &= \frac{9.0s + 2.16}{15s^2 + (2.0 + 9.0)s + 2.16} \\
+              &= \frac{9.0s + 2.16}{15s^2 + 11s + 2.16}
+\end{align}
+}
 
 \problem{3.H}{}
 \prompt{Without calculating any quantities, but looking at how the poles moved, and considering the analysis equations (in part D),}
