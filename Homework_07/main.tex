@@ -394,19 +394,63 @@
 \end{align}
 
 \begin{align}
-    K' &= \frac{K_p K K_m}{k} \\
+    K' &= \frac{K_p K K_m}{k} \label{eq:Kprime} \\
     K'k'_t &= \frac{K_pKK_m}{k}k'_t = KK_mk_t \\
-    k'_t &= \frac{k k_t}{K_p}
+    k'_t &= \frac{k k_t}{K_p} \label{eq:ktprime}
 \end{align}
 }
 
 \problem{2.B}{}
 \prompt{Determine the system type with respect to tracking $\theta_r$ and compute the system $K_v$ in terms of parameters $K'$ and $k_t'$.}
-\answer{}
+\answer{
+\begin{align}
+    E_{cl} &= \theta_r - \theta_b \\
+    \frac{E_{cl}}{\theta_r} &= 1 - \frac{\theta_b}{\theta_r} \\
+                       &= 1 - \frac{K'}{\tau_m s^2 + (1 + K'k'_t)s + K'} \\
+                       &= \frac{\tau_m s^2 + (1 + K'k'_t)s + K' - K'}{\tau_m s^2 + (1 + K'k'_t)s + K'} \\
+                       &= \frac{s(\tau_m s + 1 + K'k'_t)}{\tau_m s^2 + (1 + K'k'_t)s + K'}
+\end{align}
+
+Check against a step function:
+\begin{align}
+    e_{ss} &= \lim_{s\to0} s\,\frac{1}{s}\,\frac{s(\tau_m s + 1 + K'k'_t)}{\tau_m s^2 + (1 + K'k'_t)s + K'} \\
+           &= \lim_{s\to0} \frac{s(\tau_m s + 1 + K'k'_t)}{\tau_m s^2 + (1 + K'k'_t)s + K'} \\
+           &= \frac{0}{K'} = 0
+\end{align}
+
+Check against a ramp function:
+\begin{align}
+    e_{ss} &= \lim_{s\to0} s\,\frac{1}{s^2}\,\frac{s(\tau_m s + 1 + K'k'_t)}{\tau_m s^2 + (1 + K'k'_t)s + K'} \\
+           &= \lim_{s\to0} \frac{\tau_m s + 1 + K'k'_t}{\tau_m s^2 + (1 + K'k'_t)s + K'} \\
+           &= \frac{1 + K'k'_t}{K'}
+\end{align}
+
+The system is type 1.
+\begin{align}
+    K_v &= \frac{1}{e_{ss}} = \frac{K'}{1 + K'k'_t}
+\end{align}
+}
 
 \problem{2.C}{}
 \prompt{Does the addition of tachometer feedback with positive $k_t$ increase or decrease $K_v$?}
-\answer{}
+\answer{
+From equation~\eqref{eq:Kprime} we have
+\begin{align}
+    K' &= \frac{K_p K K_m}{k} \tag{\ref{eq:Kprime}}
+\end{align}
+and from equation~\eqref{eq:ktprime} we have
+\begin{align}
+    k'_t &= \frac{k k_t}{K_p} \tag{\ref{eq:ktprime}}
+\end{align}
+
+\begin{align}
+    K_v &= \frac{K'}{1 + K'k'_t} \\
+        &= \frac{\frac{K_pKK_m}{k}}{1 + \frac{K_pKK_m}{k}\frac{k k_t}{K_p}} \\
+        &= \frac{\frac{K_pKK_m}{k}}{1 + KK_mk_t} \\
+        &= \frac{K_pKK_m}{k(1 + KK_mk_t)}
+\end{align}
+$K_v$ decreases as positive $k_t$ grows in magnitude.
+}
 
 \clearpage
 \problem{3}{Working with a control loop and poles and zeros}
