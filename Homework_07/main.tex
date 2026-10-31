@@ -459,15 +459,37 @@ $K_v$ decreases as positive $k_t$ grows in magnitude.
 
 \problem{3.A}{}
 \prompt{Form the transfer function $T_{ry}(s)$.}
-\answer{}
+\answer{
+\begin{align}
+    G_1 &= \frac{k_p s + k_i}{s} \\
+    G_2 &= \frac{k_t}{Js + b} \\
+    Y(s) &= \frac{G_1G_2}{1 + G_1G_2}R(s) \\
+         &= \frac{\frac{k_p s + k_i}{s}\frac{k_t}{Js + b}}{1 + \frac{k_p s + k_i}{s}\frac{k_t}{Js + b}}R(s) \\
+         &= \frac{k_t(k_p s + k_i)}{s(Js + b) + k_t(k_p s + k_i)}R(s) \\
+         &= \frac{k_t(k_p s + k_i)}{Js^2 + (b + k_tk_p)s + k_tk_i}R(s)
+\end{align}
+
+\begin{align}
+    T_{ry}(s) &= \frac{Y(s)}{R(s)} = \frac{k_t(k_p s + k_i)}{Js^2 + (b + k_tk_p)s + k_tk_i}
+\end{align}
+}
 
 \problem{3.B}{}
 \prompt{With parameters $k_p = 1.5$, $k_i = 0.4$, $k_t = 1.8$, $J = 15$, $b = 2.0$, determine the numerical values for the numerator and denominator of $T_{ry}(s)$.}
-\answer{}
+\answer{
+\begin{align}
+    T_{ry}(s) &= \frac{(1.8)\big((1.5)s + (0.4)\big)}{(15)s^2 + \big((2.0) + (1.8)(1.5)\big)s + (1.8)(0.4)} \\
+              &= \frac{2.7s + 0.72}{15s^2 + (2.0 + 2.7)s + 0.72} \\
+              &= \frac{2.7s + 0.72}{15s^2 + 4.7s + 0.72}
+\end{align}
+}
 
 \problem{3.C}{}
 \prompt{What are the poles and zeros of $T_{ry}(s)$?}
-\answer{}
+\answer{
+\matlabcode{hw_07_3C.m}
+\codeoutput{output/hw_07_3C.txt}
+}
 
 \clearpage
 \problem{3.D}{}
