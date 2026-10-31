@@ -494,18 +494,45 @@ $K_v$ decreases as positive $k_t$ grows in magnitude.
 \clearpage
 \problem{3.D}{}
 \prompt{Based on the closed-loop poles, determine these four quantities. For each, write the expression that is used to calculate an approximate value from the pole locations.}
+\answer{
+\begin{align}
+    p_{1,2} &= -\alpha \pm j\omega \\
+    \omega_n &= \sqrt{\alpha^2 + \omega^2} \\
+    \rho &= \frac{\alpha}{\omega_n}
+\end{align}
+\matlabcode{hw_07_3D.m}
+\codeoutput{output/hw_07_3D.txt}
+}
 
 \prompt{D.1) $T_r$, the rise time}
-\answer{}
+\answer{
+\begin{align}
+    t_r &\approx \frac{1.8}{\omega_n} \\
+        &\approx 8.22\text{ s}
+\end{align}
+}
 
 \prompt{D.2) $\rho$, the damping factor}
-\answer{}
+\answer{
+\begin{align}
+    \rho &= \frac{\alpha}{\omega_n} \approx 0.715
+\end{align}
+}
 
 \prompt{D.3) P.O., the percent overshoot}
-\answer{}
+\answer{
+\begin{align}
+    M_p &= 100\% \times e^{-\pi\frac{\alpha}{\omega}} = 100\% \times e^{-\frac{\pi\rho}{\sqrt{1-\rho^2}}}
+\end{align}
+}
 
 \prompt{D.4) $T_s$, the settling time}
-\answer{}
+\answer{
+\begin{align}
+    t_s &\approx \frac{4.6}{\alpha} = \frac{4.6}{\rho\omega_n} \\
+        &\approx 29.4\text{ s}
+\end{align}
+}
 
 \clearpage
 \problem{3.E}{}
