@@ -537,11 +537,19 @@ $K_v$ decreases as positive $k_t$ grows in magnitude.
 \clearpage
 \problem{3.E}{}
 \prompt{In Matlab, setup the system object, plot the step response, and directly measure the four quantities above.}
-\answer{}
+\answer{
+\matlabcode{hw_07_3E.m}
+\codeoutput{output/hw_07_3E.txt}
+\answerfigure{figures/hw_07_3E.pdf}{Step response of $T_{ry}(s)$.}
+}
 
 \problem{3.F}{}
 \prompt{In parts D and E you computed performance characteristics in two ways, (a) by location of the dominant poles, and (b) by computing and measuring the step response. These two approaches are characterized by (i) one approach is approximate, but provides equations that can be used for design; (ii) one approach is exact, but applies only to that specific system, and generally does not provide design insight. Match each of methods a and b to characterizations i and ii.}
-\answer{}
+\answer{
+(a) is the approximate method (i), which does not take the zeros into account.
+
+(b) includes all of the system information in the plot, so those values are more precise (ii).
+}
 
 \clearpage
 \problem{3.G}{}
