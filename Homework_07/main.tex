@@ -498,7 +498,7 @@ $K_v$ decreases as positive $k_t$ grows in magnitude.
 \begin{align}
     p_{1,2} &= -\alpha \pm j\omega \\
     \omega_n &= \sqrt{\alpha^2 + \omega^2} \\
-    \rho &= \frac{\alpha}{\omega_n}
+    \rho &= \frac{\alpha}{\omega_n} \label{eq:rho}
 \end{align}
 \matlabcode{hw_07_3D.m}
 \codeoutput{output/hw_07_3D.txt}
@@ -507,7 +507,7 @@ $K_v$ decreases as positive $k_t$ grows in magnitude.
 \prompt{D.1) $T_r$, the rise time}
 \answer{
 \begin{align}
-    t_r &\approx \frac{1.8}{\omega_n} \\
+    t_r &\approx \frac{1.8}{\omega_n} \label{eq:tr} \\
         &\approx 8.22\text{ s}
 \end{align}
 }
@@ -522,14 +522,14 @@ $K_v$ decreases as positive $k_t$ grows in magnitude.
 \prompt{D.3) P.O., the percent overshoot}
 \answer{
 \begin{align}
-    M_p &= 100\% \times e^{-\pi\frac{\alpha}{\omega}} = 100\% \times e^{-\frac{\pi\rho}{\sqrt{1-\rho^2}}}
+    M_p &= 100\% \times e^{-\pi\frac{\alpha}{\omega}} = 100\% \times e^{-\frac{\pi\rho}{\sqrt{1-\rho^2}}} \label{eq:Mp}
 \end{align}
 }
 
 \prompt{D.4) $T_s$, the settling time}
 \answer{
 \begin{align}
-    t_s &\approx \frac{4.6}{\alpha} = \frac{4.6}{\rho\omega_n} \\
+    t_s &\approx \frac{4.6}{\alpha} = \frac{4.6}{\rho\omega_n} \label{eq:ts} \\
         &\approx 29.4\text{ s}
 \end{align}
 }
@@ -573,16 +573,35 @@ $K_v$ decreases as positive $k_t$ grows in magnitude.
 \prompt{Without calculating any quantities, but looking at how the poles moved, and considering the analysis equations (in part D),}
 
 \prompt{H.1) Do you expect the rise time to be faster or slower?}
-\answer{}
+\answer{
+\begin{align}
+    t_r &\approx \frac{1.8}{\omega_n} \tag{\ref{eq:tr}}
+\end{align}
+Given $\omega_n$ is the distance of the poles from the origin, I would expect $t_r$ to be smaller (faster) with the new values, since the new poles are farther from the origin.}
 
 \prompt{H.2) Do you expect the damping factor to be greater or less?}
-\answer{}
+\answer{
+\begin{align}
+    \rho &= \frac{\alpha}{\omega_n} \tag{\ref{eq:rho}}
+\end{align}
+I would expect the damping factor to be greater for the Part G equations, since the ratio of the real part to the total length of the vector from the origin to the poles is greater.
+}
 
 \prompt{H.3) Do you expect the percentage overshoot to be greater or less?}
-\answer{}
+\answer{
+\begin{align}
+    M_p &= 100\% \times e^{-\pi\frac{\alpha}{\omega}} = 100\% \times e^{-\frac{\pi\rho}{\sqrt{1-\rho^2}}} \tag{\ref{eq:Mp}}
+\end{align}
+Since the ratio of the real part to the imaginary part is so much greater with the new values, I would expect the percent overshoot to be less with the new values.
+}
 
 \prompt{H.4) Do you expect the settling time to be greater or less?}
-\answer{}
+\answer{
+\begin{align}
+    t_s &\approx \frac{4.6}{\alpha} = \frac{4.6}{\rho\omega_n} \tag{\ref{eq:ts}}
+\end{align}
+I would expect the settling time to be lower, since the magnitude of the real part ($\alpha$) is greater.
+}
 
 \problem{3.I}{}
 \prompt{In Matlab, setup the new $G_c(s)$ and $T_{ry}(s)$ as in part E, and run \texttt{stepinfo(Try)}. How did the values of $T_r$, $\rho$, PO, $T_s$ change relative to what you got in part E? Did the changes agree with your expectations?}
