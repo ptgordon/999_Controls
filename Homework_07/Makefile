@@ -57,9 +57,11 @@ figures: $(FIGS) $(PLOTFIGS)
 
 # Figure drawn by a script: run it headless, then print whatever figure it left
 # open. Scripts keep plain `figure; plot(...)` -- the export lives here.
+# Octave's PDF export embeds only regular FreeSans and fakes bold by thickening
+# it, which garbles the letter spacing, so all text is exported at normal weight.
 figures/hw_%.pdf: hw_%.m
 	@mkdir -p figures
-	octave --no-gui -q --eval "set(0,'defaultfigurevisible','off'); run('$<'); f = gcf(); set(f, 'paperunits','inches', 'papersize',[$(FIGSIZE)], 'paperposition',[0 0 $(FIGSIZE)]); print(f, '-dpdf', '$@');"
+	octave --no-gui -q --eval "set(0,'defaultfigurevisible','off'); run('$<'); f = gcf(); set(findall(f, 'type','text'), 'fontweight','normal'); set(f,'paperunits','inches', 'papersize',[$(FIGSIZE)], 'paperposition',[0 0 $(FIGSIZE)]); print(f, '-dpdf', '$@');"
 
 # Diagram drawn in TikZ: figures/<name>.tex is a standalone document whose page
 # the standalone class crops to the drawing itself. Labels stay editable text,
