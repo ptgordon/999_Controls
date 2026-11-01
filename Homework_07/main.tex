@@ -405,10 +405,10 @@
 \answer{
 \begin{align}
     E_{cl} &= \theta_r - \theta_b \\
-    \frac{E_{cl}}{\theta_r} &= 1 - \frac{\theta_b}{\theta_r} \\
-                       &= 1 - \frac{K'}{\tau_m s^2 + (1 + K'k'_t)s + K'} \\
-                       &= \frac{\tau_m s^2 + (1 + K'k'_t)s + K' - K'}{\tau_m s^2 + (1 + K'k'_t)s + K'} \\
-                       &= \frac{s(\tau_m s + 1 + K'k'_t)}{\tau_m s^2 + (1 + K'k'_t)s + K'}
+           &= \left(1 - \frac{\theta_b}{\theta_r}\right)\theta_r \\
+           &= \left(1 - \frac{K'}{\tau_m s^2 + (1 + K'k'_t)s + K'}\right)\theta_r \\
+           &= \left(\frac{\tau_m s^2 + (1 + K'k'_t)s + K' - K'}{\tau_m s^2 + (1 + K'k'_t)s + K'}\right)\theta_r \\
+           &= \left(\frac{s(\tau_m s + 1 + K'k'_t)}{\tau_m s^2 + (1 + K'k'_t)s + K'}\right)\theta_r
 \end{align}
 
 Check against a step function:
@@ -605,7 +605,11 @@ I would expect the settling time to be lower, since the magnitude of the real pa
 
 \problem{3.I}{}
 \prompt{In Matlab, setup the new $G_c(s)$ and $T_{ry}(s)$ as in part E, and run \texttt{stepinfo(Try)}. How did the values of $T_r$, $\rho$, PO, $T_s$ change relative to what you got in part E? Did the changes agree with your expectations?}
-\answer{}
+\answer{
+\matlabcode{hw_07_3I.m}
+\codeoutput{output/hw_07_3I.txt}
+The new values align with the expectations from part H.
+}
 
 \clearpage
 \problem{4}{Text problem 4.7}
