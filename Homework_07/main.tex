@@ -676,7 +676,7 @@ The new values align with the expectations from part H.
 
 \begin{align}
     \frac{Y}{R} &= 0.5G_2 \\
-                &= \frac{0.5K_1(s+3)}{s(s+10)(s + 10 + K_2) + 0.5K_1(s+3)}
+                &= \frac{0.5K_1(s+3)}{s(s+10)(s + 10 + K_2) + 0.5K_1(s+3)} \label{eq:4YR}
 \end{align}
 }
 
@@ -692,21 +692,16 @@ The new values align with the expectations from part H.
 \end{align}
 
 \begin{align}
-    e_{ss} &= \lim_{s\to0} s\,\frac{1}{s}\,\frac{s(s+10)(s + 10 + K_2)}{s(s+10)(s + 10 + K_2) + 0.5K_1(s+3)} \label{eq:4step1} \\
-           &= \lim_{s\to0} \frac{s(s+10)(s + 10 + K_2)}{s(s+10)(s + 10 + K_2) + 0.5K_1(s+3)} \label{eq:4step2} \\
-           &= \frac{0}{1.5K_1} = 0 \label{eq:4step3}
+    e_{ss} &= \lim_{s\to0} s\,\frac{1}{s}\,\frac{s(s+10)(s + 10 + K_2)}{s(s+10)(s + 10 + K_2) + 0.5K_1(s+3)} \\
+           &= \lim_{s\to0} \frac{s(s+10)(s + 10 + K_2)}{s(s+10)(s + 10 + K_2) + 0.5K_1(s+3)} \\
+           &= \frac{0}{1.5K_1} = 0
 \end{align}
+The steady-state tracking error is 0.
 }
 
 \problem{4.B}{}
 \prompt{What is the system type?}
 \answer{
-\begin{align}
-    e_{ss} &= \lim_{s\to0} s\,\frac{1}{s}\,\frac{s(s+10)(s + 10 + K_2)}{s(s+10)(s + 10 + K_2) + 0.5K_1(s+3)} \tag{\ref{eq:4step1}} \\
-           &= \lim_{s\to0} \frac{s(s+10)(s + 10 + K_2)}{s(s+10)(s + 10 + K_2) + 0.5K_1(s+3)} \tag{\ref{eq:4step2}} \\
-           &= \frac{0}{1.5K_1} = 0 \tag{\ref{eq:4step3}}
-\end{align}
-
 \begin{align}
     e_{ss} &= \lim_{s\to0} s\,\frac{1}{s^2}\,\frac{s(s+10)(s + 10 + K_2)}{s(s+10)(s + 10 + K_2) + 0.5K_1(s+3)} \\
            &= \lim_{s\to0} \frac{(s+10)(s + 10 + K_2)}{s(s+10)(s + 10 + K_2) + 0.5K_1(s+3)} \\
@@ -717,7 +712,14 @@ The system is type 1.
 
 \problem{4.C}{}
 \prompt{What is the steady-state error to a ramp velocity 5.0 if $K_2 = 2$ and $K_1$ is adjusted to give a system step overshoot of 17\%?}
-\answer{}
+\answer{
+\begin{align}
+    \frac{Y}{R} &= \frac{0.5K_1(s+3)}{s(s+10)(s + 10 + K_2) + 0.5K_1(s+3)} \tag{\ref{eq:4YR}} \\
+                &= \frac{0.5K_1(s+3)}{s(s+10)(s + 12) + 0.5K_1(s+3)} \\
+                &= \frac{0.5K_1(s+3)}{s^3 + 22s^2 + 120s + 0.5K_1s + 1.5K_1} \\
+                &= \frac{0.5K_1s + 1.5K_1}{s^3 + 22s^2 + (120 + 0.5K_1)s + 1.5K_1}
+\end{align}
+}
 
 
 \end{document}
