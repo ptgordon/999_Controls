@@ -719,6 +719,14 @@ The system is type 1.
                 &= \frac{0.5K_1(s+3)}{s^3 + 22s^2 + 120s + 0.5K_1s + 1.5K_1} \\
                 &= \frac{0.5K_1s + 1.5K_1}{s^3 + 22s^2 + (120 + 0.5K_1)s + 1.5K_1}
 \end{align}
+\matlabcode{hw_07_4C.m}
+\codeoutput{output/hw_07_4C.txt}
+The largest integer gain that does not exceed 17\% overshoot is $K_1 = 1177$, which gives an overshoot of 16.99\%. Scaling the unit ramp error from part B by the ramp velocity of 5.0:
+\begin{align}
+    e_{ss} &= 5.0\,\frac{10(10 + K_2)}{1.5K_1} \\
+           &= 5.0\,\frac{10(12)}{1.5(1177)} \\
+           &= 0.340
+\end{align}
 }
 
 
