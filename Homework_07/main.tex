@@ -281,6 +281,11 @@
   \noindent\textit{#1}\par\vspace{6pt}%
 }
 
+% \subpart{D.1} -- bold label for a numbered sub-part of a problem
+\newcommand{\subpart}[1]{%
+  \noindent\textbf{#1}\par\vspace{4pt}%
+}
+
 % \answer{...}  -- written answer. Leave the body empty for a visible
 % placeholder box; fill it in and the box is replaced by the prose.
 \newcommand{\answer}[1]{%
@@ -316,7 +321,7 @@
 
 \clearpage
 \problem{1}{Review questions 4.1 and 4.2}
-\prompt{4.1 Give three advantages of feedback in control.}
+\subpart{4.1}
 \answer{
     Feedback can:
     \begin{itemize}
@@ -326,7 +331,7 @@
     \end{itemize}
 }
 
-\prompt{4.2 Give two disadvantages of feedback in control.}
+\subpart{4.2}
 \answer{
     Feedback typically requires:
     \begin{itemize}
@@ -337,11 +342,9 @@
 
 \clearpage
 \problem{2}{Text problem 4.6}
-\prompt{Consider the DC motor control system with rate (tachometer) feedback shown in Fig.~4.26(a).}
 \answerfigure{figures/fig_4_26.png}{Text figure 4.26 (8th Ed.).}
 
 \problem{2.A}{}
-\prompt{Find values for $K'$ and $k_t'$ so that the system of Fig.~4.26(b) has the same transfer function as the system of Fig.~4.26(a).}
 \answer{
 \begin{figure}[H]
   \centering
@@ -401,7 +404,6 @@
 }
 
 \problem{2.B}{}
-\prompt{Determine the system type with respect to tracking $\theta_r$ and compute the system $K_v$ in terms of parameters $K'$ and $k_t'$.}
 \answer{
 \begin{align}
     E_{cl} &= \theta_r - \theta_b \\
@@ -432,7 +434,6 @@ The system is type 1.
 }
 
 \problem{2.C}{}
-\prompt{Does the addition of tachometer feedback with positive $k_t$ increase or decrease $K_v$?}
 \answer{
 From equation~\eqref{eq:Kprime} we have
 \begin{align}
@@ -454,11 +455,9 @@ $K_v$ decreases as positive $k_t$ grows in magnitude.
 
 \clearpage
 \problem{3}{Working with a control loop and poles and zeros}
-\prompt{For a system described by the block diagram of figure~\ref{fig:hw7-1}.}
 \answerfigure[0.8\linewidth]{figures/fig_hw7_1.png}{Block diagram of motor with control.\label{fig:hw7-1}}
 
 \problem{3.A}{}
-\prompt{Form the transfer function $T_{ry}(s)$.}
 \answer{
 \begin{align}
     G_1 &= \frac{k_p s + k_i}{s} \\
@@ -475,7 +474,6 @@ $K_v$ decreases as positive $k_t$ grows in magnitude.
 }
 
 \problem{3.B}{}
-\prompt{With parameters $k_p = 1.5$, $k_i = 0.4$, $k_t = 1.8$, $J = 15$, $b = 2.0$, determine the numerical values for the numerator and denominator of $T_{ry}(s)$.}
 \answer{
 \begin{align}
     T_{ry}(s) &= \frac{(1.8)\big((1.5)s + (0.4)\big)}{(15)s^2 + \big((2.0) + (1.8)(1.5)\big)s + (1.8)(0.4)} \\
@@ -484,8 +482,8 @@ $K_v$ decreases as positive $k_t$ grows in magnitude.
 \end{align}
 }
 
+\clearpage
 \problem{3.C}{}
-\prompt{What are the poles and zeros of $T_{ry}(s)$?}
 \answer{
 \matlabcode{hw_07_3C.m}
 \codeoutput{output/hw_07_3C.txt}
@@ -493,7 +491,6 @@ $K_v$ decreases as positive $k_t$ grows in magnitude.
 
 \clearpage
 \problem{3.D}{}
-\prompt{Based on the closed-loop poles, determine these four quantities. For each, write the expression that is used to calculate an approximate value from the pole locations.}
 \answer{
 \begin{align}
     p_{1,2} &= -\alpha \pm j\omega \\
@@ -504,7 +501,7 @@ $K_v$ decreases as positive $k_t$ grows in magnitude.
 \codeoutput{output/hw_07_3D.txt}
 }
 
-\prompt{D.1) $T_r$, the rise time}
+\subpart{D.1}
 \answer{
 \begin{align}
     t_r &\approx \frac{1.8}{\omega_n} \label{eq:tr} \\
@@ -512,21 +509,21 @@ $K_v$ decreases as positive $k_t$ grows in magnitude.
 \end{align}
 }
 
-\prompt{D.2) $\rho$, the damping factor}
+\subpart{D.2}
 \answer{
 \begin{align}
     \rho &= \frac{\alpha}{\omega_n} \approx 0.715
 \end{align}
 }
 
-\prompt{D.3) P.O., the percent overshoot}
+\subpart{D.3}
 \answer{
 \begin{align}
     M_p &= 100\% \times e^{-\pi\frac{\alpha}{\omega}} = 100\% \times e^{-\frac{\pi\rho}{\sqrt{1-\rho^2}}} \label{eq:Mp}
 \end{align}
 }
 
-\prompt{D.4) $T_s$, the settling time}
+\subpart{D.4}
 \answer{
 \begin{align}
     t_s &\approx \frac{4.6}{\alpha} = \frac{4.6}{\rho\omega_n} \label{eq:ts} \\
@@ -536,7 +533,6 @@ $K_v$ decreases as positive $k_t$ grows in magnitude.
 
 \clearpage
 \problem{3.E}{}
-\prompt{In Matlab, setup the system object, plot the step response, and directly measure the four quantities above.}
 \answer{
 \matlabcode{hw_07_3E.m}
 \codeoutput{output/hw_07_3E.txt}
@@ -544,7 +540,6 @@ $K_v$ decreases as positive $k_t$ grows in magnitude.
 }
 
 \problem{3.F}{}
-\prompt{In parts D and E you computed performance characteristics in two ways, (a) by location of the dominant poles, and (b) by computing and measuring the step response. These two approaches are characterized by (i) one approach is approximate, but provides equations that can be used for design; (ii) one approach is exact, but applies only to that specific system, and generally does not provide design insight. Match each of methods a and b to characterizations i and ii.}
 \answer{
 (a) is the approximate method (i), which does not take the zeros into account.
 
@@ -553,7 +548,6 @@ $K_v$ decreases as positive $k_t$ grows in magnitude.
 
 \clearpage
 \problem{3.G}{}
-\prompt{Now change parameters to $k_p = 5.0$ and $k_i = 1.2$. What are the new closed-loop pole locations? Make a plot of the S-plane. Plot the original closed-loop pole locations (from part C), and the new closed-loop pole locations.}
 \answer{
 \begin{align}
     T_{ry}(s) &= \frac{k_t(k_p s + k_i)}{Js^2 + (b + k_tk_p)s + k_tk_i} \tag{\ref{eq:Try}}
@@ -570,16 +564,15 @@ $K_v$ decreases as positive $k_t$ grows in magnitude.
 }
 
 \problem{3.H}{}
-\prompt{Without calculating any quantities, but looking at how the poles moved, and considering the analysis equations (in part D),}
 
-\prompt{H.1) Do you expect the rise time to be faster or slower?}
+\subpart{H.1}
 \answer{
 \begin{align}
     t_r &\approx \frac{1.8}{\omega_n} \tag{\ref{eq:tr}}
 \end{align}
 Given $\omega_n$ is the distance of the poles from the origin, I would expect $t_r$ to be smaller (faster) with the new values, since the new poles are farther from the origin.}
 
-\prompt{H.2) Do you expect the damping factor to be greater or less?}
+\subpart{H.2}
 \answer{
 \begin{align}
     \rho &= \frac{\alpha}{\omega_n} \tag{\ref{eq:rho}}
@@ -587,7 +580,7 @@ Given $\omega_n$ is the distance of the poles from the origin, I would expect $t
 I would expect the damping factor to be greater for the Part G equations, since the ratio of the real part to the total length of the vector from the origin to the poles is greater.
 }
 
-\prompt{H.3) Do you expect the percentage overshoot to be greater or less?}
+\subpart{H.3}
 \answer{
 \begin{align}
     M_p &= 100\% \times e^{-\pi\frac{\alpha}{\omega}} = 100\% \times e^{-\frac{\pi\rho}{\sqrt{1-\rho^2}}} \tag{\ref{eq:Mp}}
@@ -595,7 +588,7 @@ I would expect the damping factor to be greater for the Part G equations, since 
 Since the ratio of the real part to the imaginary part is so much greater with the new values, I would expect the percent overshoot to be less with the new values.
 }
 
-\prompt{H.4) Do you expect the settling time to be greater or less?}
+\subpart{H.4}
 \answer{
 \begin{align}
     t_s &\approx \frac{4.6}{\alpha} = \frac{4.6}{\rho\omega_n} \tag{\ref{eq:ts}}
@@ -604,16 +597,15 @@ I would expect the settling time to be lower, since the magnitude of the real pa
 }
 
 \problem{3.I}{}
-\prompt{In Matlab, setup the new $G_c(s)$ and $T_{ry}(s)$ as in part E, and run \texttt{stepinfo(Try)}. How did the values of $T_r$, $\rho$, PO, $T_s$ change relative to what you got in part E? Did the changes agree with your expectations?}
 \answer{
 \matlabcode{hw_07_3I.m}
+\clearpage
 \codeoutput{output/hw_07_3I.txt}
 The new values align with the expectations from part H.
 }
 
 \clearpage
 \problem{4}{Text problem 4.7}
-\prompt{A block diagram of a control system is shown in Fig.~4.27.}
 \answerfigure{figures/fig_4_27.png}{Text figure 4.27 (8th Ed.).}
 \answer{
 \begin{figure}[H]
@@ -681,7 +673,6 @@ The new values align with the expectations from part H.
 }
 
 \problem{4.A}{}
-\prompt{If $r$ is a step function and the system is closed-loop stable, what is the steady-state tracking error?}
 \answer{
 \begin{align}
     E &= R - Y \\
@@ -699,8 +690,8 @@ The new values align with the expectations from part H.
 The steady-state tracking error is 0.
 }
 
+\clearpage
 \problem{4.B}{}
-\prompt{What is the system type?}
 \answer{
 \begin{align}
     e_{ss} &= \lim_{s\to0} s\,\frac{1}{s^2}\,\frac{s(s+10)(s + 10 + K_2)}{s(s+10)(s + 10 + K_2) + 0.5K_1(s+3)} \\
@@ -711,7 +702,6 @@ The system is type 1.
 }
 
 \problem{4.C}{}
-\prompt{What is the steady-state error to a ramp velocity 5.0 if $K_2 = 2$ and $K_1$ is adjusted to give a system step overshoot of 17\%?}
 \answer{
 \begin{align}
     \frac{Y}{R} &= \frac{0.5K_1(s+3)}{s(s+10)(s + 10 + K_2) + 0.5K_1(s+3)} \tag{\ref{eq:4YR}} \\
@@ -721,7 +711,7 @@ The system is type 1.
 \end{align}
 \matlabcode{hw_07_4C.m}
 \codeoutput{output/hw_07_4C.txt}
-The largest integer gain that does not exceed 17\% overshoot is $K_1 = 1177$, which gives an overshoot of 16.99\%. Scaling the unit ramp error from part B by the ramp velocity of 5.0:
+The largest integer gain that does not exceed 17\% overshoot is $K_1 = 1177$.
 \begin{align}
     e_{ss} &= 5.0\,\frac{10(10 + K_2)}{1.5K_1} \\
            &= 5.0\,\frac{10(12)}{1.5(1177)} \\

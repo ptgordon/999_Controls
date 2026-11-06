@@ -28,6 +28,11 @@ BUILDTMP  := $(BUILDLOG).tmp
 # make itself is unreliable -- it blocks SIGINT/SIGTERM while a recipe runs --
 # so the pidfile records the loop's shell, whose death make does notice.
 WATCHPID ?= .watch.pid
+# Headless octave under WSL has no GPU driver, and Mesa prints warnings about
+# it on stderr -- which lands in the captured output. Force the software
+# renderer and keep EGL quiet so only the script's own output is captured.
+export GALLIUM_DRIVER ?= llvmpipe
+export EGL_LOG_LEVEL ?= fatal
 
 .PHONY: all figures clean distclean watch stop view
 
