@@ -9,6 +9,8 @@ sys = tf(num, den);
 
 info = stepinfo(sys)
 
+damp(sys)
+
 step(sys);
 grid on;
 title('Step response of T_{ry}(s)');
