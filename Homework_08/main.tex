@@ -353,7 +353,11 @@
 \answer{
   \begin{align}
     E(s) &= R(s) - Y(s) \label{eq:A-E} \\
-    E(s) &= R(s) - T_{ry}(s) R(s) \label{eq:A-E-sub}
+    E(s) &= R(s) - T_{ry}(s) R(s) \label{eq:A-E-sub} \\
+    E(s) &= \left(1 - \frac{10s + 200}{3s^3 + 24s^2 + 82s + 200}\right) R(s) \label{eq:A-E-factored} \\
+    E(s) &= \left(\frac{3s^3 + 24s^2 + 82s + 200}{3s^3 + 24s^2 + 82s + 200} - \frac{10s + 200}{3s^3 + 24s^2 + 82s + 200}\right) R(s) \label{eq:A-E-common} \\
+    E(s) &= \frac{3s^3 + 24s^2 + 72s}{3s^3 + 24s^2 + 82s + 200} R(s) \label{eq:A-E-subtracted} \\
+    T_{re}(s) = \frac{E(s)}{R(s)} &= \frac{3s^3 + 24s^2 + 72s}{3s^3 + 24s^2 + 82s + 200} \label{eq:A-Tre}
   \end{align}
 }
 
