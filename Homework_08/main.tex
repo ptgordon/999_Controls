@@ -399,21 +399,58 @@ The dominant poles are at $s = -1.3952 \pm 3.2940j$.
 \clearpage
 \problem{A.2}{}
 \prompt{Based on the dominant mode pole locations, determine}
+\begin{align}
+  p_{1,2} &= -\alpha \pm j\omega \label{eq:A-p12} \\
+          &= -1.3952 \pm 3.2940j \label{eq:A-p12-val} \\[\baselineskip]
+  \omega_n &= \sqrt{\alpha^2 + \omega^2} \label{eq:A-wn} \\
+           &= \sqrt{1.3952^2 + 3.2940^2} \label{eq:A-wn-sub} \\
+           &= 3.5773\ \text{rad/s} \label{eq:A-wn-val}
+\end{align}
 
 \subpart{i) $t_p$, the peak time}
-\answer{}
+\answer{
+  \begin{align}
+    t_p &= \frac{\pi}{\omega} \label{eq:A-tp} \\
+        &= \frac{\pi}{3.2940} \label{eq:A-tp-sub} \\
+        &= 0.9537\ \text{s} \label{eq:A-tp-val}
+  \end{align}
+}
 
 \subpart{ii) $\rho$, the damping}
-\answer{}
+\answer{
+  \begin{align}
+    \rho &= \frac{\alpha}{\omega_n} \label{eq:A-rho} \\
+         &= \frac{1.3952}{3.5773} \label{eq:A-rho-sub} \\
+         &= 0.3900 \label{eq:A-rho-val}
+  \end{align}
+}
 
 \subpart{iii) $M_p$, the percent overshoot}
-\answer{}
+\answer{
+  \begin{align}
+    M_p &= 100\% \times e^{-\pi \alpha / \omega} \label{eq:A-Mp} \\
+        &= 100\% \times e^{-\pi (1.3952) / 3.2940} \label{eq:A-Mp-sub} \\
+        &= 26.43\% \label{eq:A-Mp-val}
+  \end{align}
+}
 
 \subpart{iv) $t_r$, the rise time}
-\answer{}
+\answer{
+  \begin{align}
+    t_r &\approx \frac{1.8}{\omega_n} \label{eq:A-tr} \\
+        &\approx \frac{1.8}{3.5773} \label{eq:A-tr-sub} \\
+        &\approx 0.5032\ \text{s} \label{eq:A-tr-val}
+  \end{align}
+}
 
 \subpart{v) $t_s$, the settling time}
-\answer{}
+\answer{
+  \begin{align}
+    t_s &\approx \frac{4}{\alpha} \label{eq:A-ts} \\
+        &\approx \frac{4}{1.3952} \label{eq:A-ts-sub} \\
+        &\approx 2.8670\ \text{s} \label{eq:A-ts-val}
+  \end{align}
+}
 
 \problem{A.3}{}
 \prompt{Analytically determine $e_{ss}$, the steady state error, by determining the system type and $K_{Bode}$.}
