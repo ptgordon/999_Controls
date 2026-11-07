@@ -774,7 +774,23 @@ The dominant poles are at $s = -1.3952 \pm 3.2940j$.
 
 \problem{B.6}{}
 \prompt{Which of the values based on dominant mode are closest to their analysis values? Which are farthest?}
-\answer{}
+\answer{
+  \begin{answertable}{|l|c|c|c|}{Dominant-mode estimates (B.3, B.4) compared
+    with the complete-system values (B.5). Error is
+    $(\text{estimate} - \text{actual}) / \text{actual}$.}
+    \hline
+    Measure & Estimate & Actual & Error \\ \hline\hline
+    $t_p$, peak time        & 0.3078 s & 0.3084 s & $-0.2\%$ \\ \hline
+    $\rho$, damping         & 0.3996   & 0.3996   & $0.0\%$ \\ \hline
+    $M_p$, percent overshoot & 25.42\%  & 25.40\%  & $+0.1\%$ \\ \hline
+    $t_r$, rise time        & 0.1616 s & 0.1316 s & $+22.8\%$ \\ \hline
+    $t_s$, settling time    & 0.8989 s & 0.7463 s & $+20.4\%$ \\ \hline
+    $e_{ss}$, steady-state error & 0.1935 & 0.1935 & $0.0\%$ \\ \hline
+  \end{answertable}
+
+  The damping, steady-state error, peak time, and percent overshoot were the
+  closest, and the rise time and settling time were the farthest.
+}
 
 \clearpage
 \problem{C}{Compare the PI and PD controllers}
