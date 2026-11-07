@@ -541,17 +541,43 @@ The dominant poles are at $s = -1.3952 \pm 3.2940j$.
     $t_s$, settling time    & 2.8670 s & 2.4754 s & $+15.8\%$ \\ \hline
     $e_{ss}$, steady-state error & 0 & 0 & -- \\ \hline
   \end{answertable}
+
+  The damping and steady-state error were the most accurate, and the percent
+  overshoot was the least accurate.
 }
 
 \clearpage
 \problem{B}{PD Control}
 \prompt{Use $G_c(s) = k_d s + k_p$ with $k_p = 300$, and $k_d$ to be determined.}
+% Same figure as Problem A, keeping its number: the caption steps the counter
+% back to where it was, and \thefigure prints the original's number.
+{\addtocounter{figure}{-1}\renewcommand{\thefigure}{\ref{fig:hw8-1}}%
+\answerfigure{figures/fig_hw8_1.png}{The system from Problem A, repeated, with
+  PD control $G_c(s) = k_d s + k_p$ in place of PI.}}
 
 \problem{B.1}{Experiment with $k_d$}
 
 \problem{B.1.a}{}
 \prompt{Derive $T_{ry}(s)$, the closed loop transfer function with PD control, and with $k_p$ and $k_d$ as variables. Set $k_p = 300$ and determine the pole locations for several values of $k_d$ on the range from 0.5 to 10.}
-\answer{}
+\answer{
+  \begin{align}
+    G_c(s) &= k_d s + k_p \label{eq:B-Gc} \\
+    G_p(s) &= \frac{1/3}{s^2 + 8s + 24} \label{eq:B-Gp} \\
+    Y(s)   &= \frac{G_p G_c}{1 + G_p G_c} R(s) \label{eq:B-Y-general} \\
+    Y(s)   &= \frac{\dfrac{1/3}{s^2 + 8s + 24} \cdot (k_d s + k_p)}
+                 {1 + \dfrac{1/3}{s^2 + 8s + 24} \cdot (k_d s + k_p)} R(s) \label{eq:B-Y-sub} \\
+    Y(s)   &= \frac{\frac{1}{3}(k_d s + k_p)}
+                 {s^2 + 8s + 24 + \frac{1}{3}(k_d s + k_p)} R(s) \label{eq:B-Y-cleared} \\
+    Y(s)   &= \frac{k_d s + k_p}
+                 {3(s^2 + 8s + 24) + k_d s + k_p} R(s) \label{eq:B-Y-times3} \\
+    Y(s)   &= \frac{k_d s + k_p}
+                 {3s^2 + 24s + 72 + k_d s + k_p} R(s) \label{eq:B-Y-expanded} \\
+    Y(s)   &= \frac{k_d s + k_p}
+                 {3s^2 + (24 + k_d)s + (72 + k_p)} R(s) \label{eq:B-Y-collected} \\
+    T_{ry}(s) = \frac{Y(s)}{R(s)} &= \frac{k_d s + k_p}
+                 {3s^2 + (24 + k_d)s + (72 + k_p)} \label{eq:B-Try}
+  \end{align}
+}
 
 \problem{B.1.b}{}
 \prompt{Hand sketch a plot of the closed-loop pole locations as a function of $k_d$.}
