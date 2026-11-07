@@ -5,7 +5,6 @@ end
 k_p = 300;
 rho_err = .1;
 
-% k_d values are checked from low to high, so stop at the first one in range
 for k_d = 2:0.1:3
     num = [k_d k_p];
     den = [3 24+k_d 72+k_p];
