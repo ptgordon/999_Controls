@@ -362,7 +362,29 @@
 }
 
 \subpart{iii) $T_{dy}(s)$, the disturbance transfer function}
-\answer{}
+\answer{
+  \begin{align}
+    Y(s) &= G_p \left(D(s) + U(s)\right) \label{eq:A-Yd} \\
+    Y(s) &= G_p \left(D(s) + G_c(s) E(s)\right) \label{eq:A-Yd-sub} \\
+    Y(s) &= G_p \left(D(s) - G_c(s) Y(s)\right) \label{eq:A-Yd-E} \\
+    Y(s) &= G_p D(s) - G_p G_c(s) Y(s) \label{eq:A-Yd-dist} \\
+    Y(s) + G_p G_c(s) Y(s) &= G_p D(s) \label{eq:A-Yd-collect} \\
+    Y(s) \left(1 + G_p G_c(s)\right) &= G_p D(s) \label{eq:A-Yd-factor} \\
+    Y(s) &= \frac{G_p}{1 + G_p G_c(s)} D(s) \label{eq:A-Yd-solved} \\
+    Y(s) &= \frac{\dfrac{1/3}{s^2 + 8s + 24}}
+                 {1 + \dfrac{1/3}{s^2 + 8s + 24} \cdot \dfrac{10s + 200}{s}} D(s) \label{eq:A-Yd-sub-GpGc} \\
+    Y(s) &= \frac{\frac{1}{3}s}
+                 {s(s^2 + 8s + 24) + \frac{1}{3}(10s + 200)} D(s) \label{eq:A-Yd-cleared} \\
+    Y(s) &= \frac{s}
+                 {3s(s^2 + 8s + 24) + 10s + 200} D(s) \label{eq:A-Yd-times3} \\
+    Y(s) &= \frac{s}
+                 {3s^3 + 24s^2 + 72s + 10s + 200} D(s) \label{eq:A-Yd-distributed} \\
+    Y(s) &= \frac{s}
+                 {3s^3 + 24s^2 + 82s + 200} D(s) \label{eq:A-Yd-expanded} \\
+    T_{dy}(s) = \frac{Y(s)}{D(s)} &= \frac{s}
+                 {3s^3 + 24s^2 + 82s + 200} \label{eq:A-Tdy}
+  \end{align}
+}
 
 \problem{A.1.b}{}
 \prompt{Draw a pole-zero diagram of $T_{ry}(s)$, label the dominant mode.}
