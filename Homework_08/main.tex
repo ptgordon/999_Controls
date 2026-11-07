@@ -806,13 +806,31 @@ The dominant poles are at $s = -1.3952 \pm 3.2940j$.
   vi) $e_{ss}$, the steady-state error & Small \\ \hline
 \end{answertable}
 
+\begin{answertable}{|l|c|c|c|c|}{Measured step-response values for the PI
+  controller (A.4) and the PD controller tuned for $\rho = 0.4$ (B.5).}
+  \hline
+  Measure & Desirable & PI (A.4) & PD (B.5) & Better \\ \hline\hline
+  $t_p$, peak time         & Fast      & 1.1429 s & 0.3084 s & PD \\ \hline
+  $\rho$, damping          & Near one  & 0.3900   & 0.3996   & PD \\ \hline
+  $M_p$, percent overshoot & Near zero & 20.38\%  & 25.40\%  & PI \\ \hline
+  $t_r$, rise time         & Fast      & 0.4936 s & 0.1316 s & PD \\ \hline
+  $t_s$, settling time     & Fast      & 2.4754 s & 0.7463 s & PD \\ \hline
+  $e_{ss}$, steady-state error & Small & 0      & 0.1935   & PI \\ \hline
+\end{answertable}
+
 \problem{C.1}{}
 \prompt{What characteristic is most enhanced by the PI control system?}
-\answer{}
+\answer{
+  The steady-state error was most enhanced by the PI controller. It eliminates
+  the steady-state error entirely.
+}
 
 \problem{C.2}{}
 \prompt{What characteristic is most enhanced by the PD control system (tuned for $\rho = 0.4$)?}
-\answer{}
+\answer{
+  The timing characteristics are improved across the board with the PD control
+  system.
+}
 
 
 \end{document}
