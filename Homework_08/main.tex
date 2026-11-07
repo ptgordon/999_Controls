@@ -717,24 +717,60 @@ The dominant poles are at $s = -1.3952 \pm 3.2940j$.
 \clearpage
 \problem{B.5}{}
 \prompt{Analyze the step response of your system (step response, full system, you can use the \texttt{step} and \texttt{stepinfo} commands) to determine:}
+\noindent From equation~\eqref{eq:B-Try}:
+\begin{align}
+  T_{ry}(s) = \frac{Y(s)}{R(s)} &= \frac{k_d s + k_p}
+               {3s^2 + (24 + k_d)s + (72 + k_p)} \tag{\ref{eq:B-Try}} \\
+  T_{ry}(s) &= \frac{2.7s + 300}
+               {3s^2 + 26.7s + 372} \label{eq:B-Try-val}
+\end{align}
+\matlabcode{hw_08_B5.m}
+\codeoutput{output/hw_08_B5.txt}
+\answerfigure{figures/hw_08_B5.pdf}{Step response of $T_{ry}(s)$ with PD control.}
 
 \subpart{i) $t_p$, the peak time}
-\answer{}
+\answer{
+  \begin{align}
+    t_p &= 0.3084\ \text{s} \label{eq:B5-tp}
+  \end{align}
+}
 
 \subpart{ii) $\rho$, the damping}
-\answer{}
+\answer{
+  \begin{align}
+    \rho &= 0.3996 \label{eq:B5-rho}
+  \end{align}
+}
 
 \subpart{iii) $M_p$, the percent overshoot}
-\answer{}
+\answer{
+  \begin{align}
+    M_p &= 25.40\% \label{eq:B5-Mp}
+  \end{align}
+}
 
 \subpart{iv) $t_r$, the rise time}
-\answer{}
+\answer{
+  \begin{align}
+    t_r &= 0.1316\ \text{s} \label{eq:B5-tr}
+  \end{align}
+}
 
 \subpart{v) $t_s$, the settling time}
-\answer{}
+\answer{
+  \begin{align}
+    t_s &= 0.7463\ \text{s} \label{eq:B5-ts}
+  \end{align}
+}
 
 \subpart{vi) $e_{ss}$, the steady state error (not indicated by \texttt{stepinfo()})}
-\answer{}
+\answer{
+  \begin{align}
+    e_{ss} &= 1 - \text{StaticGain} \label{eq:B5-ess} \\
+           &= 1 - 0.8065 \label{eq:B5-ess-sub} \\
+           &= 0.1935 \label{eq:B5-ess-val}
+  \end{align}
+}
 
 \problem{B.6}{}
 \prompt{Which of the values based on dominant mode are closest to their analysis values? Which are farthest?}
