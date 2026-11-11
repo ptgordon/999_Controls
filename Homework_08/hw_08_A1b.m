@@ -7,6 +7,7 @@ den = [3 24 82 200];
 sys = tf(num, den);
 
 pzmap(sys);
+legend('location', 'southwest');
 
 sys_poles = pole(sys)
 sys_zeros = zero(sys)
