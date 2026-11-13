@@ -94,7 +94,7 @@ figure(1), clf
 
 %% Plot the pole-zero map 
 figure(2), clf 
-  pzmap(B20, A20)
+  pzmap(tf(B20, A20))
   axis equal  %% This line sets the horizontal-vertical scale to be 1:1 
   axis([-40 10 -20 20])
   title('Pole-zero Map.  Best Fit.  Two Poles, No Zero') 
@@ -134,7 +134,7 @@ figure(3), clf
 
 %% Plot the pole-zero map 
 figure(4), clf 
-  pzmap(B31, A31)
+  pzmap(tf(B31, A31))
   axis equal
   axis([-80 100 -40 40])
   title('Pole-zero Map.  Best Fit.  Three Poles, One Zero') 
