@@ -1,13 +1,3 @@
-% 1.C: invfreqs() fits (2 poles/0 zeros, 3 poles/1 zero) to the Problem 1.C data.
-% Copy of HW09_InvfreqsExample.m with the data replaced.
-
-% MATLAB ships invfreqs/freqs in the Signal Processing Toolbox and pzmap in the
-% Control System Toolbox; Octave needs both packages loaded explicitly.
-if exist('OCTAVE_VERSION', 'builtin')
-    pkg load control;
-    pkg load signal;
-end
-
 %%  Example Using Matlab invfreqs() command 
 %%
 %%   
@@ -16,36 +6,31 @@ end
 %%  Setup the raw data.  This is simulated experimental data. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%% Problem 1.C data: frequency [rad/s], magnitude, phase [degrees]
-Ws = [
-   0.3142
-   0.6283
-   1.2566
-   3.1416
-   6.2832
-  12.5664
-  31.4159
-  62.8319 ];
+Periods = [
+4
+2
+1
+0.5
+0.2
+0.1 ];
+
+Ws = (2*pi) ./ Periods;
 
 Gains = [
-  0.4180
-  0.4237
-  0.4426
-  0.5135
-  0.2910
-  0.0754
-  0.0120
-  0.0030 ]
+   0.831639474259661
+   0.561435832548028
+   0.261189817880566
+   0.101983185877470
+   0.033648116659521
+   0.016152022818775]
 
 Phases = [
-    -6.0062
-   -12.0334
-   -24.2801
-   -66.4484
-  -131.1225
-  -161.5733
-  -173.4103
-  -176.7621 ];
+  -41.6187915810549
+  -69.7959867048385
+  -94.3590297220614
+  -102.5954673199546
+  -98.1945637194365
+  -94.4362358923972]; 
 
 %% Compute the complex gain based on the data 
 Hs = Gains .* exp(j * Phases * (pi/180));
@@ -94,7 +79,7 @@ figure(1), clf
 
 %% Plot the pole-zero map 
 figure(2), clf 
-  pzmap(tf(B20, A20))
+  pzmap(B20, A20)
   axis equal  %% This line sets the horizontal-vertical scale to be 1:1 
   axis([-40 10 -20 20])
   title('Pole-zero Map.  Best Fit.  Two Poles, No Zero') 
@@ -134,7 +119,7 @@ figure(3), clf
 
 %% Plot the pole-zero map 
 figure(4), clf 
-  pzmap(tf(B31, A31))
+  pzmap(B31, A31)
   axis equal
   axis([-80 100 -40 40])
   title('Pole-zero Map.  Best Fit.  Three Poles, One Zero') 
