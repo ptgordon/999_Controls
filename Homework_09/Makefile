@@ -28,11 +28,14 @@ BUILDTMP  := $(BUILDLOG).tmp
 # make itself is unreliable -- it blocks SIGINT/SIGTERM while a recipe runs --
 # so the pidfile records the loop's shell, whose death make does notice.
 WATCHPID ?= .watch.pid
-# Headless octave under WSL has no GPU driver, and Mesa prints warnings about
-# it on stderr -- which lands in the captured output. Force the software
-# renderer and keep EGL quiet so only the script's own output is captured.
-export GALLIUM_DRIVER ?= llvmpipe
-export EGL_LOG_LEVEL ?= fatal
+# Scripts run in MATLAB, not Octave: Octave's invfreqs() normalizes the fit
+# differently and gives different models. The MATLAB with the Signal
+# Processing Toolbox lives in the `matlab` distrobox container; the host's
+# /usr/local/MATLAB lacks it. Override with MATLAB="matlab -batch" elsewhere.
+MATLAB ?= distrobox enter matlab -- matlab -batch
+# Headless, MATLAB warns on every print that it has no graphics hardware.
+# Silence that one so it does not land in the captured output.
+MLSETUP := warning('off','MATLAB:graphics:HardwareUnavailable'); set(0,'DefaultFigureVisible','off');
 
 .PHONY: all figures clean distclean watch stop view
 
@@ -54,7 +57,7 @@ $(DOC).pdf: $(DOC).tex $(SCRIPTS) $(OUTPUTS) $(PLOTFIGS) $(HANDFIGS)
 # Figures are forced invisible so a build never pops a plot window open.
 output/%.txt: %.m
 	@mkdir -p output
-	octave --no-gui -q --eval "set(0,'defaultfigurevisible','off'); run('$<');" > $@ 2>&1
+	$(MATLAB) "$(MLSETUP) run('$<');" > $@ 2>&1
 
 # Diagrams. Needs the draw.io desktop app on PATH; otherwise export by hand:
 #   draw.io > File > Export as > PDF (crop to page), save into figures/.
@@ -62,11 +65,13 @@ figures: $(FIGS) $(PLOTFIGS)
 
 # Figure drawn by a script: run it headless, then print whatever figure it left
 # open. Scripts keep plain `figure; plot(...)` -- the export lives here.
-# Octave's PDF export embeds only regular FreeSans and fakes bold by thickening
-# it, which garbles the letter spacing, so all text is exported at normal weight.
+# A script that opens several figures also gets one PDF per figure, named by
+# figure number: figure(3) in hw_09_1A.m -> figures/hw_09_1A-fig3.pdf.
+# Figures are forced to the light theme: MATLAB otherwise follows the desktop
+# theme and can export dark plots onto the white page.
 figures/hw_%.pdf: hw_%.m
 	@mkdir -p figures
-	octave --no-gui -q --eval "set(0,'defaultfigurevisible','off'); run('$<'); f = gcf(); set(findall(f, 'type','text'), 'fontweight','normal'); set(f,'paperunits','inches', 'papersize',[$(FIGSIZE)], 'paperposition',[0 0 $(FIGSIZE)]); print(f, '-dpdf', '$@');"
+	$(MATLAB) "$(MLSETUP) run('$<'); figs = findall(groot,'type','figure'); [~,i] = sort([figs.Number]); figs = figs(i); for f = figs(:)', theme(f,'light'); set(f,'PaperUnits','inches','PaperSize',[$(FIGSIZE)],'PaperPosition',[0 0 $(FIGSIZE)]); if numel(figs) > 1, print(f,'-dpdf',sprintf('figures/hw_$*-fig%d.pdf',f.Number)); end; end; print(gcf,'-dpdf','$@');"
 
 # Diagram drawn in TikZ: figures/<name>.tex is a standalone document whose page
 # the standalone class crops to the drawing itself. Labels stay editable text,
