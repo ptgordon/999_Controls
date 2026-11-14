@@ -29,10 +29,10 @@ BUILDTMP  := $(BUILDLOG).tmp
 # so the pidfile records the loop's shell, whose death make does notice.
 WATCHPID ?= .watch.pid
 # Scripts run in MATLAB, not Octave: Octave's invfreqs() normalizes the fit
-# differently and gives different models. The MATLAB with the Signal
-# Processing Toolbox lives in the `matlab` distrobox container; the host's
-# /usr/local/MATLAB lacks it. Override with MATLAB="matlab -batch" elsewhere.
-MATLAB ?= distrobox enter matlab -- matlab -batch
+# differently and gives different models. Needs R2025a or newer (theme()) with
+# the Signal Processing and Control System Toolboxes. Point at another install
+# with e.g. MATLAB="/path/to/matlab -batch".
+MATLAB ?= matlab -batch
 # Headless, MATLAB warns on every print that it has no graphics hardware.
 # Silence that one so it does not land in the captured output.
 MLSETUP := warning('off','MATLAB:graphics:HardwareUnavailable'); set(0,'DefaultFigureVisible','off');
