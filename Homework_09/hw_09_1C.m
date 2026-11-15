@@ -81,6 +81,7 @@ PhaseHat20 = atan2(imag(HHat20), real(HHat20)) * (180/pi);
 
 %% The residual error is measured as the norm of the differences in the complex gains. 
 Residuals(na, nb+1) = norm( Hs - HHat20 );
+Residual20 = Residuals(na, nb+1)
 
 %% Plot the bode plot, of the experimental data, and fit model 
 figure(1), clf
@@ -130,6 +131,7 @@ ZeroMags31 = abs(Zeros31)
 HHat31    = freqs(B31, A31, Ws);
 PhaseHat31 = atan2(imag(HHat31), real(HHat31)) * (180/pi); 
 Residuals(na, nb+1) = norm( Hs - HHat31 );
+Residual31 = Residuals(na, nb+1)
 
 
 %% Plot the bode plot, of the experimental data, and fit model 
