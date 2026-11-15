@@ -70,6 +70,10 @@ Guy20 = tf(B20, A20)
 Poles20 = pole(Guy20)
 Zeros20 = zero(Guy20)
 
+%% Magnitude (distance from the origin) of each pole and zero [rad/s]
+PoleMags20 = abs(Poles20)
+ZeroMags20 = abs(Zeros20)
+
 %% The freqs command takes pole and zero polynomials, and returns the complex gain based on the transfer function. 
 %% These lines of code compute the complex gain (HHat), and corresponding PhaseAngles
 HHat20     = freqs(B20, A20, Ws);
@@ -117,6 +121,10 @@ Guy31 = tf(B31, A31)
 %% Poles and zeros of the model
 Poles31 = pole(Guy31)
 Zeros31 = zero(Guy31)
+
+%% Magnitude (distance from the origin) of each pole and zero [rad/s]
+PoleMags31 = abs(Poles31)
+ZeroMags31 = abs(Zeros31)
 
 %% The freqs command takes pole and zero polynomials, and returns the complex gain based on the transfer function.  
 HHat31    = freqs(B31, A31, Ws);

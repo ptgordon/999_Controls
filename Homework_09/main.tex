@@ -401,7 +401,11 @@
 
 \subpart{Is the model physically realistic?}
 \prompt{$G_{uy}(s)$ is known to be open-loop stable --- does the model have unstable poles? Does it have poles or zeros substantially faster than the fastest data point, $\omega_{fastest} = 10\,\text{Hz} \cdot 2\pi = 62.8$ rad/s? Is it physically infeasible in some other way? If so, reject the model.}
-\answer{}
+\answerfigure[0.7\linewidth]{figures/hw_09_1C-fig2.pdf}{Pole-zero map of the 2-pole, 0-zero fit, $G_{uy20}(s)$.}
+\answerfigure[0.7\linewidth]{figures/hw_09_1C-fig4.pdf}{Pole-zero map of the 3-pole, 1-zero fit, $G_{uy31}(s)$.}
+\answer{The 3-pole, 1-zero model, $G_{uy31}(s)$, is not suitable because it is unstable, as evidenced by the real pole in the right half-plane at $s = +4.866$. Since $G_{uy}(s)$ is known to be open-loop stable, this model is rejected.
+
+The 2-pole, 0-zero model, $G_{uy20}(s)$, has a stable complex pole pair at $s = -2.39 \pm j3.93$, with magnitude $|p| = 4.60$ rad/s. These poles are stable and significantly slower than $\omega_{fastest} = 62.8$ rad/s, so the model is physically feasible.}
 
 \subpart{Goodness of fit}
 \prompt{Does the model give a low residual?}
