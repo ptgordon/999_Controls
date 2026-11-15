@@ -63,6 +63,13 @@ nb = 0;
 %% with two poles and one zero. 
 [B20, A20] = invfreqs(Hs, Ws, nb, na, Weights)
 
+%% Model 1 as a transfer function, Guy(s) = Bb(s)/Ab(s)
+Guy20 = tf(B20, A20)
+
+%% Poles and zeros of the model
+Poles20 = pole(Guy20)
+Zeros20 = zero(Guy20)
+
 %% The freqs command takes pole and zero polynomials, and returns the complex gain based on the transfer function. 
 %% These lines of code compute the complex gain (HHat), and corresponding PhaseAngles
 HHat20     = freqs(B20, A20, Ws);
@@ -103,6 +110,13 @@ na = 3;
 nb = 1;       
 %% Determine the numerator and denominator polynomials 
 [B31, A31] = invfreqs(Hs, Ws, nb, na, Weights)
+
+%% Model 2 as a transfer function, Guy(s) = Bb(s)/Ab(s)
+Guy31 = tf(B31, A31)
+
+%% Poles and zeros of the model
+Poles31 = pole(Guy31)
+Zeros31 = zero(Guy31)
 
 %% The freqs command takes pole and zero polynomials, and returns the complex gain based on the transfer function.  
 HHat31    = freqs(B31, A31, Ws);
