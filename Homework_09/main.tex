@@ -83,6 +83,9 @@
   columns=fullflexible,
   keepspaces=true,
   upquote=true,
+  % MATLAB prints empty results as "0×1 empty double column vector"; listings
+  % cannot read the UTF-8 multiplication sign without this mapping.
+  literate={×}{{$\times$}}1,
 }
 
 %--- structure helpers --------------------------------------------------------
@@ -426,10 +429,23 @@ The 2-pole, 0-zero model, $G_{uy20}(s)$, has a stable complex pole pair at $s = 
   Overshoot & Less than 10\% \\ \hline
 \end{answertable}
 \prompt{Steady-state error for a step input is defined as $e(t)$ after $y(t)$ reaches its steady value.}
+\answer{
+\begin{align}
+  G_c(s) &= k_p \label{eq:2-Gc} \\
+  G_p(s) &= \frac{0.25s + 8}{2s^2 + 14s + 24} \label{eq:2-Gp} \\
+  T_{ry}(s) = \frac{Y(s)}{R(s)} &= \frac{G_p(s)\,G_c(s)}{1 + G_p(s)\,G_c(s)} \label{eq:2-Try-gen} \\
+  T_{ry}(s) &= \frac{k_p\,\dfrac{0.25s + 8}{2s^2 + 14s + 24}}{1 + k_p\,\dfrac{0.25s + 8}{2s^2 + 14s + 24}} \label{eq:2-Try-sub} \\
+  T_{ry}(s) &= \frac{k_p\,(0.25s + 8)}{2s^2 + 14s + 24 + k_p\,(0.25s + 8)} \label{eq:2-Try-mult} \\
+  T_{ry}(s) &= \frac{0.25k_p\,s + 8k_p}{2s^2 + (14 + 0.25k_p)\,s + (24 + 8k_p)} \label{eq:2-Try-coll}
+\end{align}
+}
+\matlabcode{hw_09_2A.m}
+\codeoutput{output/hw_09_2A.txt}
+\answerfigure{figures/hw_09_2A.pdf}{Step response of $T_{ry}(s)$.}
 
 \problem{2.A}{}
 \prompt{What is the suitable value of $k_p$?}
-\answer{}
+\answer{$k_p = 8.43$}
 
 \problem{2.B}{}
 \prompt{As $k_p$ increases, does rise time increase or decrease?}

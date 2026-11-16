@@ -45,8 +45,11 @@ all: $(DOC).pdf
 
 # Hand-made figures (draw.io exports, scans, screenshots) are prerequisites
 # too, so editing one rebuilds the PDF -- \answerfigure takes any format
-# graphicx reads, not just the generated PDFs.
-HANDFIGS := $(filter-out $(PLOTFIGS),$(wildcard figures/*.pdf figures/*.png figures/*.jpg figures/*.jpeg))
+# graphicx reads, not just the generated PDFs. figures/hw_*.pdf are always script
+# exports, never hand-made: one left behind after its script stops plotting
+# would otherwise match the export rule below and re-run a script that has no
+# figure to print.
+HANDFIGS := $(filter-out $(PLOTFIGS) figures/hw_%.pdf,$(wildcard figures/*.pdf figures/*.png figures/*.jpg figures/*.jpeg))
 
 $(DOC).pdf: $(DOC).tex $(SCRIPTS) $(OUTPUTS) $(PLOTFIGS) $(HANDFIGS)
 # -g: force a real run. latexmk cannot see figures reached via \IfFileExists,
