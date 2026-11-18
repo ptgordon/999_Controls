@@ -350,23 +350,20 @@
 
 \clearpage
 \problem{1}{System Identification with \texttt{invfreqs()}}
-\prompt{Run \texttt{HW09\_InvfreqsExample.m}. It fits two transfer functions to simulated frequency-response data: 2 poles, 0 zeros; and 3 poles, 1 zero.}
 
 \problem{1.A}{}
-\prompt{Considering the frequency response plots, which transfer function better fits the data? (The residual appears in the plot title.)}
 \answerfigure{figures/hw_09_1A-fig1.pdf}{Frequency response data (+) and the 2-pole, 0-zero fit (o).}
 \answerfigure{figures/hw_09_1A-fig3.pdf}{Frequency response data (+) and the 3-pole, 1-zero fit (o).}
 \answer{The transfer function with 3 poles and 1 zero provides a better fit.}
 
+\clearpage
 \problem{1.B}{}
-\prompt{Considering the pole-zero constellations, is each transfer function stable?}
 \answerfigure[0.7\linewidth]{figures/hw_09_1A-fig2.pdf}{Pole-zero map of the 2-pole, 0-zero fit.}
 \answerfigure[0.7\linewidth]{figures/hw_09_1A-fig4.pdf}{Pole-zero map of the 3-pole, 1-zero fit.}
 \answer{The transfer function with two poles and no zeroes is stable, while the transfer function with three poles and one zero is unstable.}
 
 \clearpage
 \problem{1.C}{}
-\prompt{Modify the data in \texttt{HW09\_InvfreqsExample.m} to be the following. This is the complex gain versus frequency for a system with transfer function $G_{uy}(s) = B_b(s)/A_b(s)$.}
 \begin{answertable}{|r|r|r|}{}
   \hline
   Freq [rad/s] & Mag & Phase [deg] \\ \hline\hline
@@ -379,11 +376,9 @@
   31.4159 & 0.0120 & -173.4103 \\ \hline
   62.8319 & 0.0030 & -176.7621 \\ \hline
 \end{answertable}
-\matlabcode{hw_09_1C.m}
-\codeoutput{output/hw_09_1C.txt}
+\answer{(See Appendix A for code and output.)}
 
 \problem{1.C.1}{}
-\prompt{Determine $G_{uy}(s)$ for the models (indicate the transfer function):}
 
 \subpart{Model 1: 2 poles, 0 zeros}
 \answer{
@@ -399,19 +394,18 @@
 \end{align*}
 }
 
+\clearpage
 \problem{1.C.2}{}
-\prompt{Determine the better model based on these criteria:}
 
 \subpart{Is the model physically realistic?}
-\prompt{$G_{uy}(s)$ is known to be open-loop stable --- does the model have unstable poles? Does it have poles or zeros substantially faster than the fastest data point, $\omega_{fastest} = 10\,\text{Hz} \cdot 2\pi = 62.8$ rad/s? Is it physically infeasible in some other way? If so, reject the model.}
 \answerfigure[0.7\linewidth]{figures/hw_09_1C-fig2.pdf}{Pole-zero map of the 2-pole, 0-zero fit, $G_{uy20}(s)$.}
 \answerfigure[0.7\linewidth]{figures/hw_09_1C-fig4.pdf}{Pole-zero map of the 3-pole, 1-zero fit, $G_{uy31}(s)$.}
 \answer{The 3-pole, 1-zero model, $G_{uy31}(s)$, is not suitable because it is unstable, as evidenced by the real pole in the right half-plane at $s = +4.866$. Since $G_{uy}(s)$ is known to be open-loop stable, this model is rejected.
 
 The 2-pole, 0-zero model, $G_{uy20}(s)$, has a stable complex pole pair at $s = -2.39 \pm j3.93$, with magnitude $|p| = 4.60$ rad/s. These poles are stable and significantly slower than $\omega_{fastest} = 62.8$ rad/s, so the model is physically feasible.}
 
+\clearpage
 \subpart{Goodness of fit}
-\prompt{Does the model give a low residual?}
 \answerfigure{figures/hw_09_1C-fig1.pdf}{Frequency response data (+) and the 2-pole, 0-zero fit (o).}
 \answerfigure{figures/hw_09_1C-fig3.pdf}{Frequency response data (+) and the 3-pole, 1-zero fit (o).}
 \answer{Model 2 (3 poles, 1 zero) has a much lower residual, $0.0022$ compared with $0.1802$ for Model 1 (2 poles, 0 zeros), but it is not physically feasible because of its unstable pole.}
@@ -419,7 +413,6 @@ The 2-pole, 0-zero model, $G_{uy20}(s)$, has a stable complex pole pair at $s = 
 \clearpage
 \problem{2}{Control Design}
 \answerfigure{figures/fig_hw9_1.png}{System with p-type control.\label{fig:hw9-1}}
-\prompt{Test values of $k_p$ on the range $k_p = 0.01 \ldots 100$. Select the value of $k_p$ that best meets these design goals:}
 \begin{answertable}{|l|l|}{}
   \hline
   Measure & Goal \\ \hline\hline
@@ -428,7 +421,6 @@ The 2-pole, 0-zero model, $G_{uy20}(s)$, has a stable complex pole pair at $s = 
   Steady-state error & As small as possible \\ \hline
   Overshoot & Less than 10\% \\ \hline
 \end{answertable}
-\prompt{Steady-state error for a step input is defined as $e(t)$ after $y(t)$ reaches its steady value.}
 \answer{
 \begin{align}
   G_c(s) &= k_p \label{eq:2-Gc} \\
@@ -439,29 +431,33 @@ The 2-pole, 0-zero model, $G_{uy20}(s)$, has a stable complex pole pair at $s = 
   T_{ry}(s) &= \frac{0.25k_p\,s + 8k_p}{2s^2 + (14 + 0.25k_p)\,s + (24 + 8k_p)} \label{eq:2-Try-coll}
 \end{align}
 }
+\clearpage
 \matlabcode{hw_09_2A.m}
+\clearpage
 \codeoutput{output/hw_09_2A.txt}
 \answerfigure{figures/hw_09_2A.pdf}{Step response of $T_{ry}(s)$.}
 
 \problem{2.A}{}
-\prompt{What is the suitable value of $k_p$?}
 \answer{$k_p = 8.43$}
 
 \problem{2.B}{}
-\prompt{As $k_p$ increases, does rise time increase or decrease?}
 \answer{Rise time decreases as $k_p$ increases.}
 
 \problem{2.C}{}
-\prompt{As $k_p$ increases, does settling time increase or decrease?}
 \answer{Settling time decreases as $k_p$ increases.}
 
 \problem{2.D}{}
-\prompt{As $k_p$ increases, does steady-state error increase or decrease?}
 \answer{Steady-state error decreases as $k_p$ increases.}
 
 \problem{2.E}{}
-\prompt{As $k_p$ increases, does overshoot increase or decrease?}
 \answer{Overshoot increases as $k_p$ increases.}
 
+
+\clearpage
+\bigskip
+\noindent{\large\bfseries Appendix A} {\large --- Code and Output for Problem 1.C}%
+\par\nobreak\vspace{2pt}\hrule\vspace{8pt}\nobreak
+\matlabcode{hw_09_1C.m}
+\codeoutput{output/hw_09_1C.txt}
 
 \end{document}
