@@ -1,0 +1,523 @@
+%==============================================================================
+%  Homework template  --  999 Controls
+%
+%  To reuse for the next assignment:
+%    1. copy this folder,  2. edit the METADATA block below,
+%    3. edit the SOLUTIONS section,  4. run  `make`.
+%
+%  Build:  make          (regenerates code output, then builds main.pdf)
+%          make clean    (removes build artifacts)
+%==============================================================================
+\documentclass[11pt,letterpaper]{article}
+
+%------------------------------- METADATA -------------------------------------
+\newcommand{\hwcourse}{EE 999 --- Introduction to Control Systems}
+\newcommand{\hwcourseshort}{EE 999}  % running head, keep it short
+\newcommand{\hwtitle}{Homework 10}
+\newcommand{\hwauthor}{Patrick Gordon}
+\newcommand{\hwdate}{\today}
+\newcommand{\hwdue}{Due Wednesday, December 2, 2026}
+%------------------------------------------------------------------------------
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+\usepackage[letterpaper,margin=1in,headheight=14pt]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{cancel}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage[american]{circuitikz}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{inconsolata}
+\usepackage{pdflscape}
+\usepackage{float}
+\usepackage[hidelinks]{hyperref}
+
+%--- page furniture -----------------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\hwauthor}
+\chead{\hwtitle}
+\rhead{\hwcourseshort}
+\cfoot{\thepage}
+
+%--- listing styles -----------------------------------------------------------
+\definecolor{codebg}{HTML}{F7F7F4}
+\definecolor{outbg}{HTML}{FCFCFC}
+\definecolor{rule}{HTML}{C8C8C0}
+\definecolor{kw}{HTML}{1C4FA1}
+\definecolor{cmt}{HTML}{6A7A5A}
+\definecolor{str}{HTML}{A0522D}
+
+\lstdefinestyle{mcode}{
+  language=Octave,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{kw}\bfseries,
+  commentstyle=\color{cmt}\itshape,
+  stringstyle=\color{str},
+  backgroundcolor=\color{codebg},
+  frame=single,
+  rulecolor=\color{rule},
+  framesep=6pt,
+  numbers=left,
+  numberstyle=\ttfamily\scriptsize\color{gray},
+  numbersep=8pt,
+  showstringspaces=false,
+  breaklines=true,
+  columns=fullflexible,
+  keepspaces=true,
+  upquote=true,
+}
+
+\lstdefinestyle{moutput}{
+  basicstyle=\ttfamily\footnotesize,
+  backgroundcolor=\color{outbg},
+  frame=single,
+  rulecolor=\color{rule},
+  framesep=6pt,
+  showstringspaces=false,
+  breaklines=true,
+  columns=fullflexible,
+  keepspaces=true,
+  upquote=true,
+  % MATLAB prints empty results as "0×1 empty double column vector"; listings
+  % cannot read the UTF-8 multiplication sign without this mapping.
+  literate={×}{{$\times$}}1,
+}
+
+%--- structure helpers --------------------------------------------------------
+% \problem{1.1b}{Optional title}
+\newcommand{\problem}[2]{%
+  \bigskip
+  \noindent{\large\bfseries Problem #1}%
+  \ifx\relax#2\relax\else\ {\large --- #2}\fi
+  \par\nobreak\vspace{2pt}\hrule\vspace{8pt}\nobreak
+}
+
+% \caplabel{Code}{hw_02_A.m}
+\newcommand{\caplabel}[2]{%
+  \par\nobreak\vspace{6pt}\nobreak
+  \noindent{\small\bfseries #1}\ {\small\ttfamily \detokenize{#2}}%
+  \par\nobreak\vspace{2pt}\nobreak
+}
+
+% \matlabcode{hw_02_A.m}  -- source listing pulled straight from the .m file
+\newcommand{\matlabcode}[1]{%
+  \caplabel{Code:}{#1}%
+  \lstinputlisting[style=mcode]{#1}%
+}
+
+% \codeoutput{output/hw_02_A.txt} -- console output captured by the Makefile
+\newcommand{\codeoutput}[1]{%
+  \caplabel{Output:}{#1}%
+  \IfFileExists{#1}{\lstinputlisting[style=moutput]{#1}}{\missing{#1}{run \texttt{make} to generate it}}%
+}
+
+% \answerfigure[width]{figures/foo.pdf}{Caption}  -- placeholder if not exported
+% yet. Any format graphicx reads works: pdf, png, jpg.
+% A script that plots is exported by the Makefile to figures/<script>.pdf, so
+% \answerfigure{figures/hw_02_F.pdf}{...} is how a plotted answer is included.
+% The optional argument is the printed width, default the full text width.
+% Give a scan or screenshot a smaller one so it is not blown up past its own
+% resolution:  \answerfigure[0.8\linewidth]{figures/some_scan.png}{...}
+\newcommand{\answerfigure}[3][\linewidth]{%
+  \begin{figure}[H]
+    \centering
+    \IfFileExists{#2}{\includegraphics[width=#1]{#2}}{\missing{#2}{export it, see README}}
+    \caption{#3}
+  \end{figure}%
+}
+
+% \splane{G_1(s)}  -- an empty s-plane grid to sketch poles (x) and zeros (o)
+% on by hand. One unit per square, Re from -10 to 3 and Im from -4 to 4.
+% \splane[5]{G_2(s)} instead centres the origin, both axes running -5 to 5.
+\newcommand{\splane}[2][]{%
+  \ifx\relax#1\relax
+    \def\spxmin{-10}\def\spxmax{3}\def\spymax{4}\def\spxlabels{-10,-8,...,2}\def\spylabels{-4,-2,2,4}\def\spscale{1}%
+  \else
+    \def\spxmin{-#1}\def\spxmax{#1}\def\spymax{#1}\def\spxlabels{-#1,...,-1,1,2,...,#1}\def\spylabels{-#1,...,-1,1,2,...,#1}\def\spscale{0.85}%
+  \fi
+  \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale=\spscale]
+      \draw[gray!30, thin] (\spxmin,-\spymax) grid (\spxmax,\spymax);
+      \draw[->, thick] (\spxmin-0.3,0) -- (\spxmax+0.4,0) node[right] {$\mathrm{Re}$};
+      \draw[->, thick] (0,-\spymax-0.3) -- (0,\spymax+0.4) node[above] {$\mathrm{Im}$};
+      \foreach \x in \spxlabels
+        \node[below, font=\scriptsize, fill=white, inner sep=1pt] at (\x,-0.05) {$\x$};
+      \foreach \y in \spylabels
+        \node[left, font=\scriptsize, fill=white, inner sep=1pt] at (-0.05,\y) {$\y j$};
+    \end{tikzpicture}
+    \caption{Pole-zero sketch of $#2$.}
+  \end{figure}%
+}
+
+% \splanewindow{xmin}{xmax}{ymax}{xstep}{ystep}{scale}{Caption}  -- \splane
+% with the window chosen per problem, for poles that fall outside the default.
+% Re runs xmin..xmax, Im runs -ymax..ymax, axis labels every xstep / ystep, and
+% a fine half-unit grid under the unit grid. scale is cm per unit, and the full
+% caption is given since the window is usually showing something specific.
+%   \splanewindow{-7}{1}{12}{1}{2}{0.6}{Closed-loop poles as $k_d$ varies.}
+\newcommand{\splanewindow}[7]{%
+  \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale=#6]
+      \draw[gray!15, very thin, step=0.5] (#1,-#3) grid (#2,#3);
+      \draw[gray!40, thin] (#1,-#3) grid (#2,#3);
+      \draw[->, thick] (#1-0.3,0) -- (#2+0.4,0) node[right] {$\mathrm{Re}$};
+      \draw[->, thick] (0,-#3-0.3) -- (0,#3+0.4) node[above] {$\mathrm{Im}$};
+      \pgfmathtruncatemacro{\spxa}{#1}\pgfmathtruncatemacro{\spxb}{#1+#4}%
+      \foreach \x in {\spxa,\spxb,...,#2}
+        {\ifnum\x=0\else\node[below, font=\scriptsize, fill=white, inner sep=1pt] at (\x,-0.05) {$\x$};\fi}
+      \pgfmathtruncatemacro{\spya}{-#3}\pgfmathtruncatemacro{\spyb}{-#3+#5}%
+      \foreach \y in {\spya,\spyb,...,#3}
+        {\ifnum\y=0\else\node[left, font=\scriptsize, fill=white, inner sep=1pt] at (-0.05,\y) {$\y j$};\fi}
+    \end{tikzpicture}
+    \caption{#7}
+  \end{figure}%
+}
+
+%--- tables -------------------------------------------------------------------
+% Centred paragraph column, so a description column wraps instead of running
+% off the page:  \begin{tabular}{|c|P{0.5\linewidth}|}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
+% \begin{symboltable}{Signal}{Caption}  -- the symbol / units / description
+% table used to define the variables of a problem. The first argument is the
+% heading of the left column (Signal, Parameter, State, ...); leave the second
+% empty for no caption.
+%
+%   \begin{symboltable}{Signal}{}
+%     \sym{x(t)}{m}{Position of tire center}
+%     \sym{r(t)}{m}{Road height (depends on $v_{car}(t)$)}
+%   \end{symboltable}
+%
+% \sym puts its first argument in math mode and brackets the units, so write
+% \sym{x(t)}{m}{...}, not \sym{$x(t)$}{[m]}{...}. Anything already math -- a
+% subscript, a fraction -- goes in the description as usual: $\frac{1}{4}$.
+%
+% The optional argument is the width of the description column, for a table
+% whose descriptions are much longer or much shorter than average:
+%   \begin{symboltable}[0.35\linewidth]{Parameter}{}
+\newcommand{\sym}[3]{$#1$ & [#2] & #3 \\ \hline}
+\newenvironment{symboltable}[3][0.45\linewidth]{%
+  \def\symtabcap{#3}%
+  \begin{table}[H]
+  \centering
+  \renewcommand{\arraystretch}{1.4}
+  \begin{tabular}{|c|c|P{#1}|}
+  \hline
+  #2 & Units & Description \\ \hline\hline
+}{%
+  \end{tabular}
+  \ifx\symtabcap\empty\else\caption{\symtabcap}\fi
+  \end{table}%
+}
+
+% \begin{answertable}{|c|c|c|}{Caption} -- any other table. Same placement and
+% captioning as \answerfigure, but you write the rows yourself:
+%
+%   \begin{answertable}{|c|P{0.5\linewidth}|}{Pole locations.}
+%     \hline
+%     Pole & Behaviour \\ \hline\hline
+%     $s=-2$ & decays in half a second \\ \hline
+%   \end{answertable}
+\newenvironment{answertable}[2]{%
+  \def\anstabcap{#2}%
+  \begin{table}[H]
+  \centering
+  \renewcommand{\arraystretch}{1.4}
+  \begin{tabular}{#1}
+}{%
+  \end{tabular}
+  \ifx\anstabcap\empty\else\caption{\anstabcap}\fi
+  \end{table}%
+}
+
+% \begin{termtable}{4}{Caption} -- collect like powers of $s$ when multiplying
+% out a characteristic polynomial (or any other expansion). The argument is the
+% highest power; the columns and the $s^4 \dots s^0$ header are generated from
+% it, so changing the degree is a one-character edit. Leave the second argument
+% empty for no caption.
+%
+% Cells are already in math mode: write m_1m_2, not $m_1m_2$. One row per factor
+% you multiplied out, one column per power; leave a cell empty where that factor
+% contributes nothing to that power. Rows end with \\, like any tabular.
+%
+%   \begin{termtable}{4}{Terms of the characteristic polynomial.}
+%     m_1m_2 & m_1b & m_1k_s       & bk_s       & k_s(k_s+k_w) \\
+%            & m_2b & m_2(k_s+k_w) & b(k_s+k_w) &              \\
+%            &      & -b^2         & -bk_s      & -k_s^2
+%   \end{termtable}
+%
+% M is a centred column that is always in math mode. It uses \( \) rather than
+% $ $ so that an empty cell stays empty -- a bare $$ would start display math.
+\newcolumntype{M}{>{\(}c<{\)}}
+\makeatletter
+\newcount\tt@i
+\newcommand{\tt@cols}{}
+\newcommand{\tt@head}{}
+\newcommand{\tt@build}[1]{%
+  \def\tt@cols{}\def\tt@head{}%
+  \tt@i=#1\relax
+  \@whilenum\tt@i>\m@ne\do{%
+    \edef\tt@cols{\tt@cols M}%
+    \ifx\tt@head\@empty
+      \edef\tt@head{s^{\the\tt@i}}%
+    \else
+      \edef\tt@head{\tt@head & s^{\the\tt@i}}%
+    \fi
+    \advance\tt@i\m@ne
+  }%
+}
+\newenvironment{termtable}[2]{%
+  \def\tt@cap{#2}%
+  \tt@build{#1}%
+  \begin{table}[H]%
+  \centering
+  \setlength{\tabcolsep}{12pt}%
+  \renewcommand{\arraystretch}{1.3}%
+  \edef\@tempa{\noexpand\begin{tabular}{\tt@cols}}\@tempa
+  \tt@head \\ \hline
+}{%
+  \end{tabular}
+  \ifx\tt@cap\@empty\else\caption{\tt@cap}\fi
+  \end{table}%
+}
+\makeatother
+
+% wideproblem environment -- a problem on its own landscape page, centred.
+% Use for diagrams much wider than they are tall, where a portrait page would
+% shrink the labels below readable size:
+%   \begin{wideproblem}{1.1b}{Title}
+%     \answerfigure{figures/x.pdf}{Caption}
+%   \end{wideproblem}
+\newenvironment{wideproblem}[2]{%
+  \begin{landscape}%
+    \problem{#1}{#2}%
+    \vspace*{\fill}%
+}{%
+    \vspace*{\fill}%
+  \end{landscape}%
+}
+
+% \prompt{What special property does b*d have?} -- restate the question
+\newcommand{\prompt}[1]{%
+  \noindent\textit{#1}\par\vspace{6pt}%
+}
+
+% \subpart{D.1} -- bold label for a numbered sub-part of a problem
+\newcommand{\subpart}[1]{%
+  \noindent\textbf{#1}\par\vspace{4pt}%
+}
+
+% \answer{...}  -- written answer. Leave the body empty for a visible
+% placeholder box; fill it in and the box is replaced by the prose.
+\newcommand{\answer}[1]{%
+  \ifx\relax#1\relax\todo{write the answer here}\else#1\fi
+  \par\vspace{4pt}%
+}
+
+\newcommand{\todo}[1]{%
+  \fbox{\parbox{0.9\linewidth}{\centering\vspace{10pt}\rmfamily\itshape\small
+    #1\vspace{10pt}}}%
+}
+
+\newcommand{\missing}[2]{%
+  \fbox{\parbox{0.9\linewidth}{\centering\vspace{10pt}\ttfamily\small
+    missing: \detokenize{#1}\\[4pt]\rmfamily\itshape #2\vspace{10pt}}}%
+}
+
+
+%==============================================================================
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries \hwtitle}\\[4pt]
+  {\large \hwcourse}\\[8pt]
+  {\hwauthor} \quad\textbullet\quad {\hwdate}\\[4pt]
+  {\small\itshape \hwdue}
+\end{center}
+\vspace{6pt}\hrule
+
+%------------------------------------------------------------------------------
+%  SOLUTIONS
+%------------------------------------------------------------------------------
+
+
+\clearpage
+\problem{1}{PD and PI Motor Control}
+\answerfigure{figures/fig_hw10_1.png}{Block diagram with controller and plant.\label{fig:hw10-1}}
+\begin{answertable}{|c|c|c|}{Controller and plant combinations.\label{tab:hw10-cases}}
+  \hline
+  Case & $G_c(s)$ & $G_p(s)$ \\ \hline\hline
+  A & $k_d s + k_p$         & $\dfrac{k_t}{Js + b}$     \\[8pt] \hline
+  B & $\dfrac{k_p s + k_i}{s}$ & $\dfrac{k_t}{Js + b}$     \\[8pt] \hline
+  C & $k_d s + k_p$         & $\dfrac{k_t}{Js^2 + bs}$  \\[8pt] \hline
+  D & $\dfrac{k_p s + k_i}{s}$ & $\dfrac{k_t}{Js^2 + bs}$  \\[8pt] \hline
+\end{answertable}
+
+\problem{1.A}{System Type}
+\prompt{With the block diagram of Figure~\ref{fig:hw10-1}, determine the system type for each combination of $G_c(s)$ and $G_p(s)$, A to D. The Bode standard form is
+\[
+  G(s) = K_{Bode}\,\frac{1}{s^{n_0}}\,\frac{b_m s^m + \dots + b_1 s + 1}{a_n s^n + \dots + a_1 s + 1},
+\]
+where $n_0$ is the number of poles at the origin (and gives the system type).}
+\subpart{A}
+\answer{}
+\subpart{B}
+\answer{}
+\subpart{C}
+\answer{}
+\subpart{D}
+\answer{}
+
+\problem{1.B}{Loop Gain in Bode Standard Form}
+\prompt{Write the loop gain $G_{Loop} = G_c G_p$ in Bode standard form for each combination, A to D.}
+\subpart{A}
+\answer{}
+\subpart{B}
+\answer{}
+\subpart{C}
+\answer{}
+\subpart{D}
+\answer{}
+
+\clearpage
+\problem{1.C}{Steady-State Error}
+
+\problem{1.C.1}{}
+\prompt{For each case A to D, write an expression for the steady-state error to a step input, $e_{ss}(\text{step})$. It is either 0, or an expression in the parameters of $G_c$ and $G_p$.}
+\subpart{A}
+\answer{}
+\subpart{B}
+\answer{}
+\subpart{C}
+\answer{}
+\subpart{D}
+\answer{}
+
+\problem{1.C.2}{}
+\prompt{For each case A to D, write an expression for the steady-state error to a ramp input, $e_{ss}(\text{ramp})$. It is either 0, infinity, or an expression in the parameters of $G_c$ and $G_p$.}
+\subpart{A}
+\answer{}
+\subpart{B}
+\answer{}
+\subpart{C}
+\answer{}
+\subpart{D}
+\answer{}
+
+\clearpage
+\noindent\textbf{Working with parameters.}
+\prompt{Using the parameters below, form the closed-loop transfer function $T_{ry}(s)$ for each of cases A to D in MATLAB.}
+\begin{answertable}{|c|c|c|}{System parameters.}
+  \hline
+  $k_t = 2$  & $J = 3$   & $b = 5$     \\ \hline
+  $k_p = 10$ & $k_d = 1$ & $k_i = 100$ \\ \hline
+\end{answertable}
+
+\problem{1.D}{Pole-Zero Maps}
+
+\problem{1.D.1}{}
+\prompt{Plot the pole-zero map for each of the four configurations (A to D).}
+\answer{}
+
+\problem{1.D.2}{}
+\prompt{Which of the four are stable? Which are unstable?}
+\answer{}
+
+\clearpage
+\problem{1.E}{Step Response}
+
+\problem{1.E.1}{}
+\prompt{Plot the step response for each of the four configurations.}
+\answer{}
+
+\problem{1.E.2}{}
+\prompt{Based on the step plots, do the conclusions about stability agree with part 1.D.2?}
+\answer{}
+
+\problem{1.E.3}{}
+\prompt{Which case has steady-state error for a step input?}
+\answer{}
+
+\problem{1.E.4}{}
+\prompt{Plug the parameters into the expressions for steady-state error to a step input from 1.C.1. Do they agree with the plotted steady-state errors?}
+\answer{}
+
+\clearpage
+\problem{1.F}{Error Transfer Function $T_{re}(s)$}
+
+\problem{1.F.1}{}
+\prompt{In MATLAB, form the closed-loop transfer function $T_{re}(s)$ for each of the stable cases.}
+\answer{}
+
+\problem{1.F.2}{}
+\prompt{Plot the frequency response, \texttt{Tre = feedback(1, Gc*Gp); bode(Tre)}.}
+\answer{}
+
+\problem{1.F.3}{}
+\prompt{Reading the frequency response plot, for each system, what is the magnitude of the tracking error when tracking $r(t) = 1.0\cos(\omega t)$ with $\omega = 1.0$ rad/s?}
+\answer{}
+
+\clearpage
+\problem{2}{Text Problem 4.29 --- Tape-Drive Speed Control}
+\prompt{The transfer functions of speed control for a magnetic tape-drive system are shown in Fig.~4.42. The speed sensor is fast enough that its dynamics can be neglected and the diagram shows the equivalent unity feedback system.}
+\answerfigure[0.8\linewidth]{figures/fig_4_42.png}{Tape-drive speed control (Franklin et al., Fig.~4.42).\label{fig:hw10-4-42}}
+
+\problem{4.29(a)}{Disturbance Steady-State Error}
+\prompt{Assuming the reference is zero, what is the steady-state error due to a step disturbance torque of 1 N$\cdot$m? What must the amplifier gain $K$ be to make $e_{ss} \le 0.01$ rad/s?}
+
+\subpart{4.29(a).i}
+\prompt{Form $T_{dy}(s)$.}
+\answer{}
+
+\subpart{4.29(a).ii}
+\prompt{Apply the final value theorem to $Y(s)$ to find $y_{ss}$ due to a steady disturbance $d(t) = 1^+(t)$, with $r(t) = 0$ so that $e(t) = -y(t)$.}
+\answer{}
+
+\clearpage
+\problem{4.29(b)}{Closed-Loop Roots and Step Response}
+\prompt{Plot the roots of the closed-loop system in the complex plane and accurately sketch the time response of the output for a step reference input, using the gain $K$ from part (a).}
+\answer{}
+
+\clearpage
+\problem{4.29(c)}{Acceptable Pole Region}
+\prompt{Plot the region in the complex plane of acceptable closed-loop poles for a 1\% settling time $t_s \le 0.1$ s and an overshoot $M_p \le 5\%$. (Hand sketch.)}
+\answer{}
+
+\clearpage
+\problem{4.29(d)}{PD Controller}
+\prompt{Give values for $k_p$ and $k_d$ for a PD controller, $u(t) = k_d\dot e(t) + k_p e(t)$, which meets the specifications. For hand tuning write it as $G_c(s) = K_c(\tau_c s + 1)$, with $k_d = K_c\tau_c$ and $k_p = K_c$.}
+
+\subpart{4.29(d).i}
+\prompt{Symbolically form $T_{de}(s)$. What is the expression for the disturbance steady-state error (the DC gain of $T_{de}(s)$)? What are the requirements on $K_c$ and $\tau_c$ to meet the disturbance-SSE requirement?}
+\answer{}
+
+\subpart{4.29(d).ii}
+\prompt{Explore the root locus for various $\tau_c$. Find $\tau_c$ for which the branches pass into the region from part (c), and an initial $K_c$ that places the closed-loop poles there while also meeting the minimum $K_c$ for the disturbance SSE.}
+\answer{}
+
+\subpart{4.29(d).iii}
+\prompt{Form $T_{ry}(s)$ and examine the step response. Iteratively adjust the design (mainly $\tau_c$) to meet: SSE $\le 0.01$ rad/s, $t_s \le 0.1$ s, $M_p \le 10\%$.}
+\answer{}
+
+\subpart{4.29(d).iv}
+\prompt{Verify the design: $T_{de}$ for the steady-state error requirement, and the step response of $T_{ry}$ for settling time and overshoot.}
+\answer{}
+
+\clearpage
+\problem{4.29(e)}{Eliminating the Disturbance Error}
+\prompt{Plot the step response of $T_{de}(s)$. Does the PD controller from part (d) meet the requirement? How would the disturbance-induced steady-state error change with this controller, and what controller structure would make it zero?}
+\answer{}
+
+\problem{Extra Credit}{}
+\prompt{Engineer a controller that meets the $t_s$ and $M_p$ requirements with zero disturbance steady-state error.}
+\answer{}
+
+
+\end{document}
