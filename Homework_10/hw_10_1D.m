@@ -27,3 +27,8 @@ figure(1); pzmap(sys_A); title('Pole-Zero Map: Case A')
 figure(2); pzmap(sys_B); title('Pole-Zero Map: Case B')
 figure(3); pzmap(sys_C); title('Pole-Zero Map: Case C')
 figure(4); pzmap(sys_D); title('Pole-Zero Map: Case D')
+
+figure(5); step(sys_A); title('Step Response: Case A')
+figure(6); step(sys_B); title('Step Response: Case B')
+figure(7); step(sys_C); title('Step Response: Case C')
+figure(8); step(sys_D); title('Step Response: Case D')
