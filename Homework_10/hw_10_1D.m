@@ -11,18 +11,25 @@ Gp_A = tf(kt, [J b]);
 G_A = Gc_A * Gp_A;
 Try_A = feedback(G_A, 1)
 Tre_A = feedback(1, G_A)
+[mag_A, phase_A] = bode(Tre_A, 1);
+mag_A_dB = mag2db(mag_A)
 
 Gc_B = tf([kp ki], [1 0]);
 Gp_B = tf(kt, [J b]);
 G_B = Gc_B * Gp_B;
 Try_B = feedback(G_B, 1)
 Tre_B = feedback(1, G_B)
+[mag_B, phase_B] = bode(Tre_B, 1);
+mag_B_dB = mag2db(mag_B)
+
 
 Gc_C = tf([kd kp], 1);
 Gp_C = tf(kt, [J b 0]);
 G_C = Gc_C * Gp_C;
 Try_C = feedback(G_C, 1)
 Tre_C = feedback(1, G_C)
+[mag_C, phase_C] = bode(Tre_C, 1);
+mag_C_dB = mag2db(mag_C)
 
 Gc_D = tf([kp ki], [1 0]);
 Gp_D = tf(kt, [J b 0]);
