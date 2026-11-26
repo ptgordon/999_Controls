@@ -6,22 +6,28 @@ kp = 10;
 kd = 1;
 ki = 100;
 
-num_A = [kd*kt kp*kt];
-den_A = [J+kd*kt b+kp*kt];
-Try_A = tf(num_A, den_A)
+Gc_A = tf([kd kp], 1);
+Gp_A = tf(kt, [J b]);
+G_A = Gc_A * Gp_A;
+Try_A = feedback(G_A, 1)
+Tre_A = feedback(1, G_A)
 
-num_B = [kp*kt ki*kt];
-den_B = [J b+kp*kt ki*kt];
-Try_B = tf(num_B, den_B)
+Gc_B = tf([kp ki], [1 0]);
+Gp_B = tf(kt, [J b]);
+G_B = Gc_B * Gp_B;
+Try_B = feedback(G_B, 1)
+Tre_B = feedback(1, G_B)
 
-num_C = [kd*kt kp*kt];
-den_C = [J b+kd*kt kp*kt];
-Try_C = tf(num_C, den_C)
+Gc_C = tf([kd kp], 1);
+Gp_C = tf(kt, [J b 0]);
+G_C = Gc_C * Gp_C;
+Try_C = feedback(G_C, 1)
+Tre_C = feedback(1, G_C)
 
-num_D = [kp*kt ki*kt];
-den_D = [J b kp*kt ki*kt];
-Try_D = tf(num_D, den_D)
-
+Gc_D = tf([kp ki], [1 0]);
+Gp_D = tf(kt, [J b 0]);
+G_D = Gc_D * Gp_D;
+Try_D = feedback(G_D, 1)
 
 figure(1); pzmap(Try_A); title('Pole-Zero Map: Case A')
 figure(2); pzmap(Try_B); title('Pole-Zero Map: Case B')
@@ -33,8 +39,6 @@ figure(6); step(Try_B); title('Step Response: Case B')
 figure(7); step(Try_C); title('Step Response: Case C')
 figure(8); step(Try_D); title('Step Response: Case D')
 
-Gc_A = tf([kd kp], 1);
-Gp_A = tf(kt, [J b]);
-
-Gc_B = tf([kd kp], [1 0]);
-Gp_B = tf(kt, [J b]);
+figure(9); bode(Tre_A); title('Frequency Response: Case A')
+figure(10); bode(Tre_B); title('Frequency Response: Case B')
+figure(11); bode(Tre_C); title('Frequency Response: Case C')
