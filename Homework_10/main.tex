@@ -698,7 +698,19 @@ The system is Type 0.
 \clearpage
 \problem{4.29(c)}{Acceptable Pole Region}
 \prompt{Plot the region in the complex plane of acceptable closed-loop poles for a 1\% settling time $t_s \le 0.1$ s and an overshoot $M_p \le 5\%$. (Hand sketch.)}
-\answer{}
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[x=0.16cm, y=0.16cm]
+    \draw[gray!30, thin, step=5] (-80,-50) grid (10,50);
+    \draw[->, thick] (-82,0) -- (12,0) node[right] {$\mathrm{Re}$};
+    \draw[->, thick] (0,-52) -- (0,52) node[above] {$\mathrm{Im}$};
+    \foreach \x in {-80,-70,...,-10}
+      \node[below, font=\scriptsize, fill=white, inner sep=1pt] at (\x,-0.5) {$\x$};
+    \foreach \y in {-50,-40,...,-10,10,20,...,50}
+      \node[left, font=\scriptsize, fill=white, inner sep=1pt] at (-0.5,\y) {$\y j$};
+  \end{tikzpicture}
+  \caption{Region of acceptable closed-loop poles for $t_s \le 0.1$ s and $M_p \le 5\%$.}
+\end{figure}
 
 \clearpage
 \problem{4.29(d)}{PD Controller}
