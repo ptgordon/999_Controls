@@ -590,7 +590,19 @@ This value agrees with the plot.
 
 \problem{1.F.1}{}
 \prompt{In MATLAB, form the closed-loop transfer function $T_{re}(s)$ for each of the stable cases.}
-\answer{}
+\answer{
+\noindent From Part 3 notes:
+\begin{align}
+  T_{re}(s) &= \frac{\text{Gain from } r(t) \text{ to } e(t)}{1 + \text{Loop Gain}} = \frac{1}{1 + G_c G_p H_y} \label{eq:1F1-Tre}
+\end{align}
+\noindent Case A:
+\begin{align}
+  T_{re,A}(s) &= \frac{1}{1 + G_A(s)} \label{eq:1F1-A-Tre} \\
+  T_{re,A}(s) &= \frac{1}{1 + \dfrac{k_d k_t\,s + k_p k_t}{Js + b}} \label{eq:1F1-A-Tre-sub} \\
+  T_{re,A}(s) &= \frac{Js + b}{Js + b + k_d k_t\,s + k_p k_t} \label{eq:1F1-A-Tre-mult} \\
+  T_{re,A}(s) &= \frac{Js + b}{(J + k_d k_t)\,s + (b + k_p k_t)} \label{eq:1F1-A-Tre-coll}
+\end{align}
+}
 
 \problem{1.F.2}{}
 \prompt{Plot the frequency response, \texttt{Tre = feedback(1, Gc*Gp); bode(Tre)}.}
