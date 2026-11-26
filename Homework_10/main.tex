@@ -651,7 +651,18 @@ This value agrees with the plot.
 
 \subpart{4.29(a).i}
 \prompt{Form $T_{dy}(s)$.}
-\answer{}
+\answer{
+\begin{align}
+  G_c(s) &= \frac{10K}{0.5s + 1} \label{eq:429ai-Gc} \\
+  G_p(s) &= \frac{1}{Js + b} \label{eq:429ai-Gp} \\
+  T_{dy}(s) &= \frac{G_p(s)}{1 + G_c(s)\,G_p(s)} \label{eq:429ai-Tdy} \\
+  T_{dy}(s) &= \frac{\dfrac{1}{Js + b}}{1 + \dfrac{10K}{0.5s + 1}\,\dfrac{1}{Js + b}} \label{eq:429ai-Tdy-sub} \\
+  T_{dy}(s) &= \frac{0.5s + 1}{(0.5s + 1)(Js + b) + 10K} \label{eq:429ai-Tdy-mult} \\
+  T_{dy}(s) &= \frac{0.5s + 1}{0.5Js^2 + 0.5bs + Js + b + 10K} \label{eq:429ai-Tdy-exp} \\
+  T_{dy}(s) &= \frac{0.5s + 1}{0.5Js^2 + (0.5b + J)\,s + (b + 10K)} \label{eq:429ai-Tdy-coll}
+\end{align}
+The system is Type 0.
+}
 
 \subpart{4.29(a).ii}
 \prompt{Apply the final value theorem to $Y(s)$ to find $y_{ss}$ due to a steady disturbance $d(t) = 1^+(t)$, with $r(t) = 0$ so that $e(t) = -y(t)$.}
