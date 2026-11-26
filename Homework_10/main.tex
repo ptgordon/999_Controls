@@ -668,7 +668,11 @@ The system is Type 0.
 \prompt{Apply the final value theorem to $Y(s)$ to find $y_{ss}$ due to a steady disturbance $d(t) = 1^+(t)$, with $r(t) = 0$ so that $e(t) = -y(t)$.}
 \answer{
 \begin{align}
-  T_{dy}(s) &= \frac{1}{b + 10K}\,\frac{0.5s + 1}{\frac{0.5J}{b + 10K}\,s^2 + \frac{0.5b + J}{b + 10K}\,s + 1} \label{eq:429ai-Tdy-bode}
+  y_{ss} &= \lim_{s \to 0} s\,Y(s) \label{eq:429aii-fvt} \\
+  y_{ss} &= \lim_{s \to 0} s\,T_{dy}(s)\,D(s) \label{eq:429aii-Y} \\
+  y_{ss} &= \lim_{s \to 0} s\,\frac{0.5s + 1}{0.5Js^2 + (0.5b + J)\,s + (b + 10K)}\,\frac{1}{s} \label{eq:429aii-sub} \\
+  y_{ss} &= \lim_{s \to 0} \frac{0.5s + 1}{0.5Js^2 + (0.5b + J)\,s + (b + 10K)} \label{eq:429aii-cancel} \\
+  y_{ss} &= \frac{1}{b + 10K} \label{eq:429aii-yss}
 \end{align}
 }
 
