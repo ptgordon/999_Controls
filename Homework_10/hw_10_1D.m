@@ -32,3 +32,9 @@ figure(5); step(Try_A); title('Step Response: Case A')
 figure(6); step(Try_B); title('Step Response: Case B')
 figure(7); step(Try_C); title('Step Response: Case C')
 figure(8); step(Try_D); title('Step Response: Case D')
+
+Gc_A = tf([kd kp], 1);
+Gp_A = tf(kt, [J b]);
+
+Gc_B = tf([kd kp], [1 0]);
+Gp_B = tf(kt, [J b]);
