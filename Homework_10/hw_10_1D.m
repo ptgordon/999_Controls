@@ -23,3 +23,7 @@ den_D = [J b kp*kt ki*kt];
 sys_D = tf(num_D, den_D)
 
 
+figure(1); pzmap(sys_A); title('Pole-Zero Map: Case A')
+figure(2); pzmap(sys_B); title('Pole-Zero Map: Case B')
+figure(3); pzmap(sys_C); title('Pole-Zero Map: Case C')
+figure(4); pzmap(sys_D); title('Pole-Zero Map: Case D')
