@@ -701,7 +701,21 @@ The system is Type 0.
 \begin{align}
   \alpha &\ge \frac{4.6}{t_s} \label{eq:429c-alpha} \\
   \alpha &\ge \frac{4.6}{(0.1)} \label{eq:429c-alpha-sub} \\
-  \alpha &\ge 46\ \text{s}^{-1} \label{eq:429c-alpha-val}
+  \alpha &\ge 46\ \text{s}^{-1} \label{eq:429c-alpha-val} \\
+  \rho &\ge \text{value given from plot} \label{eq:429c-rho} \\
+  M_p &= 100\% \times e^{-\frac{\pi\rho}{\sqrt{1 - \rho^2}}} \label{eq:429c-Mp} \\
+  (5\%) &= 100\% \times e^{-\frac{\pi\rho}{\sqrt{1 - \rho^2}}} \label{eq:429c-Mp-sub} \\
+  0.05 &= e^{-\frac{\pi\rho}{\sqrt{1 - \rho^2}}} \label{eq:429c-Mp-frac} \\
+  \ln(0.05) &= -\frac{\pi\rho}{\sqrt{1 - \rho^2}} \label{eq:429c-Mp-ln} \\
+  \ln(0.05)\sqrt{1 - \rho^2} &= -\pi\rho \label{eq:429c-Mp-mult} \\
+  \ln^2(0.05)\,(1 - \rho^2) &= \pi^2\rho^2 \label{eq:429c-Mp-sq} \\
+  \ln^2(0.05) - \ln^2(0.05)\,\rho^2 &= \pi^2\rho^2 \label{eq:429c-Mp-dist} \\
+  \ln^2(0.05) &= \pi^2\rho^2 + \ln^2(0.05)\,\rho^2 \label{eq:429c-Mp-add} \\
+  \ln^2(0.05) &= \rho^2\left(\pi^2 + \ln^2(0.05)\right) \label{eq:429c-Mp-factor} \\
+  \frac{\ln^2(0.05)}{\pi^2 + \ln^2(0.05)} &= \rho^2 \label{eq:429c-Mp-div} \\
+  \sqrt{\frac{\ln^2(0.05)}{\pi^2 + \ln^2(0.05)}} &= \rho \label{eq:429c-Mp-sqrt} \\
+  \sqrt{\frac{8.974}{9.870 + 8.974}} &= \rho \label{eq:429c-Mp-vals} \\
+  0.690 &= \rho \label{eq:429c-rho-val}
 \end{align}
 \begin{figure}[H]
   \centering
