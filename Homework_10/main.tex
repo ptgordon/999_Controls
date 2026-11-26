@@ -509,6 +509,14 @@ Since the system is Type 2, there is no steady-state error to a step input:
   $k_t = 2$  & $J = 3$   & $b = 5$     \\ \hline
   $k_p = 10$ & $k_d = 1$ & $k_i = 100$ \\ \hline
 \end{answertable}
+\begin{align}
+  G_A(s) &= \frac{k_d k_t\,s + k_p k_t}{Js + b} \tag{\ref{eq:1A-A-mult}} \\
+  G_B(s) &= \frac{k_p k_t\,s + k_i k_t}{Js^2 + bs} \label{eq:WP-B} \\
+  G_C(s) &= \frac{k_d k_t\,s + k_p k_t}{Js^2 + bs} \label{eq:WP-C} \\
+  G_D(s) &= \frac{k_p k_t\,s + k_i k_t}{Js^3 + bs^2} \label{eq:WP-D}
+\end{align}
+\matlabcode{hw_10_1D.m}
+\codeoutput{output/hw_10_1D.txt}
 
 \problem{1.D}{Pole-Zero Maps}
 
