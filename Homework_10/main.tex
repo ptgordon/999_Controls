@@ -576,7 +576,14 @@ Since the system is Type 2, there is no steady-state error to a step input:
 
 \problem{1.E.4}{}
 \prompt{Plug the parameters into the expressions for steady-state error to a step input from 1.C.1. Do they agree with the plotted steady-state errors?}
-\answer{}
+\answer{
+\begin{align}
+  e_{ss,A}(\text{step}) &= \frac{b}{b + k_p k_t} \tag{\ref{eq:1C1-A-ess-simp}} \\
+  e_{ss,A}(\text{step}) &= \frac{5}{5 + (10)(2)} \label{eq:1E4-A-sub} \\
+  e_{ss,A}(\text{step}) &= 0.2 \label{eq:1E4-A-val}
+\end{align}
+This value agrees with the plot.
+}
 
 \clearpage
 \problem{1.F}{Error Transfer Function $T_{re}(s)$}
