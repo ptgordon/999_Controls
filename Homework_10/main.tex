@@ -602,6 +602,20 @@ This value agrees with the plot.
   T_{re,A}(s) &= \frac{Js + b}{Js + b + k_d k_t\,s + k_p k_t} \label{eq:1F1-A-Tre-mult} \\
   T_{re,A}(s) &= \frac{Js + b}{(J + k_d k_t)\,s + (b + k_p k_t)} \label{eq:1F1-A-Tre-coll}
 \end{align}
+\noindent Case B:
+\begin{align}
+  T_{re,B}(s) &= \frac{1}{1 + G_B(s)} \label{eq:1F1-B-Tre} \\
+  T_{re,B}(s) &= \frac{1}{1 + \dfrac{k_p k_t\,s + k_i k_t}{Js^2 + bs}} \label{eq:1F1-B-Tre-sub} \\
+  T_{re,B}(s) &= \frac{Js^2 + bs}{Js^2 + bs + k_p k_t\,s + k_i k_t} \label{eq:1F1-B-Tre-mult} \\
+  T_{re,B}(s) &= \frac{Js^2 + bs}{Js^2 + (b + k_p k_t)\,s + k_i k_t} \label{eq:1F1-B-Tre-coll}
+\end{align}
+\noindent Case C:
+\begin{align}
+  T_{re,C}(s) &= \frac{1}{1 + G_C(s)} \label{eq:1F1-C-Tre} \\
+  T_{re,C}(s) &= \frac{1}{1 + \dfrac{k_d k_t\,s + k_p k_t}{Js^2 + bs}} \label{eq:1F1-C-Tre-sub} \\
+  T_{re,C}(s) &= \frac{Js^2 + bs}{Js^2 + bs + k_d k_t\,s + k_p k_t} \label{eq:1F1-C-Tre-mult} \\
+  T_{re,C}(s) &= \frac{Js^2 + bs}{Js^2 + (b + k_d k_t)\,s + k_p k_t} \label{eq:1F1-C-Tre-coll}
+\end{align}
 }
 
 \problem{1.F.2}{}
