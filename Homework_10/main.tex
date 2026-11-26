@@ -367,24 +367,72 @@
 \]
 where $n_0$ is the number of poles at the origin (and gives the system type).}
 \subpart{A}
-\answer{}
+\answer{
+\begin{align}
+  G_A(s) &= (k_d s + k_p)\left(\frac{k_t}{Js + b}\right) \label{eq:1A-A-prod} \\
+  G_A(s) &= \frac{k_d k_t\,s + k_p k_t}{Js + b} \label{eq:1A-A-mult}
+\end{align}
+Since $n_0 = 0$, the system is Type 0.
+}
 \subpart{B}
-\answer{}
+\answer{
+\begin{align}
+  G_B(s) &= \left(\frac{k_p s + k_i}{s}\right)\left(\frac{k_t}{Js + b}\right) \label{eq:1A-B-prod} \\
+  G_B(s) &= \frac{k_p k_t\,s + k_i k_t}{s\,(Js + b)} \label{eq:1A-B-mult}
+\end{align}
+Since $n_0 = 1$, the system is Type 1.
+}
 \subpart{C}
-\answer{}
+\answer{
+\begin{align}
+  G_C(s) &= (k_d s + k_p)\left(\frac{k_t}{Js^2 + bs}\right) \label{eq:1A-C-prod} \\
+  G_C(s) &= \frac{k_d k_t\,s + k_p k_t}{s\,(Js + b)} \label{eq:1A-C-mult}
+\end{align}
+Since $n_0 = 1$, the system is Type 1.
+}
 \subpart{D}
-\answer{}
+\answer{
+\begin{align}
+  G_D(s) &= \left(\frac{k_p s + k_i}{s}\right)\left(\frac{k_t}{Js^2 + bs}\right) \label{eq:1A-D-prod} \\
+  G_D(s) &= \frac{k_p k_t\,s + k_i k_t}{s^2\,(Js + b)} \label{eq:1A-D-mult}
+\end{align}
+Since $n_0 = 2$, the system is Type 2.
+}
 
 \problem{1.B}{Loop Gain in Bode Standard Form}
 \prompt{Write the loop gain $G_{Loop} = G_c G_p$ in Bode standard form for each combination, A to D.}
 \subpart{A}
-\answer{}
+\answer{
+\noindent From:
+\begin{align}
+  G_A(s) &= \frac{k_d k_t\,s + k_p k_t}{Js + b} \tag{\ref{eq:1A-A-mult}} \\[1em]
+  G_A(s) &= \frac{k_p k_t}{b}\,\frac{\frac{k_d}{k_p}\,s + 1}{\frac{J}{b}\,s + 1} \label{eq:1B-A-bode}
+\end{align}
+}
 \subpart{B}
-\answer{}
+\answer{
+\noindent From:
+\begin{align}
+  G_B(s) &= \frac{k_p k_t\,s + k_i k_t}{s\,(Js + b)} \tag{\ref{eq:1A-B-mult}} \\[1em]
+  G_B(s) &= \frac{k_i k_t}{b}\,\frac{1}{s}\,\frac{\frac{k_p}{k_i}\,s + 1}{\frac{J}{b}\,s + 1} \label{eq:1B-B-bode}
+\end{align}
+}
 \subpart{C}
-\answer{}
+\answer{
+\noindent From:
+\begin{align}
+  G_C(s) &= \frac{k_d k_t\,s + k_p k_t}{s\,(Js + b)} \tag{\ref{eq:1A-C-mult}} \\[1em]
+  G_C(s) &= \frac{k_p k_t}{b}\,\frac{1}{s}\,\frac{\frac{k_d}{k_p}\,s + 1}{\frac{J}{b}\,s + 1} \label{eq:1B-C-bode}
+\end{align}
+}
 \subpart{D}
-\answer{}
+\answer{
+\noindent From:
+\begin{align}
+  G_D(s) &= \frac{k_p k_t\,s + k_i k_t}{s^2\,(Js + b)} \tag{\ref{eq:1A-D-mult}} \\[1em]
+  G_D(s) &= \frac{k_i k_t}{b}\,\frac{1}{s^2}\,\frac{\frac{k_p}{k_i}\,s + 1}{\frac{J}{b}\,s + 1} \label{eq:1B-D-bode}
+\end{align}
+}
 
 \clearpage
 \problem{1.C}{Steady-State Error}
@@ -392,24 +440,66 @@ where $n_0$ is the number of poles at the origin (and gives the system type).}
 \problem{1.C.1}{}
 \prompt{For each case A to D, write an expression for the steady-state error to a step input, $e_{ss}(\text{step})$. It is either 0, or an expression in the parameters of $G_c$ and $G_p$.}
 \subpart{A}
-\answer{}
+\answer{
+\begin{align}
+  e_{ss}(\text{step}) &= \frac{1}{1 + K_{Bode}} \label{eq:1C1-type0-step} \\
+  e_{ss,A}(\text{step}) &= \frac{1}{1 + \frac{k_p k_t}{b}} \label{eq:1C1-A-ess} \\
+  e_{ss,A}(\text{step}) &= \frac{b}{b + k_p k_t} \label{eq:1C1-A-ess-simp}
+\end{align}
+}
 \subpart{B}
-\answer{}
+\answer{
+Since the system is Type 1, there is no steady-state error to a step input:
+\begin{align}
+  e_{ss,B}(\text{step}) &= 0 \label{eq:1C1-B-ess}
+\end{align}
+}
 \subpart{C}
-\answer{}
+\answer{
+Since the system is Type 1, there is no steady-state error to a step input:
+\begin{align}
+  e_{ss,C}(\text{step}) &= 0 \label{eq:1C1-C-ess}
+\end{align}
+}
 \subpart{D}
-\answer{}
+\answer{
+Since the system is Type 2, there is no steady-state error to a step input:
+\begin{align}
+  e_{ss,D}(\text{step}) &= 0 \label{eq:1C1-D-ess}
+\end{align}
+}
 
 \problem{1.C.2}{}
 \prompt{For each case A to D, write an expression for the steady-state error to a ramp input, $e_{ss}(\text{ramp})$. It is either 0, infinity, or an expression in the parameters of $G_c$ and $G_p$.}
 \subpart{A}
-\answer{}
+\answer{
+\noindent Since the system is Type 0:
+\begin{align}
+  e_{ss,A}(\text{ramp}) &= \infty \label{eq:1C2-A-ess}
+\end{align}
+}
 \subpart{B}
-\answer{}
+\answer{
+\begin{align}
+  e_{ss}(\text{ramp}) &= \frac{1}{K_{Bode}} \label{eq:1C2-type1-ramp} \\
+  e_{ss,B}(\text{ramp}) &= \frac{1}{\frac{k_i k_t}{b}} \label{eq:1C2-B-ess} \\
+  e_{ss,B}(\text{ramp}) &= \frac{b}{k_i k_t} \label{eq:1C2-B-ess-simp}
+\end{align}
+}
 \subpart{C}
-\answer{}
+\answer{
+\begin{align}
+  e_{ss,C}(\text{ramp}) &= \frac{1}{\frac{k_p k_t}{b}} \label{eq:1C2-C-ess} \\
+  e_{ss,C}(\text{ramp}) &= \frac{b}{k_p k_t} \label{eq:1C2-C-ess-simp}
+\end{align}
+}
 \subpart{D}
-\answer{}
+\answer{
+\noindent Since the system is Type 2:
+\begin{align}
+  e_{ss,D}(\text{ramp}) &= 0 \label{eq:1C2-D-ess}
+\end{align}
+}
 
 \clearpage
 \noindent\textbf{Working with parameters.}
