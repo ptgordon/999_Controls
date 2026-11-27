@@ -1,0 +1,465 @@
+%==============================================================================
+%  Homework template  --  999 Controls
+%
+%  To reuse for the next assignment:
+%    1. copy this folder,  2. edit the METADATA block below,
+%    3. edit the SOLUTIONS section,  4. run  `make`.
+%
+%  Build:  make          (regenerates code output, then builds main.pdf)
+%          make clean    (removes build artifacts)
+%==============================================================================
+\documentclass[11pt,letterpaper]{article}
+
+%------------------------------- METADATA -------------------------------------
+\newcommand{\hwcourse}{EE/ME 718 --- Nonlinear Control Systems}
+\newcommand{\hwcourseshort}{EE/ME 718}  % running head, keep it short
+\newcommand{\hwtitle}{Homework 2}
+\newcommand{\hwauthor}{Patrick Gordon}
+\newcommand{\hwdate}{\today}
+\newcommand{\hwdue}{Limit cycles (Slotine \& Li, Ch.~2)}
+%------------------------------------------------------------------------------
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+\usepackage[letterpaper,margin=1in,headheight=14pt]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{cancel}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage[american]{circuitikz}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{inconsolata}
+\usepackage{pdflscape}
+\usepackage{float}
+\usepackage[hidelinks]{hyperref}
+
+%--- page furniture -----------------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\hwauthor}
+\chead{\hwtitle}
+\rhead{\hwcourseshort}
+\cfoot{\thepage}
+
+%--- listing styles -----------------------------------------------------------
+\definecolor{codebg}{HTML}{F7F7F4}
+\definecolor{outbg}{HTML}{FCFCFC}
+\definecolor{rule}{HTML}{C8C8C0}
+\definecolor{kw}{HTML}{1C4FA1}
+\definecolor{cmt}{HTML}{6A7A5A}
+\definecolor{str}{HTML}{A0522D}
+
+\lstdefinestyle{mcode}{
+  language=Octave,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{kw}\bfseries,
+  commentstyle=\color{cmt}\itshape,
+  stringstyle=\color{str},
+  backgroundcolor=\color{codebg},
+  frame=single,
+  rulecolor=\color{rule},
+  framesep=6pt,
+  numbers=left,
+  numberstyle=\ttfamily\scriptsize\color{gray},
+  numbersep=8pt,
+  showstringspaces=false,
+  breaklines=true,
+  columns=fullflexible,
+  keepspaces=true,
+  upquote=true,
+}
+
+\lstdefinestyle{moutput}{
+  basicstyle=\ttfamily\footnotesize,
+  backgroundcolor=\color{outbg},
+  frame=single,
+  rulecolor=\color{rule},
+  framesep=6pt,
+  showstringspaces=false,
+  breaklines=true,
+  columns=fullflexible,
+  keepspaces=true,
+  upquote=true,
+  % MATLAB prints empty results as "0×1 empty double column vector"; listings
+  % cannot read the UTF-8 multiplication sign without this mapping.
+  literate={×}{{$\times$}}1,
+}
+
+%--- structure helpers --------------------------------------------------------
+% \problem{1.1b}{Optional title}
+\newcommand{\problem}[2]{%
+  \bigskip
+  \noindent{\large\bfseries Problem #1}%
+  \ifx\relax#2\relax\else\ {\large --- #2}\fi
+  \par\nobreak\vspace{2pt}\hrule\vspace{8pt}\nobreak
+}
+
+% \caplabel{Code}{hw_02_A.m}
+\newcommand{\caplabel}[2]{%
+  \par\nobreak\vspace{6pt}\nobreak
+  \noindent{\small\bfseries #1}\ {\small\ttfamily \detokenize{#2}}%
+  \par\nobreak\vspace{2pt}\nobreak
+}
+
+% \matlabcode{hw_02_A.m}  -- source listing pulled straight from the .m file
+\newcommand{\matlabcode}[1]{%
+  \caplabel{Code:}{#1}%
+  \lstinputlisting[style=mcode]{#1}%
+}
+
+% \codeoutput{output/hw_02_A.txt} -- console output captured by the Makefile
+\newcommand{\codeoutput}[1]{%
+  \caplabel{Output:}{#1}%
+  \IfFileExists{#1}{\lstinputlisting[style=moutput]{#1}}{\missing{#1}{run \texttt{make} to generate it}}%
+}
+
+% \answerfigure[width]{figures/foo.pdf}{Caption}  -- placeholder if not exported
+% yet. Any format graphicx reads works: pdf, png, jpg.
+% A script that plots is exported by the Makefile to figures/<script>.pdf, so
+% \answerfigure{figures/hw_02_F.pdf}{...} is how a plotted answer is included.
+% The optional argument is the printed width, default the full text width.
+% Give a scan or screenshot a smaller one so it is not blown up past its own
+% resolution:  \answerfigure[0.8\linewidth]{figures/some_scan.png}{...}
+\newcommand{\answerfigure}[3][\linewidth]{%
+  \begin{figure}[H]
+    \centering
+    \IfFileExists{#2}{\includegraphics[width=#1]{#2}}{\missing{#2}{export it, see README}}
+    \caption{#3}
+  \end{figure}%
+}
+
+% \splane{G_1(s)}  -- an empty s-plane grid to sketch poles (x) and zeros (o)
+% on by hand. One unit per square, Re from -10 to 3 and Im from -4 to 4.
+% \splane[5]{G_2(s)} instead centres the origin, both axes running -5 to 5.
+\newcommand{\splane}[2][]{%
+  \ifx\relax#1\relax
+    \def\spxmin{-10}\def\spxmax{3}\def\spymax{4}\def\spxlabels{-10,-8,...,2}\def\spylabels{-4,-2,2,4}\def\spscale{1}%
+  \else
+    \def\spxmin{-#1}\def\spxmax{#1}\def\spymax{#1}\def\spxlabels{-#1,...,-1,1,2,...,#1}\def\spylabels{-#1,...,-1,1,2,...,#1}\def\spscale{0.85}%
+  \fi
+  \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale=\spscale]
+      \draw[gray!30, thin] (\spxmin,-\spymax) grid (\spxmax,\spymax);
+      \draw[->, thick] (\spxmin-0.3,0) -- (\spxmax+0.4,0) node[right] {$\mathrm{Re}$};
+      \draw[->, thick] (0,-\spymax-0.3) -- (0,\spymax+0.4) node[above] {$\mathrm{Im}$};
+      \foreach \x in \spxlabels
+        \node[below, font=\scriptsize, fill=white, inner sep=1pt] at (\x,-0.05) {$\x$};
+      \foreach \y in \spylabels
+        \node[left, font=\scriptsize, fill=white, inner sep=1pt] at (-0.05,\y) {$\y j$};
+    \end{tikzpicture}
+    \caption{Pole-zero sketch of $#2$.}
+  \end{figure}%
+}
+
+% \splanewindow{xmin}{xmax}{ymax}{xstep}{ystep}{scale}{Caption}  -- \splane
+% with the window chosen per problem, for poles that fall outside the default.
+% Re runs xmin..xmax, Im runs -ymax..ymax, axis labels every xstep / ystep, and
+% a fine half-unit grid under the unit grid. scale is cm per unit, and the full
+% caption is given since the window is usually showing something specific.
+%   \splanewindow{-7}{1}{12}{1}{2}{0.6}{Closed-loop poles as $k_d$ varies.}
+\newcommand{\splanewindow}[7]{%
+  \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale=#6]
+      \draw[gray!15, very thin, step=0.5] (#1,-#3) grid (#2,#3);
+      \draw[gray!40, thin] (#1,-#3) grid (#2,#3);
+      \draw[->, thick] (#1-0.3,0) -- (#2+0.4,0) node[right] {$\mathrm{Re}$};
+      \draw[->, thick] (0,-#3-0.3) -- (0,#3+0.4) node[above] {$\mathrm{Im}$};
+      \pgfmathtruncatemacro{\spxa}{#1}\pgfmathtruncatemacro{\spxb}{#1+#4}%
+      \foreach \x in {\spxa,\spxb,...,#2}
+        {\ifnum\x=0\else\node[below, font=\scriptsize, fill=white, inner sep=1pt] at (\x,-0.05) {$\x$};\fi}
+      \pgfmathtruncatemacro{\spya}{-#3}\pgfmathtruncatemacro{\spyb}{-#3+#5}%
+      \foreach \y in {\spya,\spyb,...,#3}
+        {\ifnum\y=0\else\node[left, font=\scriptsize, fill=white, inner sep=1pt] at (-0.05,\y) {$\y j$};\fi}
+    \end{tikzpicture}
+    \caption{#7}
+  \end{figure}%
+}
+
+%--- tables -------------------------------------------------------------------
+% Centred paragraph column, so a description column wraps instead of running
+% off the page:  \begin{tabular}{|c|P{0.5\linewidth}|}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
+% \begin{symboltable}{Signal}{Caption}  -- the symbol / units / description
+% table used to define the variables of a problem. The first argument is the
+% heading of the left column (Signal, Parameter, State, ...); leave the second
+% empty for no caption.
+%
+%   \begin{symboltable}{Signal}{}
+%     \sym{x(t)}{m}{Position of tire center}
+%     \sym{r(t)}{m}{Road height (depends on $v_{car}(t)$)}
+%   \end{symboltable}
+%
+% \sym puts its first argument in math mode and brackets the units, so write
+% \sym{x(t)}{m}{...}, not \sym{$x(t)$}{[m]}{...}. Anything already math -- a
+% subscript, a fraction -- goes in the description as usual: $\frac{1}{4}$.
+%
+% The optional argument is the width of the description column, for a table
+% whose descriptions are much longer or much shorter than average:
+%   \begin{symboltable}[0.35\linewidth]{Parameter}{}
+\newcommand{\sym}[3]{$#1$ & [#2] & #3 \\ \hline}
+\newenvironment{symboltable}[3][0.45\linewidth]{%
+  \def\symtabcap{#3}%
+  \begin{table}[H]
+  \centering
+  \renewcommand{\arraystretch}{1.4}
+  \begin{tabular}{|c|c|P{#1}|}
+  \hline
+  #2 & Units & Description \\ \hline\hline
+}{%
+  \end{tabular}
+  \ifx\symtabcap\empty\else\caption{\symtabcap}\fi
+  \end{table}%
+}
+
+% \begin{answertable}{|c|c|c|}{Caption} -- any other table. Same placement and
+% captioning as \answerfigure, but you write the rows yourself:
+%
+%   \begin{answertable}{|c|P{0.5\linewidth}|}{Pole locations.}
+%     \hline
+%     Pole & Behaviour \\ \hline\hline
+%     $s=-2$ & decays in half a second \\ \hline
+%   \end{answertable}
+\newenvironment{answertable}[2]{%
+  \def\anstabcap{#2}%
+  \begin{table}[H]
+  \centering
+  \renewcommand{\arraystretch}{1.4}
+  \begin{tabular}{#1}
+}{%
+  \end{tabular}
+  \ifx\anstabcap\empty\else\caption{\anstabcap}\fi
+  \end{table}%
+}
+
+% \begin{termtable}{4}{Caption} -- collect like powers of $s$ when multiplying
+% out a characteristic polynomial (or any other expansion). The argument is the
+% highest power; the columns and the $s^4 \dots s^0$ header are generated from
+% it, so changing the degree is a one-character edit. Leave the second argument
+% empty for no caption.
+%
+% Cells are already in math mode: write m_1m_2, not $m_1m_2$. One row per factor
+% you multiplied out, one column per power; leave a cell empty where that factor
+% contributes nothing to that power. Rows end with \\, like any tabular.
+%
+%   \begin{termtable}{4}{Terms of the characteristic polynomial.}
+%     m_1m_2 & m_1b & m_1k_s       & bk_s       & k_s(k_s+k_w) \\
+%            & m_2b & m_2(k_s+k_w) & b(k_s+k_w) &              \\
+%            &      & -b^2         & -bk_s      & -k_s^2
+%   \end{termtable}
+%
+% M is a centred column that is always in math mode. It uses \( \) rather than
+% $ $ so that an empty cell stays empty -- a bare $$ would start display math.
+\newcolumntype{M}{>{\(}c<{\)}}
+\makeatletter
+\newcount\tt@i
+\newcommand{\tt@cols}{}
+\newcommand{\tt@head}{}
+\newcommand{\tt@build}[1]{%
+  \def\tt@cols{}\def\tt@head{}%
+  \tt@i=#1\relax
+  \@whilenum\tt@i>\m@ne\do{%
+    \edef\tt@cols{\tt@cols M}%
+    \ifx\tt@head\@empty
+      \edef\tt@head{s^{\the\tt@i}}%
+    \else
+      \edef\tt@head{\tt@head & s^{\the\tt@i}}%
+    \fi
+    \advance\tt@i\m@ne
+  }%
+}
+\newenvironment{termtable}[2]{%
+  \def\tt@cap{#2}%
+  \tt@build{#1}%
+  \begin{table}[H]%
+  \centering
+  \setlength{\tabcolsep}{12pt}%
+  \renewcommand{\arraystretch}{1.3}%
+  \edef\@tempa{\noexpand\begin{tabular}{\tt@cols}}\@tempa
+  \tt@head \\ \hline
+}{%
+  \end{tabular}
+  \ifx\tt@cap\@empty\else\caption{\tt@cap}\fi
+  \end{table}%
+}
+\makeatother
+
+% wideproblem environment -- a problem on its own landscape page, centred.
+% Use for diagrams much wider than they are tall, where a portrait page would
+% shrink the labels below readable size:
+%   \begin{wideproblem}{1.1b}{Title}
+%     \answerfigure{figures/x.pdf}{Caption}
+%   \end{wideproblem}
+\newenvironment{wideproblem}[2]{%
+  \begin{landscape}%
+    \problem{#1}{#2}%
+    \vspace*{\fill}%
+}{%
+    \vspace*{\fill}%
+  \end{landscape}%
+}
+
+% \prompt{What special property does b*d have?} -- restate the question
+\newcommand{\prompt}[1]{%
+  \noindent\textit{#1}\par\vspace{6pt}%
+}
+
+% \subpart{D.1} -- bold label for a numbered sub-part of a problem
+\newcommand{\subpart}[1]{%
+  \noindent\textbf{#1}\par\vspace{4pt}%
+}
+
+% \answer{...}  -- written answer. Leave the body empty for a visible
+% placeholder box; fill it in and the box is replaced by the prose.
+\newcommand{\answer}[1]{%
+  \ifx\relax#1\relax\todo{write the answer here}\else#1\fi
+  \par\vspace{4pt}%
+}
+
+\newcommand{\todo}[1]{%
+  \fbox{\parbox{0.9\linewidth}{\centering\vspace{10pt}\rmfamily\itshape\small
+    #1\vspace{10pt}}}%
+}
+
+\newcommand{\missing}[2]{%
+  \fbox{\parbox{0.9\linewidth}{\centering\vspace{10pt}\ttfamily\small
+    missing: \detokenize{#1}\\[4pt]\rmfamily\itshape #2\vspace{10pt}}}%
+}
+
+
+%==============================================================================
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries \hwtitle}\\[4pt]
+  {\large \hwcourse}\\[8pt]
+  {\hwauthor} \quad\textbullet\quad {\hwdate}\\[4pt]
+  {\small\itshape \hwdue}
+\end{center}
+\vspace{6pt}\hrule
+
+%------------------------------------------------------------------------------
+
+%==============================================================================
+\clearpage
+\problem{1}{Explore limit cycles of a quadratic system}
+\prompt{Given the dynamic system
+\begin{align}
+  \dot{x}(t) &= -y(t) + x(t)\left(1 - x(t)^2 - y(t)^2\right) \label{eq:1-xdot}\\
+  \dot{y}(t) &= \phantom{-}x(t) + y(t)\left(1 - x(t)^2 - y(t)^2\right) \label{eq:1-ydot}
+\end{align}
+(The assignment prints $x(t)$ in place of $y(t)$ in the second term of Eqn~\eqref{eq:1-ydot}; this is taken to be a typo. With $y(t)$, the system separates in polar coordinates into $\dot{r} = r\left(1 - r^2\right)$, $\dot{\theta} = 1$.)}
+
+\problem{1.1}{Equilibrium points}
+\prompt{Find the equilibrium point(s) of this system.}
+\answer{
+Setting $\dot{x}(t) = 0$ in Eqn~\eqref{eq:1-xdot}:
+\begin{align}
+  0 &= -y + x\left(1 - x^2 - y^2\right) \label{eq:1.1-xdot0} \\
+  y &= x\left(1 - x^2 - y^2\right) \label{eq:1.1-y}
+\end{align}
+Setting $\dot{y}(t) = 0$ in Eqn~\eqref{eq:1-ydot}:
+\begin{align}
+  0 &= x + y\left(1 - x^2 - y^2\right) \label{eq:1.1-ydot0} \\
+  x &= -y\left(1 - x^2 - y^2\right) \label{eq:1.1-x}
+\end{align}
+Substituting Eqn~\eqref{eq:1.1-x} into Eqn~\eqref{eq:1.1-y}:
+\begin{align}
+  y &= \left(-y\left(1 - x^2 - y^2\right)\right)\left(1 - x^2 - y^2\right) \label{eq:1.1-sub} \\
+  y &= -y\left(1 - x^2 - y^2\right)^2 \label{eq:1.1-sub-simp} \\
+  0 &= y\left[1 + \left(1 - x^2 - y^2\right)^2\right] \label{eq:1.1-factor}
+\end{align}
+The only equilibrium point is at the origin, since Eqn~\eqref{eq:1.1-factor} can only be solved by points where $y = 0$, and when $y = 0$ is substituted back into Eqn~\eqref{eq:1.1-ydot0}, only $x = 0$ will satisfy that constraint.
+}
+
+\problem{1.2}{Direction field}
+\prompt{Plot the direction field (a) on $x \in [-30, 30]$, $y \in [-30, 30]$; (b) on $x \in [-3, 3]$, $y \in [-3, 3]$.}
+\answer{}
+
+\problem{1.3}{Limit cycles}
+\prompt{Identify any limit cycles. State the stability of each limit cycle identified.}
+\answer{}
+
+\problem{1.4a}{Phase portraits}
+\prompt{Using an ODE solver (e.g.\ \texttt{ode23}), plot one or several phase portraits showing each limit cycle, with at least one initial condition inside and one outside each limit cycle.}
+\answer{}
+
+\problem{1.4b}{Time-domain plot}
+\prompt{For each limit cycle, plot two time evolutions of one state variable in one plot: one starting inside the limit cycle and one starting outside.}
+\answer{}
+
+%==============================================================================
+\clearpage
+\problem{2}{Van der Pol's Equation}
+\prompt{Given the dynamic system
+\begin{align}
+  m\,\ddot{z}(t) + 2c\left(z(t)^2 - 1\right)\dot{z}(t) + k\,z(t) = 0 \label{eq:2-vdp}
+\end{align}
+with $m = 1$, $c = 1$, $k = 1$.}
+
+\problem{2.1}{Equilibrium points}
+\prompt{Find the equilibrium point(s) of this system.}
+\answer{}
+
+\problem{2.2}{Direction field}
+\prompt{Plot the direction field on a suitable range.}
+\answer{}
+
+\problem{2.3}{Limit cycles}
+\prompt{Identify any limit cycles. State the stability of each limit cycle identified.}
+\answer{}
+
+\problem{2.4a}{Phase portraits}
+\prompt{Using an ODE solver, draw one or several phase portraits of $z(t)$ vs.\ $\dot{z}(t)$ showing the limit cycle, with at least one initial condition inside and one outside.}
+\answer{}
+
+\problem{2.4b}{Time-domain plot}
+\prompt{Draw two time evolutions of one state variable in one plot: one starting inside the limit cycle and one starting outside.}
+\answer{}
+
+\problem{2.5a}{Locus of $\ddot{z} = 0$ (Essay)}
+\prompt{Van der Pol's equation has a locus of points where $\ddot{z}(t) = 0$, given by
+\begin{align}
+  \dot{z}(t) = -\frac{k\,z(t)}{2c\left(z(t)^2 - 1\right)}, \qquad z \neq \pm 1. \label{eq:2-locus}
+\end{align}
+Aside from $z = 0$, $\dot{z} = 0$, is any point described by Eqn~\eqref{eq:2-locus} an equilibrium point? Why or why not?}
+\answer{}
+
+%==============================================================================
+\clearpage
+\problem{3}{Numerical tests for the presence / absence of limit cycles}
+\prompt{Using the direction field, phase portrait and time-domain plots, determine whether each of the following systems exhibits a limit cycle.}
+
+\problem{3.1a}{Cubic damping term}
+\prompt{$m\,\ddot{z}(t) + 2c\left(z(t)^3 - 1\right)\dot{z}(t) + k\,z(t) = 0$}
+\answer{}
+
+\problem{3.1b}{Quartic damping term}
+\prompt{$m\,\ddot{z}(t) + 2c\left(z(t)^4 - 1\right)\dot{z}(t) + k\,z(t) = 0$}
+\answer{}
+
+\problem{3.1c}{2-D system, $c_3 = +2.195$}
+\prompt{With $\mathbf{x}(t) = \begin{bmatrix} z(t) & y(t) \end{bmatrix}^T$,
+\begin{align}
+  \dot{\mathbf{x}}(t) = \begin{bmatrix}
+    -z + y - \left(c_1 y + c_3 y^3 + c_5 y^5\right) \\
+    -\left(-z + y - \left(c_1 y + c_3 y^3 + c_5 y^5\right)\right) - y
+  \end{bmatrix} \label{eq:3-sys}
+\end{align}
+with $c_1 = 3.234$, $c_3 = +2.195$, $c_5 = 0.666$.}
+\answer{}
+
+\problem{3.1d}{2-D system, $c_3 = -2.195$}
+\prompt{The system of Eqn~\eqref{eq:3-sys} with $c_1 = 3.234$, $c_3 = -2.195$, $c_5 = 0.666$.}
+\answer{}
+
+\problem{3.2}{Reasoning (Essay)}
+\prompt{For each of the systems above, give your reason(s) for concluding that there is / is not a limit cycle.}
+\answer{}
+
+\end{document}
