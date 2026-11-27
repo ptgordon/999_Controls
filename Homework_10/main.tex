@@ -798,7 +798,17 @@ Introducing a controller structure that makes the system Type 1, by adding an in
 
 \problem{Extra Credit}{}
 \prompt{Engineer a controller that meets the $t_s$ and $M_p$ requirements with zero disturbance steady-state error.}
-\answer{}
+\answer{
+\begin{align}
+  G_c(s) &= K_c\,\frac{(s - z_1)(s - z_2)}{s} \label{eq:EC-Gc} \\
+  G_c(s) &= K_c\,\frac{s^2 - (z_1 + z_2)\,s + z_1 z_2}{s} \label{eq:EC-Gc-exp}
+\end{align}
+}
+\matlabcode{hw_10_2EC.m}
+\codeoutput{output/hw_10_2EC.txt}
+\answerfigure[0.7\linewidth]{figures/hw_10_2EC-fig1.pdf}{Root locus of $G_c G_{p1} G_{p2}$ as $K_c$ varies, $z_1 = -2$, $z_2 = -10$.}
+\answerfigure[0.7\linewidth]{figures/hw_10_2EC-fig2.pdf}{Closed-loop poles and zeros of $T_{ry}(s)$, $K_c = 0.5$, $z_1 = -2$, $z_2 = -10$.}
+\answerfigure[0.7\linewidth]{figures/hw_10_2EC-fig3.pdf}{Step response of $T_{ry}(s)$, $K_c = 0.5$, $z_1 = -2$, $z_2 = -10$.}
 
 
 \end{document}
