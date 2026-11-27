@@ -792,7 +792,9 @@ $\tau_c$ does not factor into the disturbance-SSE requirement, and therefore is 
 \problem{4.29(e)}{Eliminating the Disturbance Error}
 \prompt{Plot the step response of $T_{de}(s)$. Does the PD controller from part (d) meet the requirement? How would the disturbance-induced steady-state error change with this controller, and what controller structure would make it zero?}
 \answerfigure[0.7\linewidth]{figures/hw_10_2D-fig4.pdf}{Step response of $T_{de}(s)$, $K_c = 2000$, $\tau_c = 0.005$.}
-\answer{}
+\answer{The PD controller does not change the form of the steady-state error, which depends only on the proportional gain $K_c$. For the same gain, the steady-state error is the same as with the amplifier $K$; the derivative term changes only the dynamic response.
+
+Introducing a controller structure that makes the system Type 1, by adding an integrator to the controller (PI or PID control), would bring the disturbance steady-state error to zero.}
 
 \problem{Extra Credit}{}
 \prompt{Engineer a controller that meets the $t_s$ and $M_p$ requirements with zero disturbance steady-state error.}
