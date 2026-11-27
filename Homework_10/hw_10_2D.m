@@ -1,5 +1,5 @@
 % System parameters (Fig. 4.42)
-Kc = 587;
+Kc = 2000;
 J = 0.10;
 b = 1.00;
 tauc = 0.005;

@@ -771,12 +771,12 @@ $\tau_c$ does not factor into the disturbance-SSE requirement, and therefore is 
 \prompt{Explore the root locus for various $\tau_c$. Find $\tau_c$ for which the branches pass into the region from part (c), and an initial $K_c$ that places the closed-loop poles there while also meeting the minimum $K_c$ for the disturbance SSE.}
 \matlabcode{hw_10_2D.m}
 \codeoutput{output/hw_10_2D.txt}
-\answerfigure[0.7\linewidth]{figures/hw_10_2D-fig1.pdf}{Root locus of $G_c G_{p1} G_{p2}$ as $K_c$ varies, $\tau_c = 0.01$.}
-\answerfigure[0.7\linewidth]{figures/hw_10_2D-fig2.pdf}{Closed-loop poles and zeros of $T_{ry}(s)$, $K_c = 9.9$, $\tau_c = 0.01$.}
+\answerfigure[0.7\linewidth]{figures/hw_10_2D-fig1.pdf}{Root locus of $G_c G_{p1} G_{p2}$ as $K_c$ varies, $\tau_c = 0.005$.}
+\answerfigure[0.7\linewidth]{figures/hw_10_2D-fig2.pdf}{Closed-loop poles and zeros of $T_{ry}(s)$, $K_c = 2000$, $\tau_c = 0.005$.}
 
 \subpart{4.29(d).iii}
 \prompt{Form $T_{ry}(s)$ and examine the step response. Iteratively adjust the design (mainly $\tau_c$) to meet: SSE $\le 0.01$ rad/s, $t_s \le 0.1$ s, $M_p \le 10\%$.}
-\answer{}
+\answerfigure[0.7\linewidth]{figures/hw_10_2D-fig3.pdf}{Step response of $T_{ry}(s)$, $K_c = 2000$, $\tau_c = 0.005$.}
 
 \subpart{4.29(d).iv}
 \prompt{Verify the design: $T_{de}$ for the steady-state error requirement, and the step response of $T_{ry}$ for settling time and overshoot.}
