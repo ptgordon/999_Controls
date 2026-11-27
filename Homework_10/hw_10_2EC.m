@@ -18,4 +18,7 @@ figure(2); pzmap(Try); title("Pole-Zero Map of T_{ry} for Speed-control System")
 Try_step = stepinfo(Try, 'SettlingTimeThreshold', 0.01)
 figure(3); step(Try); title("Step Response of T_{ry} for Speed-control System");
 
+Tde = -feedback(Gp2, Kc*Gc*Gp1);
+DC_gain = dcgain(Tde)
+
 
