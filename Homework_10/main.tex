@@ -780,11 +780,18 @@ $\tau_c$ does not factor into the disturbance-SSE requirement, and therefore is 
 
 \subpart{4.29(d).iv}
 \prompt{Verify the design: $T_{de}$ for the steady-state error requirement, and the step response of $T_{ry}$ for settling time and overshoot.}
-\answer{}
+\begin{answertable}{|l|c|c|}{Verification of the PD design, $K_c = 2000$, $\tau_c = 0.005$.}
+  \hline
+  Requirement & Target & Output \\ \hline\hline
+  Disturbance SSE, $|T_{de}(0)|$ & $\le 0.01$ rad/s & $5.0 \times 10^{-5}$ rad/s \\ \hline
+  Settling time (1\%), $t_s$ & $\le 0.1$ s & $0.0116$ s \\ \hline
+  Overshoot, $M_p$ & $\le 10\%$ & $6.49\%$ \\ \hline
+\end{answertable}
 
 \clearpage
 \problem{4.29(e)}{Eliminating the Disturbance Error}
 \prompt{Plot the step response of $T_{de}(s)$. Does the PD controller from part (d) meet the requirement? How would the disturbance-induced steady-state error change with this controller, and what controller structure would make it zero?}
+\answerfigure[0.7\linewidth]{figures/hw_10_2D-fig4.pdf}{Step response of $T_{de}(s)$, $K_c = 2000$, $\tau_c = 0.005$.}
 \answer{}
 
 \problem{Extra Credit}{}
