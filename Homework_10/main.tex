@@ -653,10 +653,11 @@ This value agrees with the plot.
 \prompt{Form $T_{dy}(s)$.}
 \answer{
 \begin{align}
-  G_c(s) &= \frac{10K}{0.5s + 1} \label{eq:429ai-Gc} \\
-  G_p(s) &= \frac{1}{Js + b} \label{eq:429ai-Gp} \\
-  T_{dy}(s) &= \frac{G_p(s)}{1 + G_c(s)\,G_p(s)} \label{eq:429ai-Tdy} \\
-  T_{dy}(s) &= \frac{\dfrac{1}{Js + b}}{1 + \dfrac{10K}{0.5s + 1}\,\dfrac{1}{Js + b}} \label{eq:429ai-Tdy-sub} \\
+  G_c(s) &= K \label{eq:429ai-Gc} \\
+  G_{p1}(s) &= \frac{10}{0.5s + 1} \label{eq:429ai-Gp1} \\
+  G_{p2}(s) &= \frac{1}{Js + b} \label{eq:429ai-Gp} \\
+  T_{dy}(s) &= \frac{G_{p2}(s)}{1 + G_c(s)\,G_{p1}(s)\,G_{p2}(s)} \label{eq:429ai-Tdy} \\
+  T_{dy}(s) &= \frac{\dfrac{1}{Js + b}}{1 + K\,\dfrac{10}{0.5s + 1}\,\dfrac{1}{Js + b}} \label{eq:429ai-Tdy-sub} \\
   T_{dy}(s) &= \frac{0.5s + 1}{(0.5s + 1)(Js + b) + 10K} \label{eq:429ai-Tdy-mult} \\
   T_{dy}(s) &= \frac{0.5s + 1}{0.5Js^2 + 0.5bs + Js + b + 10K} \label{eq:429ai-Tdy-exp} \\
   T_{dy}(s) &= \frac{0.5s + 1}{0.5Js^2 + (0.5b + J)\,s + (b + 10K)} \label{eq:429ai-Tdy-coll} \\
@@ -741,7 +742,18 @@ The system is Type 0.
 
 \subpart{4.29(d).i}
 \prompt{Symbolically form $T_{de}(s)$. What is the expression for the disturbance steady-state error (the DC gain of $T_{de}(s)$)? What are the requirements on $K_c$ and $\tau_c$ to meet the disturbance-SSE requirement?}
-\answer{}
+\answer{
+\begin{align}
+  G_c(s) &= K_c(\tau_c s + 1) \label{eq:429di-Gc} \\
+  G_{p1}(s) &= \frac{10}{0.5s + 1} \tag{\ref{eq:429ai-Gp1}} \\
+  G_{p2}(s) &= \frac{1}{Js + b} \tag{\ref{eq:429ai-Gp}} \\
+  T_{de}(s) &= -\frac{G_{p2}(s)}{1 + G_c(s)\,G_{p1}(s)\,G_{p2}(s)} \label{eq:429di-Tde} \\
+  T_{de}(s) &= -\frac{\dfrac{1}{Js + b}}{1 + K_c(\tau_c s + 1)\,\dfrac{10}{0.5s + 1}\,\dfrac{1}{Js + b}} \label{eq:429di-Tde-sub} \\
+  T_{de}(s) &= -\frac{0.5s + 1}{(0.5s + 1)(Js + b) + 10K_c(\tau_c s + 1)} \label{eq:429di-Tde-mult} \\
+  T_{de}(s) &= -\frac{0.5s + 1}{0.5Js^2 + 0.5bs + Js + b + 10K_c\tau_c s + 10K_c} \label{eq:429di-Tde-exp} \\
+  T_{de}(s) &= -\frac{0.5s + 1}{0.5Js^2 + (0.5b + J + 10K_c\tau_c)\,s + (b + 10K_c)} \label{eq:429di-Tde-coll}
+\end{align}
+}
 
 \subpart{4.29(d).ii}
 \prompt{Explore the root locus for various $\tau_c$. Find $\tau_c$ for which the branches pass into the region from part (c), and an initial $K_c$ that places the closed-loop poles there while also meeting the minimum $K_c$ for the disturbance SSE.}
